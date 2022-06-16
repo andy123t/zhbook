@@ -2,47 +2,40 @@
 %%	This is file `zhbook.cls',
 %%
 %%	@author andy123t
-%%	@date 2022/04/03
-%%	@version v1.0
+%%	@date 2022/06/17
+%%	@version v1.5
 %%	@address https://github.com/andy123t/zhbook
 %%
 
 % ---------- 定义的新的Class ----------
-\ProvidesClass{zhbook}[2022/04/03 v1.0]
+\ProvidesClass{zhbook}[2022/06/17 v1.5]
 \NeedsTeXFormat{LaTeX2e}
 
-\newif\ifprint\printfalse
+% ---------- 定义的新的Options ----------
+\newif\ifprint
+\newif\ifpdf
 \DeclareOption{print}{\printtrue}
-
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
-\ProcessOptions \relax
+\DeclareOption{pdf}{\pdftrue}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
+\ProcessOptions\relax
 
 % ---------- 载入Class ----------
-\LoadClass[a4paper]{book}
+\LoadClass[UTF8,a4paper]{ctexbook}[2017/04/01]%
+\@ifclasslater{ctexbook}{2017/01/01}{}{%
+    \ClassError{shnuthesis}{ctex >= 2017/01/01 is required ...}{}%
+}
+
+\ifpdf
+	\PassOptionsToClass{oneside}{book}
+\fi
 
 % ---------- 中文字体宏包 ----------
-\RequirePackage[UTF8]{ctex}
-
-% --------- 定义不同编译方式 ----------
-\RequirePackage{ifpdf,ifxetex}
-\ifxetex
-  \RequirePackage{fontspec}
-  \RequirePackage{graphicx}
-\else
-  \ifpdf
-  	\usepackage[utf8]{inputenc}
-  	\RequirePackage[T1]{fontenc}
-    \RequirePackage{graphicx}
-    \RequirePackage{epstopdf}
-  \else
-    \RequirePackage[dvipdfmx]{graphicx}
-    \RequirePackage{bmpsize}
-  \fi
-\fi
+\PassOptionsToPackage{no-math}{fontspec}
 
 % ---------- 定义页边距 ----------
 \RequirePackage{geometry}
-\geometry{left=2.5cm,right=2.5cm,top=3.0cm,bottom=2.7cm}
+%\geometry{left=2.5cm,right=2.5cm,top=3.0cm,bottom=2.7cm}
+\geometry{left=3cm,right=3cm,top=3.2cm,bottom=2.9cm}
 \setlength{\headheight}{18pt}
 \setlength{\headsep}{18pt}     % 页眉位置
 \setlength{\footskip}{28pt}    % 页脚位置
@@ -51,6 +44,7 @@
 \RequirePackage{amsmath,amssymb,amsthm,amsfonts}  % AMS公式
 \RequirePackage{bm}         % 数学公式黑斜体
 \RequirePackage{mathrsfs}   % 数学英文花体
+\RequirePackage{graphicx}
 \RequirePackage{booktabs}
 \RequirePackage{float}
 %\RequirePackage{cite}
@@ -64,60 +58,105 @@
 \RequirePackage{titlesec}   % 设置标题样式
 \RequirePackage{tabularx}
 \RequirePackage{makecell}
-\RequirePackage{tikz}       % 绘制图形
+\RequirePackage{etoolbox}
 \RequirePackage{xstring}    % 使用条件语句
+%\RequirePackage{xparse}
 
 % --------设置图片的路径 ---------
 \graphicspath{{./figure/}{./figures/}{./image/}{./images/}}
 
-% ---------- 定义章节的编号格式 ----------
-\renewcommand{\chaptername}{第\arabic{chapter}章}
-\renewcommand{\thesection}{\arabic{chapter}.\arabic{section}}
-\renewcommand{\thesubsection}{\arabic{chapter}.\arabic{section}.\arabic{subsection}}
-\renewcommand{\thesubsection}{\arabic{chapter}.\arabic{section}.\arabic{subsection}}
-\renewcommand{\thesubsubsection}{\arabic{subsubsection}.}
+% ---------- 设置章节目录的深度 -------------
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
 
 \newcommand{\chpzihao}{\fontsize{20pt}{20pt}\selectfont}
 
-%---------- 定义章节标题格式 ------------
-\titleformat{\chapter}[hang]{\normalfont \heiti \chpzihao \filcenter }
-    {\chpzihao \chaptertitlename}{20pt}{\chpzihao}
-\titlespacing{\chapter}{0pt}{-0.5ex  plus .1ex minus .2ex}{3.5ex plus .1ex minus .2ex}
+% ---------- 定义章节标题格式 ------------
+%--- chapter ---
+\ctexset{
+    chapter = {
+        format = \linespread{1.0}\heiti\chpzihao\centering,
+        nameformat = {},
+        titleformat = {},
+        number = \arabic{chapter},
+        numberformat = {},
+        aftername = \quad,
+        beforeskip = {4pt},
+        afterskip = {24pt},
+        pagestyle = plain,
+    }
+}
+%--- section ---
+\ctexset{
+    section = {
+        format = \linespread{1.0}\heiti\zihao{-3}\raggedright,
+        numberformat = {},
+        aftername = \quad,
+        beforeskip = {24pt},
+        afterskip = {6pt},
+    }
+}
+%--- subsection ---
+\ctexset{
+    subsection = {
+        format = \linespread{1.0}\heiti\zihao{4}\raggedright,
+        numberformat = {},
+        aftername = \quad,
+        beforeskip = {12pt},
+        afterskip = {6pt},
+    }
+}
+%--- subsubsection ---
+\ctexset{
+    subsubsection = {
+        format = \linespread{1.0}\heiti\zihao{-4}\raggedright,
+        numberformat = {},
+        aftername = \quad,
+        beforeskip = {12pt},
+        afterskip = {6pt},
+    }
+}
+%--- appendix ---
+\ctexset{
+    appendix = {
+        numbering = true,
+        number = \Alph{chapter},
+    }
+}
 
-\titleformat{\section}[hang]{\heiti \zihao{-3}}
-    {\zihao{-3} \thesection}{1em}{\zihao{-3}}
-\titlespacing{\section}{0pt}{2.5ex plus .1ex minus .2ex}{1.0ex plus .1ex minus .2ex}
-
-\titleformat{\subsection}[hang]{\heiti \zihao{4}}
-    {\zihao{4} \thesubsection}{1em}{\zihao{4}}
-\titlespacing{\subsection}{0pt}{1.5ex plus .1ex minus .2ex}{\wordsep}
-
-\titleformat{\subsubsection}[hang]{\heiti}
-    {\thesubsubsection }{1em}{}{}
-\titlespacing{\subsubsection}{0pt}{1.2ex plus .1ex minus .2ex}{\wordsep}
-
-%---------- 设置章节目录的深度 -------------
-\setcounter{secnumdepth}{3}
-\setcounter{tocdepth}{3} 
+% ---------- 算法宏包及设置 ----------
+\RequirePackage{algorithm}
+\RequirePackage{algpseudocode}
+\floatname{algorithm}{算法}
+\algrenewcommand\algorithmicrequire{\textbf{输入:}}
+\algrenewcommand\algorithmicensure{\textbf{输出:}}
 
 % ------------- 设置附录 -----------
 \RequirePackage{titletoc}
-\RequirePackage[title,titletoc]{appendix}
+%\RequirePackage[title,titletoc]{appendix}
 %\renewcommand{\appendixname}{附录}
 
-%-------------- 定义页眉页脚 -------------------
-% 定义页眉和页脚 使用fancyhdr 宏包
-\newcommand{\makeheadrule}{%
-    \makebox[-3pt][l]{\rule[.7\baselineskip]{\headwidth}{0pt}}
-    \rule[0.85\baselineskip]{\headwidth}{0.5pt}\vskip-.8\baselineskip}
+% -------------- 定义页眉页脚 -------------------
+% 定义页眉和页脚 使用 fancyhdr 宏包
 
-\renewcommand{\headrule}{%
-    {\if@fancyplain\let\headrulewidth\plainheadrulewidth\fi
-     \makeheadrule}}
-
-% ------------ 画单隔线 ------------
-\renewcommand{\headrulewidth}{0.5pt}    % 在页眉下画一个0.5pt宽的分隔线
+% ------------ 设置分隔线宽度 ------------
+\renewcommand{\headrulewidth}{0.4pt}    % 在页眉下0.5pt宽的分隔线
 \renewcommand{\footrulewidth}{0pt}      % 在页脚不画分隔线。
+
+% ------------ 设置页眉样式 ------------
+\renewcommand{\headrule}{%
+	\if@fancyplain\let\headrulewidth\plainheadrulewidth\fi
+	\hrule\@height 1.5pt \@width\headwidth %上面线1pt粗
+	\vskip 1.6pt %两条线的距离1pt
+	\hrule\@height 0.4pt \@width\headwidth %下面线0.4pt粗
+    \vskip-1.5pt 
+}
+
+% \renewcommand{\headrule}{%
+% 	\if@fancyplain\let\headrulewidth\plainheadrulewidth\fi
+% 	\hrule\@height 0.5pt \@width\headwidth %分割线0.5pt粗
+%     \vskip-1.5pt 
+% }
 
 % ------- 重新定义 cleardoublepage --------
 \def\cleardoublepage{%
@@ -134,14 +173,19 @@
 
 % ------------ 设置页眉样式 -----------
 \newcommand{\headstyle}{
-	% \fancyhead[R]{\color{black}\fangsong \leftmark}
-	% \fancyhead[L]{\color{black} 上海师范大学硕士论文}
+	% \fancyhead[R]{\fangsong\zihao{5} \leftmark}
+	% \fancyhead[L]{\fangsong\zihao{5} 书籍的名字}
 	\fancyhead[RO,LE]{\fangsong\zihao{5} ~\thepage~}
-	\fancyhead[LO,RE]{\fangsong\zihao{5} \leftmark}
+	\fancyhead[LO,RE]{\fangsong\zihao{5} \nouppercase{\leftmark}}
 }
 
 % ------- 设置页脚样式 ----------
-%\newcommand{\footstyle}{\fancyfoot[C]{\fangsong \thepage}}
+% \newcommand{\footstyle}{
+% \fancyfoot[C]{\zihao{5} \thepage}
+% %\fancyfoot[LE]{\zihao{5} \thepage}
+% %\fancyfoot[RO]{\zihao{5} \thepage}
+% }
+
 \newcommand{\footstyle}{}
 \pagestyle{empty}
 \pagestyle{fancy}
@@ -157,19 +201,9 @@
 	\footstyle
 }
 
-\renewcommand\chaptermark[1]{%
-  \markboth{%
-    \ifnum \c@secnumdepth >\m@ne
-      \if@mainmatter
-        \@chapapp\ \ %
-      \fi
-    \fi
-    #1}{}%
-}
-
 % ----------- 中文段落缩进和行距 ------------
 \setlength{\parindent}{2em}                 % 首行两个汉字的缩进量
-\setlength{\parskip}{3pt plus 1pt minus 1pt}  % 段落之间的竖直距离
+\setlength{\parskip}{4pt plus 1pt minus 1pt}  % 段落之间的竖直距离
 \renewcommand{\baselinestretch}{1.35}        % 定义行距
 %\topskip=15pt   % 书写区域顶部空白
 %\parskip=5pt
@@ -186,9 +220,10 @@
 \renewcommand{\floatpagefraction}{0.60}
 
 % ---------------- 设置图表格式 ---------------
-\renewcommand{\thetable}{\arabic{chapter}.\arabic{table}}
-\renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}
-\renewcommand{\thefigure}{\arabic{chapter}.\arabic{figure}}
+\numberwithin{figure}{chapter}
+\numberwithin{equation}{chapter}
+%\renewcommand{\thetable}{\thechapter.\arabic{table}}
+%\renewcommand{\thefigure}{\thechapter.\arabic{figure}}
 
 % --------- 定制图形和表格标题的样式 --------------
 \RequirePackage{caption}
@@ -270,22 +305,23 @@
 }
 
 % -------------- 数学公式设置 ---------------
-\allowdisplaybreaks[4]   % \eqnarray 如果很长，影响分栏、换行和分页
+\allowdisplaybreaks[4]   % 部分公式可以分页
 
 % ----- 设置公式间距 ------
 \AtBeginDocument{
-	\setlength{\abovedisplayskip}{4pt plus 1pt minus 1pt}
-	\setlength{\belowdisplayskip}{4pt plus 1pt minus 1pt}
-	\setlength{\abovedisplayshortskip}{2pt plus 1pt minus 1pt}
-	\setlength{\belowdisplayshortskip}{2pt plus 1pt minus 1pt}
-	\setlength{\arraycolsep}{2pt}   % array中列之间空白长度
+	\setlength{\abovedisplayskip}{5pt plus 2pt minus 2pt}
+	\setlength{\belowdisplayskip}{5pt plus 2pt minus 2pt}
+	\setlength{\abovedisplayshortskip}{3pt plus 1pt minus 1pt}
+	\setlength{\belowdisplayshortskip}{3pt plus 1pt minus 1pt}
+	%\setlength{\arraycolsep}{2pt}   % array中列之间空白长度
 }
 
 % ------- 公式编号带章节 ----------
 \numberwithin{equation}{chapter}
+%\renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}
 
 % 重新设置公式autoref
-\newcommand{\equationautorefname}{等式}
+\newcommand{\equationautorefname}{公式}
 
 % ---- 定义列表项的样式 -----
 \RequirePackage{enumitem}
@@ -309,13 +345,13 @@
 % ------- 重置命令 maketitle -------
 \renewcommand{\maketitle}[1][15em]{
 	\begin{titlepage}
-	\pdfbookmark[0]{封~面}{cover}
+	%\pdfbookmark[0]{封~面}{cover}
 			\centering
 			\scshape  % 对标题页上的所有文本使用小写字母
 
 			\vspace*{20mm}
 			\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt}  % 粗水平线
-    	\rule{\textwidth}{0.4pt}   % 细水平线
+    	    \rule{\textwidth}{0.4pt}   % 细水平线
 
 			\vspace{0.75\baselineskip} % 标题上方的空白
 
@@ -331,7 +367,6 @@
 			\vspace{1\baselineskip}  % 标题栏后的空白
 
     	\large 
-
     	\@author
     	\vspace{0.1\baselineskip}
 
@@ -386,7 +421,7 @@
 	\addcontentsline{toc}{chapter}{摘~要}
 	\chaptermark{摘~~要}
 	\vspace*{-2ex}
-	\begin{center} \heiti \chpzihao 摘~~~要 \end{center}
+	\begin{center} \heiti \字号 摘~~~要 \end{center}
 	\vspace*{3ex}
 	\par
 }{
@@ -435,11 +470,17 @@
 	citecolor = black
 } % 去掉目录红框
 \renewcommand{\cfttoctitlefont}{\hfill \heiti \chpzihao}
-\renewcommand{\cftchappresnum}{第}
-\renewcommand{\cftchapaftersnum}{章}
-\renewcommand{\cftchapaftersnumb}{\hspace{28pt}}
-\renewcommand{\contentsname}{目~~录}
 \renewcommand{\cftaftertoctitle}{\hfill}
+\renewcommand{\cftloftitlefont}{\hfill \heiti \chpzihao}
+\renewcommand{\cftafterloftitle}{\hfill}
+\renewcommand{\cftlottitlefont}{\hfill \heiti \chpzihao}
+\renewcommand{\cftafterlottitle}{\hfill}
+%\renewcommand{\cftchappresnum}{第}
+%\renewcommand{\cftchapaftersnum}{章}
+%\renewcommand{\cftchapaftersnumb}{\hspace{28pt}}
+\renewcommand{\contentsname}{目~~录}
+\renewcommand{\listfigurename}{插图清单}
+\renewcommand{\listtablename}{表格清单}
 \setlength{\cftbeforetoctitleskip}{8pt}
 \setlength{\cftaftertoctitleskip}{20pt}
 \setlength{\cftbeforechapskip}{12pt}
@@ -449,7 +490,7 @@
 \renewcommand{\cftdotsep}{3}
 \renewcommand{\cftchapdotsep}{\cftdotsep}
 \renewcommand\cftchapleader{\cftdotfill{\cftchapdotsep}}
-\renewcommand{\cftsecdotsep}{\cftdotsep}  % 设置Section引导点
+\renewcommand{\cftsecdotsep}{\cftdotsep}
 
 % 使用条件语句
 \RequirePackage{xstring}
@@ -487,18 +528,62 @@
 	\pagestyle{main}
 }
 
-% \let\oldappendix\appendix
-% \renewcommand{\appendix}{%
-%   \oldappendix
-%   \addtocontents{toc} % Update \cftchappresnum within the .toc
-%     {\protect\renewcommand{\protect\cftchappresnum}{Appendix }}
+% ----------- 重定义插图索引和表格索引 ----------
+\titlecontents{figure}[0pt]{}{
+\figureautorefname\hspace*{0.5em}\thecontentslabel\quad}{}{
+\titlerule*[8pt]{$\cdot$}\contentspage}
+\titlecontents{table}[0pt]{}{
+\tableautorefname\hspace*{0.5em}\thecontentslabel\quad}{}{
+\titlerule*[8pt]{$\cdot$}\contentspage}
+
+\AtBeginDocument{
+\let \oldlistoffigures \listoffigures
+\renewcommand\listoffigures{%
+    \newpage
+    \phantomsection
+    \addcontentsline{toc}{chapter}{\listfigurename}
+    \vspace*{-7.5ex}
+    \addtocontents{lof}{\linespread{1.6}\selectfont}
+    \oldlistoffigures
+    \cleardoublepage
+}
+\let\oldlistoftables \listoftables
+\renewcommand\listoftables{%
+    \newpage
+    \phantomsection
+    \addcontentsline{toc}{chapter}{\listtablename}
+    \vspace*{-7.5ex}
+    \addtocontents{lot}{\linespread{1.6}\selectfont}
+    \oldlistoftables
+    \cleardoublepage
+}
+}
+
+% ---------- 定义主要符号表环境 -----------
+\newenvironment{symbolpage}{
+	\clearpage
+	\phantomsection
+	\addcontentsline{toc}{chapter}{主要符号表}
+	\chapter*{主要符号表}
+	\chaptermark{主要符号表}
+}{
+	\cleardoublepage
+}
+
+% \let \oldappendix \appendix
+% \renewcommand{\appendix}[1]{
+% 	\clearpage
+% 	\renewcommand{\theequation}{\Alph{chapter}\arabic{equation}}
+% 	\renewcommand{\thefigure}{\Alph{chapter}\arabic{equation}}
+% 	\renewcommand{\thetable}{\Alph{chapter}\arabic{equation}}
+% 	\oldappendix{#1}
 % }
 
 % ----------- 重新定义参考文献页 -----------
 %\bibliographystyle{plain}
 \ctexset{bibname={参考文献}}
 
-% 设置新的附录命令
+% 设置新的参考文献命令
 \let \oldbibliography \bibliography
 \renewcommand{\bibliography}[1]{
 	% 添加到目录

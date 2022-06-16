@@ -27,6 +27,7 @@ set BSTINPUTS=.//;%BSTINPUTS%
 @rem ->> Build references and links
 @rem ------------------------------------------------
 bibtex %FileName%
+makeindex %FileName%
 %CompileName% %FileName%
 %CompileName% %FileName%
 @rem ------------------------------------------------
