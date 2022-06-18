@@ -3,23 +3,20 @@
 % xelatex -> bibtex -> xelatex -> xelatex
 % zhbook 中文书籍 LaTeX 模板
 
-% 正文前后没有空白页
-\documentclass[openany,zihao=-4]{zhbook}
+% 正文前后都没有空白页
+\documentclass[openany,twoside,zihao=-4]{zhbook}
 
-% 正文前加空白页, 正文没有空白页
-%\documentclass[print,openany,zihao=-4]{zhbook}
-
-% 正文前加空白页, 正文一章结束可空白页使新的一章是在奇数页开始
-%\documentclass[print,twoside,openright,zihao=-4]{zhbook}
+% 正文前后都有空白页, 正文一章结束可空白页使新的一章是在奇数页开始
+%\documentclass[twoside,openright,zihao=-4]{zhbook}
 
 
-% 进行个人信息设置
+% 进行信息设置
 \title{这是一个标题 \\[10pt] \zihao{2} 这是一个很长的副标题}
-\college{上海师范大学}
-\author{某~~某~~某}        % 作者姓名
-\date{2\,0\,2\,1~年~3~月}  % 完成日期
+\college{某某大学}
+\author{某某某}   % 作者姓名
+%\date{2\,0\,2\,X~年~X~月}  % 完成日期
 \bioinfo{其他信息}
-\pubyear{2021} % 出版年
+\pubyear{202X} % 出版年
 \publisher{出版社}
 
 %通用虚拟出版商标志
@@ -27,10 +24,10 @@
 
 
 %----- 添加需要用的其他宏包 -----
+\usepackage{listings}
 \usepackage{subfig}
 \usepackage{pdfpages}
 %\usepackage{xltxtra}
-%\usepackage[cleardoublepage=plain]{scrextend}
 
 %----- 参考文献格式 -----
 %\bibliographystyle{plain} % abbrv, unsrt, siam
@@ -86,12 +83,14 @@
 % 生成封面页
 \maketitle
 
+
 % 插入封面 PDF文件
 % \thispagestyle{empty}
 % 需要 pdfpages 宏包
 % \includepdf[pages=-]{pdfname.pdf}
 % \includepdf{cover.pdf}
 % \cleardoublepage
+
 
 \clearpage   % 结束上一页
 \pagenumbering{roman} % 摘要页码为小写罗马数字
@@ -102,7 +101,6 @@
 
 前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容前言内容.
 
-%\cleardoublepage
 
 \end{preface}
 
@@ -115,10 +113,10 @@
  \maketoc[pagenumtoc]
 
  % 生成插图清单, 如无需插图清单则可注释掉下述语句
- \listoffigures
+ \makelof
 
  % 生成附表清单, 如无需附表清单则可注释掉下述语句
- \listoftables
+ \makelot
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 填写主要符号表 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -126,13 +124,13 @@
 
 \begin{symbolpage}
 
-如不加特殊说明, 本论文采用如下符号和记号
+如不加特殊说明, 将采用如下符号和记号
 
 自定义命令 \verb|\nameditem[]{}{}|, 比如 \verb|\nameditem[单位]{符号}{描述}|
 
 \nameditem[\textbf{单位}]{\textbf{符号}}{\textbf{描述}}
 \nameditem[$\mathrm{m^{2} \cdot s^{-2}}$]{$E$}{系统的能量}
-\nameditem[$m/s$]{$c$}{真空中光速}
+\nameditem[$\mathrm{m\cdot s^{-1}}$]{$c$}{真空中光速}
 \nameditem[$\mathrm{m^{3}\cdot kg^{-1} \cdot s^{-2}}$]{$g$}{引力常数~(Gravitational constant)}
 
 %\nameditem{\textbf{符号}}{\textbf{描述}}
@@ -145,25 +143,32 @@
 \nameditem{$A^{-1}$}{矩阵 $A$ 的逆}
 \nameditem{$A^{*}$}{矩阵 $A$ 的共轭转置}
 
-\vspace{1em}
-使用 table 和 tabular 环境排版符号和描述.
-\begin{table}[htp!]
-\centering
-\renewcommand\arraystretch{1.5} %定义表格高度
-\setlength\tabcolsep{10pt} %调节列间距
-\begin{tabular}{ll}
-  \textbf{符号} & \textbf{描述} \\
-  $\mathbb{R}$  & 实数集   \\
-  $\mathbb{R}^{n}$  & $n$ 维实向量空间   \\
-  $\mathbb{C}_{+}$  & 正整数集  \\
-  $\mathbb{Z}$  & 整数集  \\
-  $\|\cdot\|_2$  & $2$-范数   \\
-  $\|\cdot\|_{\infty}$  & $\infty$-范数   \\
-  $A^{-1}$  & 矩阵 $A$ 的逆  \\
-  $A^{*}$   & 矩阵 $A$ 的共轭转置
-\end{tabular}
-\end{table}
+\vspace{2em}
+\nameditem{\textbf{缩写}}{\textbf{全称}}
+\nameditem{ODE}{Ordinary differential equation}
+\nameditem{PDE}{Partial differential equation}
+\nameditem{CFD}{Computational fluid dynamics}
+\nameditem{FDM}{Finite difference method}
+\nameditem{FEM}{Finite element method}
 
+%\vspace{1em}
+%使用 table 和 tabular 环境排版符号和描述.
+%\begin{table}[htp!]
+%\centering
+%\renewcommand\arraystretch{1.5} %定义表格高度
+%\setlength\tabcolsep{10pt} %调节列间距
+%\begin{tabular}{ll}
+%  \textbf{符号} & \textbf{描述} \\
+%  $\mathbb{R}$  & 实数集   \\
+%  $\mathbb{R}^{n}$  & $n$ 维实向量空间   \\
+%  $\mathbb{C}_{+}$  & 正整数集  \\
+%  $\mathbb{Z}$  & 整数集  \\
+%  $\|\cdot\|_2$  & $2$-范数   \\
+%  $\|\cdot\|_{\infty}$  & $\infty$-范数   \\
+%  $A^{-1}$  & 矩阵 $A$ 的逆  \\
+%  $A^{*}$   & 矩阵 $A$ 的共轭转置
+%\end{tabular}
+%\end{table}
 
 \end{symbolpage}
 
@@ -179,7 +184,7 @@
 
 \chapter{引言}
 
-\section{研究背景}
+\section{使用说明}
 
 这是小四号的正文字体, 行间距 1.35 倍.
 
@@ -189,12 +194,12 @@
 
 这是一个引用的示例 \cite{Tadmor2012} 和 \cite{LiLiu1997,Adams2003,TreWei2014}.
 
-这是一大段文字这是一大段文字中英文混排 Numerical Methods. 这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字.%这是一大段文字这是一大段文字这是一大段文字这是一大段文字.
+这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字.这是一大段文字这是一大段文字.
 
+\section{系统要求}
+本模板 \href{https://github.com/andy123t/zhbook}{\texttt{zhbook}} 基于标准文类 ctexbook 设计, 所以 ctexbook 文类的选项也能传递给本模板, 比如 \lstinline{openany, twoside} 等. 本模板可以在目前主流的 \href{https://en.wikibooks.org/wiki/LaTeX/Introduction}{\LaTeX{}} 编译系统中使用, 如 \TeX{}Live 和 MiK\TeX{}. 因 C\TeX{} 套装已停止维护, \textbf{不再建议使用}.
 
-\section{主要结论}
-
-这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字.这是一大段文字这是一大段文字.
+这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字
 
 
 \section{结构安排}
@@ -209,7 +214,7 @@
 
 第五章, 针对表格环境, 介绍了一些自定义命令, 并给出相应的表格插入示例.
 
-最后是参考文献、附录、致谢和攻读硕士学位期间的研究成果.
+最后是参考文献、附录和后记.
 
 
 
@@ -511,7 +516,7 @@ aligned 与 equation 环境套用, 公式间距自动调节, 如果有分式, �
 
 \section{图的使用}
 
-XeLaTeX 环境下可以使用 EPS、PDF、PNG、JPEG、BMP 格式的图片, 当然也可以用绘图包直接在 \LaTeX 中绘制图形, 推荐使用宏包 tikz. 值得注意的是 figure 环境一个浮动体环境，LaTeX 不总是浮动体放在你想要的地方，但是 LaTeX 总是保证浮动体的相对顺序，所以对图片 \verb|\label| 和 \verb|\ref| 的交叉引用就显得尤为重要。
+XeLaTeX 环境下可以使用 EPS、PDF、PNG、JPEG、BMP 格式的图片, 当然也可以用绘图包直接在 \LaTeX 中绘制图形, 推荐使用宏包 tikz. 值得注意的是 figure 环境一个\index{浮动体}环境，LaTeX 不总是浮动体放在你想要的地方，但是 LaTeX 总是保证浮动体的相对顺序，所以对图片 \verb|\label| 和 \verb|\ref| 的交叉引用就显得尤为重要。
 
 \section{插图示例}
 
@@ -574,7 +579,7 @@ XeLaTeX 环境下可以使用 EPS、PDF、PNG、JPEG、BMP 格式的图片, 当�
 
 \section{表的使用}
 
-LaTeX 的 Table 环境一个浮动体环境, 浮动体排版与 Figure 环境类似. 作为论文, 推荐使用三线表进行排版. 一般的三线表, 标题前后有横线, 表格最后有横线. %当然也可以根据需要在合适的地方加线.
+LaTeX 的 Table 环境一个浮动体环境, 浮动体排版与 Figure 环境类似. 作为论文, 推荐使用\index{三线表}进行排版. 一般的三线表, 标题前后有横线, 表格最后有横线. %当然也可以根据需要在合适的地方加线.
 
 本文基于 tabularx 宏包定义了新的的左中右 (LCR) 格式, LCR 三个格式会根据表格宽度的设定自行控制宽度, 且其宽度相等, 方便设置和页面相同宽度的表格. 本文还定义了命令 \verb|P{}|, 它可以设定某一列宽度 (如 \verb|P{1cm}| 控制某一列的宽度为 1cm), 实际上 \verb|P{}| 命令是在 \verb|p{}| 命令的基础上增加了居中功能. %PLCR 格式的功能需要调用 .
 
@@ -710,7 +715,7 @@ N  & A       & B    & C       & D      & E       & F   \\
 
 \section{附录A的小节}
 
-这里是附录环境, 手动设置了 chapter 和 section 的样式, 并且加入到了目录.
+这里是\index{附录环境}, 手动设置了 chapter 和 section 的样式, 并且加入到了目录.
 
 附录公式及编号
 \begin{equation}\label{eq:abc}
@@ -753,7 +758,7 @@ N  & A       & B    & C       & D      & E       & F   \\
 
 这里是附录环境, 手动设置了 chapter 和 section 的样式, 并且加入到了目录.
 
-内容附录内容附录内容附录\index{内容}附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容正文内容正文.内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容文内容正文内容正文内容正文\index{内容}
+内容附录内容附录内容附录\index{内容}附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容正文内容正文.内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容附录内容文内容正文内容正文内容正文内容.
 
 
 
@@ -787,6 +792,9 @@ N  & A       & B    & C       & D      & E       & F   \\
 202X年X月~~~~~
 \end{flushright}
 
+
+%\clearpage
+%\cleardoublepage
 
 
 \end{document}

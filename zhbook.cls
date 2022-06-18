@@ -2,20 +2,21 @@
 %%	This is file `zhbook.cls',
 %%
 %%	@author andy123t
-%%	@date 2022/06/17
-%%	@version v1.5
+%%	@date 2022/06/18
+%%	@version v1.6
 %%	@address https://github.com/andy123t/zhbook
 %%
 
 % ---------- 定义的新的Class ----------
-\ProvidesClass{zhbook}[2022/06/17 v1.5]
+\ProvidesClass{zhbook}[2022/06/18 v1.6]
 \NeedsTeXFormat{LaTeX2e}
 
 % ---------- 定义的新的Options ----------
 \newif\ifprint
-\newif\ifpdf
 \DeclareOption{print}{\printtrue}
-\DeclareOption{pdf}{\pdftrue}
+\DeclareOption{openany}{\PassOptionsToClass{openany}{ctexbook}}
+\DeclareOption{openright}{\PassOptionsToClass{openright}{ctexbook}}
+\DeclareOption{twoside}{\PassOptionsToClass{twoside}{ctexbook}}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions\relax
 
@@ -24,10 +25,6 @@
 \@ifclasslater{ctexbook}{2017/01/01}{}{%
     \ClassError{shnuthesis}{ctex >= 2017/01/01 is required ...}{}%
 }
-
-\ifpdf
-	\PassOptionsToClass{oneside}{book}
-\fi
 
 % ---------- 中文字体宏包 ----------
 \PassOptionsToPackage{no-math}{fontspec}
@@ -61,6 +58,27 @@
 \RequirePackage{etoolbox}
 \RequirePackage{xstring}    % 使用条件语句
 %\RequirePackage{xparse}
+
+% ------- 重新定义 cleardoublepage --------
+\renewcommand{\cleardoublepage}{\clearpage
+    \clearpage\if@twoside\ifodd\c@page\else%
+    \thispagestyle{empty}%
+    \hbox{}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi%
+}
+
+% ----- 设置超链接 -----
+\RequirePackage{hyperref}
+\hypersetup{
+	colorlinks = true,
+	linkcolor = black,
+	citecolor = blue,
+	filecolor = blue,
+    urlcolor =blue,
+}
+
+\ifprint
+	\hypersetup{hidelinks} % remove link color and border
+\fi
 
 % --------设置图片的路径 ---------
 \graphicspath{{./figure/}{./figures/}{./image/}{./images/}}
@@ -158,25 +176,12 @@
 %     \vskip-1.5pt 
 % }
 
-% ------- 重新定义 cleardoublepage --------
-\def\cleardoublepage{%
-  \clearpage
-  \ifprint
-      \ifodd\c@page
-      \else
-        \thispagestyle{empty}%
-        \hbox{}%
-        \newpage
-    \fi
-  \fi
-}
-
 % ------------ 设置页眉样式 -----------
 \newcommand{\headstyle}{
 	% \fancyhead[R]{\fangsong\zihao{5} \leftmark}
 	% \fancyhead[L]{\fangsong\zihao{5} 书籍的名字}
-	\fancyhead[RO,LE]{\fangsong\zihao{5} ~\thepage~}
-	\fancyhead[LO,RE]{\fangsong\zihao{5} \nouppercase{\leftmark}}
+	\fancyhead[RO,LE]{\fangsong\zihao{5} \thinspace\thepage\thinspace}
+	\fancyhead[LO,RE]{\fangsong\zihao{5} \thinspace\nouppercase{\leftmark}\thinspace}
 }
 
 % ------- 设置页脚样式 ----------
@@ -238,8 +243,8 @@
 %\setlength{\itemsep}{3pt plus 1pt minus 2pt}
 
 % ----- 重新设置图表autoref -------
-\newcommand{\figureautorefname}{图}
-\newcommand{\tableautorefname}{表}
+\renewcommand{\figureautorefname}{图}
+\renewcommand{\tableautorefname}{表}
 
 % --- 使用tabularx库并定义新的左右中格式 ----
 \newcolumntype{L}{X}
@@ -321,14 +326,14 @@
 %\renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}
 
 % 重新设置公式autoref
-\newcommand{\equationautorefname}{公式}
+\renewcommand{\equationautorefname}{公式}
 
 % ---- 定义列表项的样式 -----
 \RequirePackage{enumitem}
 \setlist{nolistsep}
 % \setitemize{itemsep=3pt}
 
-%------------- 定义新的标题页面 -------------------
+% ------------- 定义新的标题页面 -------------------
 
 % ------ 添加几个新的文档属性 ------
 \def \defsubtitle {}
@@ -344,52 +349,57 @@
 
 % ------- 重置命令 maketitle -------
 \renewcommand{\maketitle}[1][15em]{
+	\phantomsection
+	\pdfbookmark[0]{封~面}{cover}
 	\begin{titlepage}
-	%\pdfbookmark[0]{封~面}{cover}
 			\centering
 			\scshape  % 对标题页上的所有文本使用小写字母
 
 			\vspace*{20mm}
+
 			\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt}  % 粗水平线
     	    \rule{\textwidth}{0.4pt}   % 细水平线
 
-			\vspace{0.75\baselineskip} % 标题上方的空白
+			\vspace*{0.75\baselineskip} % 标题上方的空白
 
 			\begin{center}
 			\parbox[t]{15cm}{\centering \zihao{1} \heiti \@title}
 			\end{center}
 
-			\vspace{0.75\baselineskip} % 标题下方的空白
+			\vspace*{0.75\baselineskip} % 标题下方的空白
 	
 			\rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % 细水平线
 			\rule{\textwidth}{1.6pt}   % 粗水平线
 
-			\vspace{1\baselineskip}  % 标题栏后的空白
+			\vspace*{1\baselineskip}  % 标题栏后的空白
 
     	\large 
     	\@author
-    	\vspace{0.1\baselineskip}
+    	\vspace*{0.1\baselineskip}
 
     	\defcollege
-    	\vspace{0.1\baselineskip}
+    	\vspace*{0.1\baselineskip}
     	
     	\defbioinfo
-    	\vspace{0.1\baselineskip}
+    	\vspace*{0.1\baselineskip}
     	
     	\vfill
 
     	\plogo % Publisher logo
 	
-			\vspace{0.3\baselineskip} % Whitespace under the publisher logo
+		\vspace*{0.3\baselineskip} % Whitespace under the publisher logo
 	
-			\defpubyear % Publication year
+		\defpubyear % Publication year
 
-			{\large \defpublisher} % Publisher
+		{\large \defpublisher} % Publisher
 
-			\vspace{0.3\baselineskip}
+		\vspace*{0.3\baselineskip}
 
 	\end{titlepage}
-	\cleardoublepage
+	\clearpage
+	\if@openright
+        \cleardoublepage
+    \fi
 }
 
 % ------------ 定义新的声明页面 --------------
@@ -428,6 +438,9 @@
 	\vspace{-1ex}
 	\paragraph{\heiti 关键词：} \cnkeyword
 	\clearpage
+	\if@openright
+        \cleardoublepage
+    \fi
 }
 
 % ----------------- 英文摘要环境 ----------------
@@ -445,6 +458,9 @@
 	\vspace{-1ex}
 	\paragraph{\bfseries Key Words: } \enkeyword
 	\clearpage
+	\if@openright
+        \cleardoublepage
+    \fi
 }
 
 % ------------------ 前言环境 -------------
@@ -456,19 +472,16 @@
 	\vspace*{-1ex}
 	\begin{center} \chpzihao \bfseries 前~~言 \end{center} 
 	\vspace*{3ex}
-	% \chapter*{前~~~言}
+	%\chapter*{前~~言}
 }{
-	\cleardoublepage
+	\clearpage
+	\if@openright
+        \cleardoublepage
+    \fi
 }
 
 % ------------- 定义新的目录页面 ----------------
 \RequirePackage{tocloft}
-\RequirePackage{hyperref}
-\hypersetup{
-	colorlinks = true,
-	linkcolor  = black,
-	citecolor = black
-} % 去掉目录红框
 \renewcommand{\cfttoctitlefont}{\hfill \heiti \chpzihao}
 \renewcommand{\cftaftertoctitle}{\hfill}
 \renewcommand{\cftloftitlefont}{\hfill \heiti \chpzihao}
@@ -524,11 +537,13 @@
 	\pagestyle{plain}
 	\addtoctotoc{#1}
 	\tableofcontents
-	\cleardoublepage
+	\if@openright
+        \cleardoublepage
+    \fi
 	\pagestyle{main}
 }
 
-% ----------- 重定义插图索引和表格索引 ----------
+% ----------- 设置插图清单和表格清单格式 ----------
 \titlecontents{figure}[0pt]{}{
 \figureautorefname\hspace*{0.5em}\thecontentslabel\quad}{}{
 \titlerule*[8pt]{$\cdot$}\contentspage}
@@ -536,27 +551,28 @@
 \tableautorefname\hspace*{0.5em}\thecontentslabel\quad}{}{
 \titlerule*[8pt]{$\cdot$}\contentspage}
 
-\AtBeginDocument{
-\let \oldlistoffigures \listoffigures
-\renewcommand\listoffigures{%
-    \newpage
-    \phantomsection
-    \addcontentsline{toc}{chapter}{\listfigurename}
-    \vspace*{-7.5ex}
-    \addtocontents{lof}{\linespread{1.6}\selectfont}
-    \oldlistoffigures
-    \cleardoublepage
+% ----------- 重定义插图清单和表格清单 ----------
+\newcommand\makelof{
+    \clearpage
+	\phantomsection
+	\addcontentsline{toc}{chapter}{\listfigurename}
+    \chapter*{\listfigurename}
+    \@starttoc{lof}
+    \clearpage
+    \if@openright
+        \cleardoublepage
+    \fi
 }
-\let\oldlistoftables \listoftables
-\renewcommand\listoftables{%
-    \newpage
+\newcommand\makelot{
+    \clearpage
     \phantomsection
     \addcontentsline{toc}{chapter}{\listtablename}
-    \vspace*{-7.5ex}
-    \addtocontents{lot}{\linespread{1.6}\selectfont}
-    \oldlistoftables
-    \cleardoublepage
-}
+    \chapter*{\listtablename}
+    \@starttoc{lot}
+    \clearpage
+    \if@openright
+        \cleardoublepage
+    \fi
 }
 
 % ---------- 定义主要符号表环境 -----------
@@ -567,7 +583,10 @@
 	\chapter*{主要符号表}
 	\chaptermark{主要符号表}
 }{
-	\cleardoublepage
+	\clearpage
+	\if@openright
+        \cleardoublepage
+    \fi
 }
 
 % \let \oldappendix \appendix
