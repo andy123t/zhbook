@@ -2,13 +2,13 @@
 %%	This is file `zhbook.cls',
 %%
 %%	@author andy123t
-%%	@date 2022/06/18
-%%	@version v1.6
+%%	@date 2022/06/20
+%%	@version v1.7
 %%	@address https://github.com/andy123t/zhbook
 %%
 
 % ---------- 定义的新的Class ----------
-\ProvidesClass{zhbook}[2022/06/18 v1.6]
+\ProvidesClass{zhbook}[2022/06/20 v1.7]
 \NeedsTeXFormat{LaTeX2e}
 
 % ---------- 定义的新的Options ----------
@@ -42,22 +42,16 @@
 \RequirePackage{bm}         % 数学公式黑斜体
 \RequirePackage{mathrsfs}   % 数学英文花体
 \RequirePackage{graphicx}
+\RequirePackage{tabularx}
 \RequirePackage{booktabs}
 \RequirePackage{float}
-%\RequirePackage{cite}
 \RequirePackage{longtable}  % 长表格
 \RequirePackage{multirow}   % 表格多行合并
-\RequirePackage{enumerate}  % 改变列表标号样式
 \RequirePackage{color,xcolor}
 \RequirePackage{fancyhdr}
-\RequirePackage{setspace}
-\RequirePackage{indentfirst}
-\RequirePackage{titlesec}   % 设置标题样式
-\RequirePackage{tabularx}
 \RequirePackage{makecell}
 \RequirePackage{etoolbox}
-\RequirePackage{xstring}    % 使用条件语句
-%\RequirePackage{xparse}
+\RequirePackage{titletoc}
 
 % ------- 重新定义 cleardoublepage --------
 \renewcommand{\cleardoublepage}{\clearpage
@@ -209,11 +203,9 @@
 % ----------- 中文段落缩进和行距 ------------
 \setlength{\parindent}{2em}                 % 首行两个汉字的缩进量
 \setlength{\parskip}{4pt plus 1pt minus 1pt}  % 段落之间的竖直距离
-\renewcommand{\baselinestretch}{1.35}        % 定义行距
+\linespread{1.35}  % line space setting
+%\renewcommand{\baselinestretch}{1.35}        % 定义行距
 %\topskip=15pt   % 书写区域顶部空白
-%\parskip=5pt
-%\parindent=0pt
-%\baselineskip=5pt
 %\setlength{\baselineskip}{24pt}
 
 % ------------------- 浮动对象设置 ---------------------

@@ -385,7 +385,7 @@ aligned 与 equation 环境套用, 公式间距自动调节, 如果有分式, �
 如下是算法~\ref{alg:euclid}.
 \begin{algorithm}[H]
     \small
-    \caption{Euclid's algorithm}\label{alg:euclid}
+    \caption{~Euclid's algorithm}\label{alg:euclid}
     \begin{algorithmic}[1]
         \Procedure{Euclid}{$a,b$}\Comment{The g.c.d. of a and b}
         \State $r\gets a\bmod b$
@@ -405,7 +405,7 @@ aligned 与 equation 环境套用, 公式间距自动调节, 如果有分式, �
 \vspace{-2ex}
 \begin{minipage}{.9\linewidth}
 \begin{algorithm}[H]
-\caption{算法的名字}\label{alg:name}  % 算法的名字
+\caption{~算法的名字}\label{alg:name}  % 算法的名字
 \begin{algorithmic}[1]
 \Require  input parameters A, B, C  % 算法的输入
 \Ensure  output result   % 算法的结果输出
@@ -523,7 +523,7 @@ XeLaTeX 环境下可以使用 EPS、PDF、PNG、JPEG、BMP 格式的图片, 当�
 插入一个图形并居中放置, 如图~\ref{fig:sinx}.
 \begin{figure}[htp!]
   \centering
-  \includegraphics[width=7.5cm]{image1.eps}
+  \includegraphics[width=7.2cm]{image1.eps}
   \caption{函数 $y=\sin(x)$ 的图像}\label{fig:sinx}
 \end{figure}
 
@@ -579,7 +579,7 @@ XeLaTeX 环境下可以使用 EPS、PDF、PNG、JPEG、BMP 格式的图片, 当�
 
 \section{表的使用}
 
-LaTeX 的 Table 环境一个浮动体环境, 浮动体排版与 Figure 环境类似. 作为论文, 推荐使用\index{三线表}进行排版. 一般的三线表, 标题前后有横线, 表格最后有横线. %当然也可以根据需要在合适的地方加线.
+LaTeX 的 Table 环境一个浮动体环境, 浮动体排版与 Figure 环境类似. 作为论文, 推荐使用三线表进行排版. 一般的三线表, 标题前后有横线, 表格最后有横线. %当然也可以根据需要在合适的地方加线.
 
 本文基于 tabularx 宏包定义了新的的左中右 (LCR) 格式, LCR 三个格式会根据表格宽度的设定自行控制宽度, 且其宽度相等, 方便设置和页面相同宽度的表格. 本文还定义了命令 \verb|P{}|, 它可以设定某一列宽度 (如 \verb|P{1cm}| 控制某一列的宽度为 1cm), 实际上 \verb|P{}| 命令是在 \verb|p{}| 命令的基础上增加了居中功能. %PLCR 格式的功能需要调用 .
 
@@ -590,13 +590,13 @@ LaTeX 的 Table 环境一个浮动体环境, 浮动体排版与 Figure 环境类
 \begin{table}[!htp]
 \centering
 % PLCR已经定义
-\caption{某校学生升高体重样本.}
+\caption{某校学生升高体重样本}
 \label{tab:heightweight}
 \begin{tabularx}{0.9\textwidth}{lCCC}
    \toprule
-	序号 & 年龄 & 身高 & 体重\\
+	序号 & 年龄 & 身高 & 体重 \\
 	\midrule
-	001 & 14 & 156 & 42 \\
+	001 & 15 & 156 & 42 \\
 	002 & 16 & 158 & 45 \\
 	003 & 14 & 162 & 48 \\
 	004 & 15 & 163 & 50 \\
@@ -606,41 +606,65 @@ LaTeX 的 Table 环境一个浮动体环境, 浮动体排版与 Figure 环境类
 \end{tabularx}
 \end{table}
 
-基于 tabular 环境设置一些格式: 上下表格线加粗.
 
+\begin{table}[htp!]
+\centering
+\caption{论文进度安排}
+%\renewcommand\arraystretch{1.1} %定义表格高度
+% PLCR前面已经定义
+\begin{tabularx}{0.9\textwidth}{|P{4cm}|C|}
+\Xhline{2\arrayrulewidth}
+论文起止时间       &  论文筹备过程 \\
+\hline
+20xx.xx -- 20xx.xx    &  论文定题，整理相关文献 \\
+\hline
+20xx.xx -- 20xx.xx    &  审查、修改、完成开题报告 \\
+\hline
+20xx.xx -- 20xx.xx   &  对论文排版、初步完成论文初稿 \\
+\hline
+20xx.xx -- 20xx.xx    &  毕业论文预答辩 \\
+\hline
+20xx.xx -- 20xx.xx    &  对论文进行补充、完善 \\
+\hline
+20xx.xx -- 20xx.xx    &  论文定稿 \\
+\hline
+20xx.xx -- 20xx.xx    &  毕业论文答辩 \\
+\Xhline{2\arrayrulewidth}
+\end{tabularx}
+\end{table}
+
+\clearpage
+基于 tabular 环境设置一些格式: 上下表格线加粗.
 \begin{table}[!htp]
 %\small
 \centering
-\renewcommand\arraystretch{1.2} %定义表格高度
-\caption{数值误差与收敛速率示例.}
+%\renewcommand\arraystretch{1.1} %定义表格高度
+\caption{数值误差与收敛速率示例}
 \label{tab:error1}
 \begin{tabular}{c|c|cc|cc|cc}
 \Xhline{2\arrayrulewidth}
 degree &  step-size~$h$  & $L^2$-errors  &  order  & $H^1$-errors & order & $L^\infty$-errors  &  order \\
 \hline
-   &  1/128    & 9.18E-06    &2.02    & 7.70E-03  &1.01       & 6.46E-07    &2.02    \\
-1  &  1/256    & 2.29E-06    &2.01    & 1.92E-03  &1.00       & 1.61E-07    &2.01      \\
-   &  1/512    & 5.70E-07    &2.00    & 9.56E-04  &1.00       & 4.01E-08    &2.00       \\
+   &  1/128    & 9.18E-06    &2.02    & 7.70E-03  &1.01       & 6.46E-07    &2.02   \\
+1  &  1/256    & 2.29E-06    &2.01    & 1.92E-03  &1.00       & 1.61E-07    &2.01   \\
+   &  1/512    & 5.70E-07    &2.00    & 9.56E-04  &1.00       & 4.01E-08    &2.00   \\
 \hline  %   \cline{1-8}
-   &  1/128    & 1.39E-08    &3.01    & 1.15E-05  &2.01       & 3.48E-12   &4.02       \\
-2  &  1/256    & 1.73E-09    &3.01    & 2.88E-06  &2.01       & 3.27E-13   &3.94      \\
-   &  1/512    & 2.17E-10    &3.00    & 7.24E-06  &2.00       & 6.66E-13   &1.55     \\
+   &  1/128    & 1.39E-08    &3.01    & 1.15E-05  &2.01       & 3.48E-12   &4.02    \\
+2  &  1/256    & 1.73E-09    &3.01    & 2.88E-06  &2.01       & 3.27E-13   &3.94    \\
+   &  1/512    & 2.17E-10    &3.00    & 7.24E-06  &2.00       & 6.66E-13   &1.55    \\
 \hline  %   \cline{1-8}
-   &  1/32     & 2.28E-09    &4.05    & 6.92E-07  &3.04       & 1.45E-15   &8.21       \\
-3  &  1/64     & 1.42E-10    &4.03    & 8.65E-08  &3.02       & 2.06E-14   &3.85       \\
-   &  1/128    & 8.91E-12    &4.01    & 1.08E-08  &3.01       & 3.86E-14   &0.91       \\
+   &  1/32     & 2.28E-09    &4.05    & 6.92E-07  &3.04       & 1.45E-15   &8.21    \\
+3  &  1/64     & 1.42E-10    &4.03    & 8.65E-08  &3.02       & 2.06E-14   &3.85    \\
+   &  1/128    & 8.91E-12    &4.01    & 1.08E-08  &3.01       & 3.86E-14   &0.91    \\
 \Xhline{2\arrayrulewidth}
 \end{tabular}
 \end{table}
 
-\clearpage
 基于 tabularx 环境设置一些格式: 左右表格双线.
-
 \begin{table}[htp!]
 \centering
-\renewcommand\arraystretch{1.2} %定义表格高度
-% PLCR已经定义
-\caption{数值误差示例.}
+%\renewcommand\arraystretch{1.1} %定义表格高度
+\caption{数值误差示例}
 \label{tab:error2}
 \begin{tabularx}{0.96\textwidth}{||P{0.8cm}|C|C|C|C|C|C||}
 \Xhline{2\arrayrulewidth}
@@ -659,8 +683,6 @@ N  & A       & B    & C       & D      & E       & F   \\
 \Xhline{2\arrayrulewidth}
 \end{tabularx}
 \end{table}
-
-
 
 
 
