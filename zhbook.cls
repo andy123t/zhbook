@@ -2,13 +2,13 @@
 %%	This is file `zhbook.cls',
 %%
 %%	@author andy123t
-%%	@date 2022/06/20
-%%	@version v1.7
+%%	@date 2022/06/22
+%%	@version v1.8
 %%	@address https://github.com/andy123t/zhbook
 %%
 
 % ---------- 定义的新的Class ----------
-\ProvidesClass{zhbook}[2022/06/20 v1.7]
+\ProvidesClass{zhbook}[2022/06/22 v1.8]
 \NeedsTeXFormat{LaTeX2e}
 
 % ---------- 定义的新的Options ----------
@@ -52,6 +52,21 @@
 \RequirePackage{makecell}
 \RequirePackage{etoolbox}
 \RequirePackage{titletoc}
+
+% ----- 定义文档属性格式 -----
+\def\zhbook@define@term#1{
+    \expandafter\gdef\csname #1\endcsname##1{
+        \expandafter\gdef\csname zhbook@#1\endcsname{##1}
+    }
+    \csname #1\endcsname{}
+}
+
+% ------ 添加几个新的文档属性 ------
+\zhbook@define@term{subtitle}
+\zhbook@define@term{college}
+\zhbook@define@term{pubyear}
+\zhbook@define@term{bioinfo}
+\zhbook@define@term{publisher}
 
 % ------- 重新定义 cleardoublepage --------
 \renewcommand{\cleardoublepage}{\clearpage
@@ -145,7 +160,6 @@
 
 % ------------- 设置附录 -----------
 \RequirePackage{titletoc}
-%\RequirePackage[title,titletoc]{appendix}
 %\renewcommand{\appendixname}{附录}
 
 % -------------- 定义页眉页脚 -------------------
@@ -253,27 +267,6 @@
 % \setlength{\abovetopsep}{0pt}
 % \setlength{\belowbottomsep}{0pt}
 
-% -------- 重新定义图和表的浮动环境 ---------
-\newenvironment{generalfig}[3][htbp]{
-	\def \figcaption {#2}
-	\def \figlabel {#3}
-	\begin{figure}[#1]
-		\centering
-	}{
-		\caption{\figcaption} \label{\figlabel}
-	\end{figure}
-}
-\newenvironment{generaltab}[3][htbp]{
-	\def \tabcaption {#2}
-	\def \tablabel {#3}
-	\begin{table}[#1]
-		\caption{\tabcaption} \label{\tablabel}
-		\zihao{5}
-		\centering
-	}{
-	\end{table}
-}
-
 %------------- 数学定理设置 ---------------
 \theoremstyle{plain} 
 \newtheorem{definition}{定义}[chapter]
@@ -323,21 +316,9 @@
 % ---- 定义列表项的样式 -----
 \RequirePackage{enumitem}
 \setlist{nolistsep}
-% \setitemize{itemsep=3pt}
+%\setitemize{itemsep=3pt}
 
 % ------------- 定义新的标题页面 -------------------
-
-% ------ 添加几个新的文档属性 ------
-\def \defsubtitle {}
-\def \defcollege {}
-\def \defpubyear {}
-\def \defbioinfo {}
-\def \defpublisher {}
-\newcommand{\subtitle}[1]{\def \defsubtitle {#1}}
-\newcommand{\college}[1]{\def \defcollege {#1}}
-\newcommand{\pubyear}[1]{\def \defpubyear {#1}}
-\newcommand{\publisher}[1]{\def \defpublisher {#1}}
-\newcommand\bioinfo[1]{\def \defbioinfo {#1}}
 
 % ------- 重置命令 maketitle -------
 \renewcommand{\maketitle}[1][15em]{
@@ -369,10 +350,10 @@
     	\@author
     	\vspace*{0.1\baselineskip}
 
-    	\defcollege
+    	\zhbook@college
     	\vspace*{0.1\baselineskip}
     	
-    	\defbioinfo
+    	\zhbook@bioinfo
     	\vspace*{0.1\baselineskip}
     	
     	\vfill
@@ -381,54 +362,40 @@
 	
 		\vspace*{0.3\baselineskip} % Whitespace under the publisher logo
 	
-		\defpubyear % Publication year
+		\zhbook@pubyear % Publication year
 
-		{\large \defpublisher} % Publisher
+		{\large \zhbook@publisher} % Publisher
 
 		\vspace*{0.3\baselineskip}
-
 	\end{titlepage}
 	\clearpage
+    \ifprint
+        \cleardoublepage
+    \fi
 	\if@openright
         \cleardoublepage
     \fi
 }
 
-% ------------ 定义新的声明页面 --------------
-
-% 定义三个条件语句
-% \newcommand{\encryption}[1]{
-% 	\IfStrEqCase{#1}{{empty}{$\square$}
-% 		{true}{$\text{\rlap{\checkmark}}\square$ }
-% 		{false}{$\square$}}
-% 	[$\square$]
-% }
-% \newcommand{\nonencryption}[1]{
-% 	\IfStrEqCase{#1}{{empty}{$\square$}
-% 		{true}{$\square$}
-% 		{false}{$\text{\rlap{\checkmark}}\square$}}
-% 	[$\square$]
-% }
-% \newcommand{\encryptionyear}[2]{
-% 	\IfStrEqCase{#1}{{empty}{}
-% 		{true}{#2}
-% 		{false}{}}
-% }
+% ----------------- 定义中英文关键词 ----------------
+%--- 中文关键词
+\newcommand{\cnkeywords}[1]{%
+    \vspace*{0.8\baselineskip}\par
+    \noindent {\bfseries 关键词:~} #1}
+%--- 英文关键词
+\newcommand{\enkeywords}[1]{%
+    \vspace*{0.8\baselineskip}\par
+    \noindent {\bfseries Key Words:~} #1}
 
 % ------------------ 中文摘要环境 -------------
-\newenvironment{cnabstract}[1]{
-	\def \cnkeyword {#1}
+\newenvironment{cnabstract}{
 	\clearpage
+	\pagestyle{main}
 	\phantomsection
 	\addcontentsline{toc}{chapter}{摘~要}
+	\chapter*{摘~~要}
 	\chaptermark{摘~~要}
-	\vspace*{-2ex}
-	\begin{center} \heiti \字号 摘~~~要 \end{center}
-	\vspace*{3ex}
-	\par
 }{
-	\vspace{-1ex}
-	\paragraph{\heiti 关键词：} \cnkeyword
 	\clearpage
 	\if@openright
         \cleardoublepage
@@ -436,19 +403,14 @@
 }
 
 % ----------------- 英文摘要环境 ----------------
-\newenvironment{enabstract}[1]{
-	\def \enkeyword {#1}
+\newenvironment{enabstract}{
 	\clearpage
+	\pagestyle{main}
 	\phantomsection
-	\addcontentsline{toc}{chapter}{\textbf{Abstract}}
+	\addcontentsline{toc}{chapter}{Abstract}
+	\chapter*{\textbf{Abstract}}
 	\chaptermark{Abstract}
-	\vspace*{-2ex}
-	\begin{center} \chpzihao \bfseries Abstract \end{center} 
-	\vspace*{3ex}
-	\par
 }{
-	\vspace{-1ex}
-	\paragraph{\bfseries Key Words: } \enkeyword
 	\clearpage
 	\if@openright
         \cleardoublepage
@@ -458,15 +420,16 @@
 % ------------------ 前言环境 -------------
 \newenvironment{preface}{
 	\clearpage
+	\pagestyle{main}
 	\phantomsection
 	\addcontentsline{toc}{chapter}{前~言}
+	\chapter*{前~言}
 	\chaptermark{前~言}
-	\vspace*{-1ex}
-	\begin{center} \chpzihao \bfseries 前~~言 \end{center} 
-	\vspace*{3ex}
-	%\chapter*{前~~言}
 }{
 	\clearpage
+    \ifprint
+        \cleardoublepage
+    \fi
 	\if@openright
         \cleardoublepage
     \fi
@@ -480,9 +443,6 @@
 \renewcommand{\cftafterloftitle}{\hfill}
 \renewcommand{\cftlottitlefont}{\hfill \heiti \chpzihao}
 \renewcommand{\cftafterlottitle}{\hfill}
-%\renewcommand{\cftchappresnum}{第}
-%\renewcommand{\cftchapaftersnum}{章}
-%\renewcommand{\cftchapaftersnumb}{\hspace{28pt}}
 \renewcommand{\contentsname}{目~~录}
 \renewcommand{\listfigurename}{插图清单}
 \renewcommand{\listtablename}{表格清单}
@@ -497,42 +457,21 @@
 \renewcommand\cftchapleader{\cftdotfill{\cftchapdotsep}}
 \renewcommand{\cftsecdotsep}{\cftdotsep}
 
-% 使用条件语句
-\RequirePackage{xstring}
-
-% 定义两个新语句
-% 第一个语句更改fancyhdr样式
-\newcommand{\plainfooterstyle}[1]{
-	\IfStrEqCase{#1}{{nopagenum}{}
-		{pagenum}{\footstyle}
-		{pagenumtoc}{\footstyle}}
-}
-% 第二个语句在目录中添加目录标签
-\newcommand{\addtoctotoc}[1]{
-	\IfStrEqCase{#1}{{nopagenum}{}
-		{pagenum}{}
-		{pagenumtoc}{\phantomsection
-			\addcontentsline{toc}{chapter}{目~录}}}
-}
-
 % ----------- 设置新的生成目录命令 -------------
-\let \oldtableofcontens \tableofcontents
-\newcommand{\maketoc}[1][nopagenum]{
-	% 修改hdr原plain格式
-	\fancypagestyle{plain}{%
-		\fancyhf{} %清空原有样式
-		\headstyle
-		\plainfooterstyle{#1}
-	}
+\newcommand{\maketoc}{
 	% 设置目录hdr和页码选项
 	\clearpage
-	\pagestyle{plain}
-	\addtoctotoc{#1}
+	\pagestyle{main}
+	\phantomsection
+	\addcontentsline{toc}{chapter}{\contentsname}
 	\tableofcontents
-	\if@openright
+	\clearpage
+    \ifprint
         \cleardoublepage
     \fi
-	\pagestyle{main}
+    \if@openright
+    	\cleardoublepage
+    \fi
 }
 
 % ----------- 设置插图清单和表格清单格式 ----------
@@ -543,7 +482,7 @@
 \tableautorefname\hspace*{0.5em}\thecontentslabel\quad}{}{
 \titlerule*[8pt]{$\cdot$}\contentspage}
 
-% ----------- 重定义插图清单和表格清单 ----------
+% ----------- 重定义插图清单 ----------
 \newcommand\makelof{
     \clearpage
 	\phantomsection
@@ -555,6 +494,8 @@
         \cleardoublepage
     \fi
 }
+
+% ----------- 重定义表格清单 ----------
 \newcommand\makelot{
     \clearpage
     \phantomsection
@@ -576,11 +517,15 @@
 	\chaptermark{主要符号表}
 }{
 	\clearpage
+	\ifprint
+        \cleardoublepage
+    \fi
 	\if@openright
         \cleardoublepage
     \fi
 }
 
+% ----------- 重新定义附录命令 -----------
 % \let \oldappendix \appendix
 % \renewcommand{\appendix}[1]{
 % 	\clearpage
@@ -594,7 +539,7 @@
 %\bibliographystyle{plain}
 \ctexset{bibname={参考文献}}
 
-% 设置新的参考文献命令
+%--- 设置新的参考文献命令 ---
 \let \oldbibliography \bibliography
 \renewcommand{\bibliography}[1]{
 	% 添加到目录
