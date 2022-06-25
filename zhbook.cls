@@ -31,8 +31,8 @@
 
 % ---------- 定义页边距 ----------
 \RequirePackage{geometry}
-%\geometry{left=2.5cm,right=2.5cm,top=3.0cm,bottom=2.7cm}
-\geometry{left=3cm,right=3cm,top=3.2cm,bottom=2.9cm}
+%\geometry{left=2.5cm,right=2.5cm,top=2.8cm,bottom=2.6cm}
+\geometry{left=3.0cm,right=3.0cm,top=3.0cm,bottom=2.8cm}
 \setlength{\headheight}{18pt}
 \setlength{\headsep}{18pt}     % 页眉位置
 \setlength{\footskip}{28pt}    % 页脚位置
@@ -322,29 +322,28 @@
 
 % ------- 重置命令 maketitle -------
 \renewcommand{\maketitle}[1][15em]{
+	\clearpage
 	\phantomsection
 	\pdfbookmark[0]{封~面}{cover}
 	\begin{titlepage}
-			\centering
-			\scshape  % 对标题页上的所有文本使用小写字母
+		\centering
+		\scshape  % 对标题页上的所有文本使用小写字母
 
-			\vspace*{20mm}
+		\vspace*{20mm}
 
-			\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt}  % 粗水平线
-    	    \rule{\textwidth}{0.4pt}   % 细水平线
+		\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt}  % 粗水平线
+    	\rule{\textwidth}{0.4pt}   % 细水平线
 
-			\vspace*{0.75\baselineskip} % 标题上方的空白
+		\vspace*{0.75\baselineskip} % 标题上方的空白
 
-			\begin{center}
-			\parbox[t]{15cm}{\centering \zihao{1} \heiti \@title}
-			\end{center}
+		\parbox[t]{15cm}{\centering \zihao{1} \heiti \@title}
 
-			\vspace*{0.75\baselineskip} % 标题下方的空白
+		\vspace*{0.75\baselineskip} % 标题下方的空白
 	
-			\rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % 细水平线
-			\rule{\textwidth}{1.6pt}   % 粗水平线
+		\rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % 细水平线
+		\rule{\textwidth}{1.6pt}   % 粗水平线
 
-			\vspace*{1\baselineskip}  % 标题栏后的空白
+		\vspace*{1\baselineskip}  % 标题栏后的空白
 
     	\large 
     	\@author

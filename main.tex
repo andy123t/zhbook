@@ -29,6 +29,9 @@
 \usepackage{pdfpages}
 %\usepackage{xltxtra}
 
+%----- 取消链接颜色和方框 -----
+%\hypersetup{hidelinks}
+
 %----- 参考文献格式 -----
 %\bibliographystyle{plain} % abbrv, unsrt, siam
 \bibliographystyle{thuthesis-numeric}
@@ -82,7 +85,6 @@
 
 % 生成封面页
 \maketitle
-
 
 % 插入封面 PDF文件
 % \thispagestyle{empty}
@@ -138,15 +140,16 @@ The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the 
 \end{enabstract}
 
 
- % 生成目录, 目录有页码, 且目录两字出现在目录中
- % 请注意在合适的位置放置\pagenumbering{numstyle}使用新的页码
- \maketoc
+  % 生成目录, 目录有页码, 且目录两字出现在目录中
+  % 请注意在合适的位置放置\pagenumbering{numstyle}使用新的页码
+  \maketoc
 
- % 生成插图清单, 如无需插图清单则可注释掉下述语句
- \makelof
+  % 生成插图清单, 如无需插图清单则可注释掉下述语句
+  \makelof
 
- % 生成附表清单, 如无需附表清单则可注释掉下述语句
- \makelot
+  % 生成附表清单, 如无需附表清单则可注释掉下述语句
+  \makelot
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 填写主要符号表 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
