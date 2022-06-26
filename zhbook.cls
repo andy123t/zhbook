@@ -2,13 +2,13 @@
 %%	This is file `zhbook.cls',
 %%
 %%	@author andy123t
-%%	@date 2022/06/22
+%%	@date 2022/06/26
 %%	@version v1.8
 %%	@address https://github.com/andy123t/zhbook
 %%
 
 % ---------- 定义的新的Class ----------
-\ProvidesClass{zhbook}[2022/06/22 v1.8]
+\ProvidesClass{zhbook}[2022/06/26 v1.8]
 \NeedsTeXFormat{LaTeX2e}
 
 % ---------- 定义的新的Options ----------
@@ -171,23 +171,23 @@
 
 % ------------ 设置页眉样式 ------------
 \renewcommand{\headrule}{%
-	\if@fancyplain\let\headrulewidth\plainheadrulewidth\fi
-	\hrule\@height 1.5pt \@width\headwidth %上面线1pt粗
-	\vskip 1.6pt %两条线的距离1pt
-	\hrule\@height 0.4pt \@width\headwidth %下面线0.4pt粗
-    \vskip-1.5pt 
+    \if@fancyplain\let\headrulewidth\plainheadrulewidth\fi
+    \hrule\@height 1.5pt \@width\headwidth %上面线1pt粗
+    \vskip 1.6pt %两条线的距离1pt
+    \hrule\@height 0.4pt \@width\headwidth %下面线0.4pt粗
+    \vskip-1.5pt
 }
 
 % \renewcommand{\headrule}{%
-% 	\if@fancyplain\let\headrulewidth\plainheadrulewidth\fi
-% 	\hrule\@height 0.5pt \@width\headwidth %分割线0.5pt粗
-%     \vskip-1.5pt 
+%     \if@fancyplain\let\headrulewidth\plainheadrulewidth\fi
+%     \hrule\@height 0.5pt \@width\headwidth
+%     \vskip-1.5pt
 % }
 
 % ------------ 设置页眉样式 -----------
 \newcommand{\headstyle}{
-	% \fancyhead[R]{\fangsong\zihao{5} \leftmark}
-	% \fancyhead[L]{\fangsong\zihao{5} 书籍的名字}
+	%\fancyhead[R]{\fangsong\zihao{5} \leftmark}
+	%\fancyhead[L]{\fangsong\zihao{5} 书籍的名字}
 	\fancyhead[RO,LE]{\fangsong\zihao{5} \thinspace\thepage\thinspace}
 	\fancyhead[LO,RE]{\fangsong\zihao{5} \thinspace\nouppercase{\leftmark}\thinspace}
 }
@@ -284,12 +284,10 @@
 %\renewcommand{\qedsymbol}{$\blacksquare$}
 \renewcommand{\proofname}{证明}
 \renewenvironment{proof}[1][\proofname]{\par
-  \pushQED{\qed}%
-  \normalfont \topsep6\p@\@plus6\p@\relax
-  \trivlist
-  \item[\hskip\labelsep
-        \bfseries
-    #1\@addpunct{\,:\,}]\ignorespaces
+    \pushQED{\qed}%
+    \normalfont \topsep6\p@\@plus6\p@\relax
+    \trivlist\item[\hskip\labelsep
+    \bfseries #1\@addpunct{\,:\,}]\ignorespaces
 }{%
 	\popQED\endtrivlist\@endpefalse
 }
@@ -475,10 +473,10 @@
 
 % ----------- 设置插图清单和表格清单格式 ----------
 \titlecontents{figure}[0pt]{}{
-\figureautorefname\hspace*{0.5em}\thecontentslabel\quad}{}{
+\figureautorefname\hspace*{0.3em}\thecontentslabel\quad}{}{
 \titlerule*[8pt]{$\cdot$}\contentspage}
 \titlecontents{table}[0pt]{}{
-\tableautorefname\hspace*{0.5em}\thecontentslabel\quad}{}{
+\tableautorefname\hspace*{0.3em}\thecontentslabel\quad}{}{
 \titlerule*[8pt]{$\cdot$}\contentspage}
 
 % ----------- 重定义插图清单 ----------
@@ -487,6 +485,7 @@
 	\phantomsection
 	\addcontentsline{toc}{chapter}{\listfigurename}
     \chapter*{\listfigurename}
+    \chaptermark{\listfigurename}
     \@starttoc{lof}
     \clearpage
     \if@openright
@@ -500,6 +499,7 @@
     \phantomsection
     \addcontentsline{toc}{chapter}{\listtablename}
     \chapter*{\listtablename}
+    \chaptermark{\listtablename}
     \@starttoc{lot}
     \clearpage
     \if@openright
@@ -535,16 +535,14 @@
 % }
 
 % ----------- 重新定义参考文献页 -----------
-%\bibliographystyle{plain}
-\ctexset{bibname={参考文献}}
-
+\renewcommand{\bibname}{参考文献}
 %--- 设置新的参考文献命令 ---
 \let \oldbibliography \bibliography
 \renewcommand{\bibliography}[1]{
 	% 添加到目录
 	\clearpage
 	\phantomsection
-	\addcontentsline{toc}{chapter}{参考文献}
+	\addcontentsline{toc}{chapter}{\bibname}
 	\oldbibliography{#1}
 }
 
