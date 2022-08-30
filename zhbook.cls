@@ -2,13 +2,13 @@
 %%	This is file `zhbook.cls',
 %%
 %%	@author andy123t
-%%	@date 2022/06/26
-%%	@version v1.8
+%%	@date 2022/08/28
+%%	@version v2.0
 %%	@address https://github.com/andy123t/zhbook
 %%
 
 % ---------- 定义的新的Class ----------
-\ProvidesClass{zhbook}[2022/06/26 v1.8]
+\ProvidesClass{zhbook}[2022/08/28 v2.0]
 \NeedsTeXFormat{LaTeX2e}
 
 % ---------- 定义的新的Options ----------
@@ -170,19 +170,19 @@
 \renewcommand{\footrulewidth}{0pt}      % 在页脚不画分隔线。
 
 % ------------ 设置页眉样式 ------------
+% \renewcommand{\headrule}{%
+%    \if@fancyplain\let\headrulewidth\plainheadrulewidth\fi
+%    \hrule\@height 1.5pt \@width\headwidth %上面线1pt粗
+%    \vskip 1.6pt %两条线的距离1pt
+%    \hrule\@height 0.4pt \@width\headwidth %下面线0.4pt粗
+%    \vskip-1.5pt
+% }
+
 \renewcommand{\headrule}{%
     \if@fancyplain\let\headrulewidth\plainheadrulewidth\fi
-    \hrule\@height 1.5pt \@width\headwidth %上面线1pt粗
-    \vskip 1.6pt %两条线的距离1pt
-    \hrule\@height 0.4pt \@width\headwidth %下面线0.4pt粗
+    \hrule\@height 0.5pt \@width\headwidth
     \vskip-1.5pt
 }
-
-% \renewcommand{\headrule}{%
-%     \if@fancyplain\let\headrulewidth\plainheadrulewidth\fi
-%     \hrule\@height 0.5pt \@width\headwidth
-%     \vskip-1.5pt
-% }
 
 % ------------ 设置页眉样式 -----------
 \newcommand{\headstyle}{
@@ -208,7 +208,7 @@
 
 % ------ 定义一种新的格式叫做main ------------
 \fancypagestyle{main}{%
-    \pagestyle{fancyplain} 
+    \pagestyle{fancyplain}
 	\fancyhf{} %清空原有样式
 	\headstyle
 	\footstyle
@@ -268,7 +268,7 @@
 % \setlength{\belowbottomsep}{0pt}
 
 %------------- 数学定理设置 ---------------
-\theoremstyle{plain} 
+\theoremstyle{plain}
 \newtheorem{definition}{定义}[chapter]
 \newtheorem{proposition}{命题}[chapter]
 \newtheorem{lemma}{引理}[chapter]
@@ -343,7 +343,7 @@
 
 		\vspace*{1\baselineskip}  % 标题栏后的空白
 
-    	\large 
+    	\large
     	\@author
     	\vspace*{0.1\baselineskip}
 
