@@ -1,0 +1,82 @@
+
+%%%%%%%%%%%%%%%%%%%% 微分方程的数值方法 %%%%%%%%%%%%%%%%%%%%
+
+\chapter{微分方程的数值方法}
+
+本章我们考虑具有以下微分方程:
+\begin{equation}\label{eq:pde}
+\left\{\begin{aligned}
+& L u=-\frac{\mathrm{d}^{2} u}{\mathrm{d} x^{2}}+\frac{\mathrm{d} u}{\mathrm{d} x}+q u=f, \quad a < x < b, \\
+& u(a)=\alpha, \quad u(b)=\beta.
+\end{aligned}\right.
+\end{equation}
+其中 $q, f$ 为 $[a,b]$ 上的连续函数, $q \geqslant 0$; $\alpha, \beta$ 为给定常数. 这是最简单的椭圆方程第一边值问题 .
+
+问题 \eqref{eq:pde} 存在唯一解 (引用示例参考文献 \cite{LiLiu1997}).
+
+
+\section{有限差分方法}
+在偏微分方程的数值解法中, 有限差分法数学概念直观, 推导自然, 是发展较早且比较成熟的数值方法. 由于计算机只能存储有限个数据和做有限次运算, 所以任何一种用计算机解题的方法, 都必须把连续问题 (微分方程的边值问題、初值问题等) 离散化, 最终化成有限形式的线性代数方程组.
+
+\subsection{数值格式}
+将区间 $[a,b]$ 分成 $N$ 等分, 分点为
+\begin{equation*}
+  x_{i}=a+i h \quad i=0,1, \cdots, N,
+\end{equation*}
+其中 $h=(b-a) / N$. 于是我们得到区间 $I=[a,b]$ 的一个网格剖分. $x_i$ 称为网格的节点, $h$ 称为步长.
+
+数值格式:
+\begin{equation*}
+  L_{h} u_{i}=-\frac{u_{i+1}-2 u_{i}+u_{i-1}}{h^{2}}+\frac{u_{i+1}-u_{i-1}}{h}+q_{i} u_{i}=f_{i},\quad 1 \leqslant j \leqslant N-1.
+\end{equation*}
+其中  $q_{i}=q(x_{i})$, $f_{i}=f(x_{i})$.
+
+以上差分方程对于 $i=1,2, \cdots, N-1$ 都成立, 加上边值条件 $u_{0}=\alpha, u_{N}=\beta$, 就得到关于 $u_i$ 的差分格式:
+\begin{equation}\label{eq:fdm}
+\left\{\begin{aligned}
+& L_{h} u_{i}=-\frac{u_{i+1}-2 u_{i}+u_{i-1}}{h^{2}}+\frac{u_{i+1}-u_{i-1}}{2h}+q_{i} u_{i}=f_{i}, ~ i=1, \cdots, N-1, \\
+& u_{0}=\alpha, \quad u_{N}=\beta.
+\end{aligned}\right.
+\end{equation}
+
+它的解 $u_i$ 是 $u(x)$ 在 $x=x_i$ 处的差分解.
+
+
+\subsection{矩阵形式}
+
+先定义向量 $\boldsymbol{u}$:
+\begin{equation*}
+  \boldsymbol{u}=(u_{1}, u_{2}, \cdots, u_{N-1})^{\mathrm{T}}.
+\end{equation*}
+
+差分格式可以写为矩阵形式:
+\begin{equation*}
+  \boldsymbol{A}\boldsymbol{u}=\boldsymbol{f}.
+\end{equation*}
+其中矩阵 $\boldsymbol{A}$、向量 $\boldsymbol{f}$ 的定义如下, 注意向量 $\boldsymbol{f}$ 的首尾元素已包含了 $x=a$ 和 $x=b$ 处的边界条件.
+\begin{equation}\label{eq:matrix1}
+\boldsymbol{A}=\begin{bmatrix}
+\frac{2}{h^{2}}+q_{1} & \frac{1}{2h}-\frac{1}{h^{2}} &   &  &  \\[8pt]
+ -\frac{1}{2h}-\frac{1}{h^{2}} & \frac{2}{h^{2}}+q_{2} & \frac{1}{2h}-\frac{1}{h^{2}}  & &  \\[8pt]
+  &  &  &  &    \\
+  &  \ddots  & \ddots  &  \ddots  &  \\[8pt]
+  &  &  &  &    \\
+  &   & -\frac{1}{2h}-\frac{1}{h^{2}} & \frac{2}{h^{2}}+q_{N-2}& \frac{1}{2h}-\frac{1}{h^{2}} \\[8pt]
+  &  &  & -\frac{1}{2h}-\frac{1}{h^{2}} & \frac{2}{h^{2}}+q_{N-1}
+\end{bmatrix}.
+\end{equation}
+
+上一个矩阵用了 \verb|bmatrix| 环境, 也可以使用 \verb|array| 环境.
+\begin{equation}\label{eq:matrix2}
+\boldsymbol{A}=\left[\begin{array}{cccccc}
+\frac{2}{h^{2}}+q_{1} & \frac{1}{2h}-\frac{1}{h^{2}} &  &  &  \\[8pt]
+ -\frac{1}{2h}-\frac{1}{h^{2}} & \frac{2}{h^{2}}+q_{2} & \frac{1}{2h}-\frac{1}{h^{2}}  & &  \\[8pt]
+  &  &  &  &   \\
+  &  \ddots  & \ddots & \ddots &  \\[8pt]
+  &  &  &  &   \\
+  &   & -\frac{1}{2h}-\frac{1}{h^{2}} & \frac{2}{h^{2}}+q_{N-2} & \frac{1}{2h}-\frac{1}{h^{2}} \\[8pt]
+  &  &  & -\frac{1}{2h}-\frac{1}{h^{2}} & \frac{2}{h^{2}}+q_{N-1}
+\end{array}\right].
+\end{equation}
+
+

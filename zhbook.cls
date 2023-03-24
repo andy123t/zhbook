@@ -2,16 +2,16 @@
 %%	This is file `zhbook.cls',
 %%
 %%	@author andy123t
-%%	@date 2022/08/28
-%%	@version v2.0
+%%	@date 2023/03/24
+%%	@version v2.2
 %%	@address https://github.com/andy123t/zhbook
 %%
 
-% ---------- 定义的新的Class ----------
-\ProvidesClass{zhbook}[2022/08/28 v2.0]
+%---------- 定义的新的Class ----------
+\ProvidesClass{zhbook}[2023/03/24 v2.2]
 \NeedsTeXFormat{LaTeX2e}
 
-% ---------- 定义的新的Options ----------
+%---------- 定义的新的Options ----------
 \newif\ifprint
 \DeclareOption{print}{\printtrue}
 \DeclareOption{openany}{\PassOptionsToClass{openany}{ctexbook}}
@@ -20,25 +20,25 @@
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions\relax
 
-% ---------- 载入Class ----------
-\LoadClass[UTF8,a4paper]{ctexbook}[2017/04/01]%
+%---------- 载入Class ----------
+\LoadClass[UTF8,a4paper]{ctexbook}
 \@ifclasslater{ctexbook}{2017/01/01}{}{%
-    \ClassError{shnuthesis}{ctex >= 2017/01/01 is required ...}{}%
+    \ClassError{zhbook}{ctex >= 2017/01/01 is required ...}{}%
 }
 
-% ---------- 中文字体宏包 ----------
+%---------- 中文字体宏包 ----------
 \PassOptionsToPackage{no-math}{fontspec}
 
-% ---------- 定义页边距 ----------
+%---------- 定义页边距 ----------
 \RequirePackage{geometry}
-%\geometry{left=2.5cm,right=2.5cm,top=2.8cm,bottom=2.6cm}
 \geometry{left=3.0cm,right=3.0cm,top=3.0cm,bottom=2.8cm}
+%\geometry{left=2.5cm,right=2.5cm,top=2.8cm,bottom=2.6cm}
 \setlength{\headheight}{18pt}
 \setlength{\headsep}{18pt}     % 页眉位置
 \setlength{\footskip}{28pt}    % 页脚位置
 
-% ---------- 常用宏包 ----------
-\RequirePackage{amsmath,amssymb,amsthm,amsfonts}  % AMS公式
+%---------- 常用宏包 ----------
+\RequirePackage{amsmath,amssymb,amsthm}  % AMS公式
 \RequirePackage{bm}         % 数学公式黑斜体
 \RequirePackage{mathrsfs}   % 数学英文花体
 \RequirePackage{graphicx}
@@ -47,13 +47,17 @@
 \RequirePackage{float}
 \RequirePackage{longtable}  % 长表格
 \RequirePackage{multirow}   % 表格多行合并
+\RequirePackage{multicol}
+\RequirePackage{makecell}
 \RequirePackage{color,xcolor}
 \RequirePackage{fancyhdr}
-\RequirePackage{makecell}
 \RequirePackage{etoolbox}
+\RequirePackage{anyfontsize}
 \RequirePackage{titletoc}
+\RequirePackage{pdfpages}
+\RequirePackage[numbered]{bookmark}
 
-% ----- 定义文档属性格式 -----
+%---------- 定义文档属性格式 ----------
 \def\zhbook@define@term#1{
     \expandafter\gdef\csname #1\endcsname##1{
         \expandafter\gdef\csname zhbook@#1\endcsname{##1}
@@ -61,44 +65,58 @@
     \csname #1\endcsname{}
 }
 
-% ------ 添加几个新的文档属性 ------
+%---------- 添加几个新的文档属性 ----------
 \zhbook@define@term{subtitle}
 \zhbook@define@term{college}
 \zhbook@define@term{pubyear}
 \zhbook@define@term{bioinfo}
 \zhbook@define@term{publisher}
 
-% ------- 重新定义 cleardoublepage --------
+%---------- 重新定义 cleardoublepage ----------
 \renewcommand{\cleardoublepage}{\clearpage
     \clearpage\if@twoside\ifodd\c@page\else%
     \thispagestyle{empty}%
     \hbox{}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi%
 }
 
-% ----- 设置超链接 -----
+%---------- 设置超链接 ----------
 \RequirePackage{hyperref}
 \hypersetup{
 	colorlinks = true,
 	linkcolor = black,
 	citecolor = blue,
 	filecolor = blue,
-    urlcolor =blue,
+    urlcolor = blue,
 }
 
 \ifprint
 	\hypersetup{hidelinks} % remove link color and border
 \fi
 
-% --------设置图片的路径 ---------
+%---------- 设置正文前页码为小写罗马数字 ----------
+\renewcommand\frontmatter{%
+    \ifprint\cleardoublepage\else\clearpage\fi
+    \@mainmatterfalse
+    \pagenumbering{roman}%
+}
+
+%---------- 设置正文页码为阿拉伯数字 ----------
+\renewcommand\mainmatter{%
+    \ifprint\cleardoublepage\else\clearpage\fi
+    \pagenumbering{arabic}%
+    \@mainmattertrue
+}
+
+%---------- 设置图片的路径 ----------
 \graphicspath{{./figure/}{./figures/}{./image/}{./images/}}
 
-% ---------- 设置章节目录的深度 -------------
+%---------- 设置章节目录的深度 ----------
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{3}
 
 \newcommand{\chpzihao}{\fontsize{20pt}{20pt}\selectfont}
 
-% ---------- 定义章节标题格式 ------------
+%---------- 定义章节标题格式 ----------
 %--- chapter ---
 \ctexset{
     chapter = {
@@ -151,27 +169,26 @@
     }
 }
 
-% ---------- 算法宏包及设置 ----------
-\RequirePackage{algorithm}
+%---------- 算法宏包及设置 ----------
+\RequirePackage{algorithm,algorithmicx}
 \RequirePackage{algpseudocode}
 \floatname{algorithm}{算法}
 \algrenewcommand\algorithmicrequire{\textbf{输入:}}
 \algrenewcommand\algorithmicensure{\textbf{输出:}}
 
-% ------------- 设置附录 -----------
-\RequirePackage{titletoc}
+%------------- 设置附录 -----------
 %\renewcommand{\appendixname}{附录}
 
-% -------------- 定义页眉页脚 -------------------
+%---------- 定义页眉页脚 ----------
 % 定义页眉和页脚 使用 fancyhdr 宏包
 
-% ------------ 设置分隔线宽度 ------------
-\renewcommand{\headrulewidth}{0.4pt}    % 在页眉下0.5pt宽的分隔线
+%---------- 设置分隔线宽度 ----------
+\renewcommand{\headrulewidth}{0.5pt}    % 在页眉下0.5pt宽的分隔线
 \renewcommand{\footrulewidth}{0pt}      % 在页脚不画分隔线。
 
-% ------------ 设置页眉样式 ------------
+%---------- 设置页眉样式 ----------
 % \renewcommand{\headrule}{%
-%    \if@fancyplain\let\headrulewidth\plainheadrulewidth\fi
+%    \let\headrulewidth\plainheadrulewidth
 %    \hrule\@height 1.5pt \@width\headwidth %上面线1pt粗
 %    \vskip 1.6pt %两条线的距离1pt
 %    \hrule\@height 0.4pt \@width\headwidth %下面线0.4pt粗
@@ -179,20 +196,19 @@
 % }
 
 \renewcommand{\headrule}{%
-    \if@fancyplain\let\headrulewidth\plainheadrulewidth\fi
+    \let\headrulewidth\plainheadrulewidth
     \hrule\@height 0.5pt \@width\headwidth
     \vskip-1.5pt
 }
 
-% ------------ 设置页眉样式 -----------
+%---------- 设置页眉样式 ----------
 \newcommand{\headstyle}{
-	%\fancyhead[R]{\fangsong\zihao{5} \leftmark}
-	%\fancyhead[L]{\fangsong\zihao{5} 书籍的名字}
-	\fancyhead[RO,LE]{\fangsong\zihao{5} \thinspace\thepage\thinspace}
-	\fancyhead[LO,RE]{\fangsong\zihao{5} \thinspace\nouppercase{\leftmark}\thinspace}
+	%\fancyhead[C]{\fangsong\zihao{5} 书籍的名字}
+	\fancyhead[RO,LE]{\fangsong\zihao{5} $\cdot$\:\thepage\:$\cdot$}
+	\fancyhead[LO,RE]{\fangsong\zihao{5} \nouppercase{\leftmark}}
 }
 
-% ------- 设置页脚样式 ----------
+%---------- 设置页脚样式 ----------
 % \newcommand{\footstyle}{
 % \fancyfoot[C]{\zihao{5} \thepage}
 % %\fancyfoot[LE]{\zihao{5} \thepage}
@@ -200,21 +216,17 @@
 % }
 
 \newcommand{\footstyle}{}
-\pagestyle{empty}
-\pagestyle{fancy}
-\fancyhf{} %清空原有样式
-\headstyle
-\footstyle
 
-% ------ 定义一种新的格式叫做main ------------
-\fancypagestyle{main}{%
-    \pagestyle{fancyplain}
+%---------- 定义plain样式 ----------
+\fancypagestyle{plain}{%
 	\fancyhf{} %清空原有样式
 	\headstyle
 	\footstyle
 }
 
-% ----------- 中文段落缩进和行距 ------------
+\pagestyle{plain}
+
+%---------- 中文段落缩进和行距 ----------
 \setlength{\parindent}{2em}                 % 首行两个汉字的缩进量
 \setlength{\parskip}{4pt plus 1pt minus 1pt}  % 段落之间的竖直距离
 \linespread{1.35}  % line space setting
@@ -222,7 +234,7 @@
 %\topskip=15pt   % 书写区域顶部空白
 %\setlength{\baselineskip}{24pt}
 
-% ------------------- 浮动对象设置 ---------------------
+%---------- 浮动对象设置 ----------
 % 浮动对象的缺省值稍微宽松一点，从而防止幅度对象占据过多的文本页面
 % 也可以防止在很大空白的浮动页上放置很小的图形
 \renewcommand{\textfraction}{0.15}
@@ -230,13 +242,13 @@
 \renewcommand{\bottomfraction}{0.65}
 \renewcommand{\floatpagefraction}{0.60}
 
-% ---------------- 设置图表格式 ---------------
+%---------- 设置图表格式 ----------
 \numberwithin{figure}{chapter}
 \numberwithin{equation}{chapter}
 %\renewcommand{\thetable}{\thechapter.\arabic{table}}
 %\renewcommand{\thefigure}{\thechapter.\arabic{figure}}
 
-% --------- 定制图形和表格标题的样式 --------------
+%--------- 定制图形和表格标题的样式 ----------
 \RequirePackage{caption}
 \captionsetup{font={small,singlespacing},labelformat={default},labelsep=quad}
 \captionsetup[figure]{position=bottom,skip={5pt},name={图}}
@@ -246,19 +258,18 @@
 \setlength{\intextsep}{10pt plus 2pt minus 2pt}
 \setlength{\abovecaptionskip}{2pt plus 1pt minus 1pt}
 \setlength{\belowcaptionskip}{3pt plus 1pt minus 2pt}
-%\setlength{\itemsep}{3pt plus 1pt minus 2pt}
 
-% ----- 重新设置图表autoref -------
+%---------- 重新设置图表autoref ----------
 \renewcommand{\figureautorefname}{图}
 \renewcommand{\tableautorefname}{表}
 
-% --- 使用tabularx库并定义新的左右中格式 ----
+%---------- 使用tabularx库并定义新的左右中格式 ----------
 \newcolumntype{L}{X}
 \newcolumntype{C}{>{\centering \arraybackslash}X}
 \newcolumntype{R}{>{\raggedleft \arraybackslash}X}
 \newcolumntype{P}[1]{>{\centering \arraybackslash}p{#1}}
 
-% ------------ 设置三线表格式 ------
+%---------- 设置三线表格式 ----------
 % \setlength{\heavyrulewidth}{1.5pt}
 % \setlength{\lightrulewidth}{0.5pt}
 % \setlength{\cmidrulewidth}{0.5pt}
@@ -267,7 +278,7 @@
 % \setlength{\abovetopsep}{0pt}
 % \setlength{\belowbottomsep}{0pt}
 
-%------------- 数学定理设置 ---------------
+%---------- 数学定理设置 ----------
 \theoremstyle{plain}
 \newtheorem{definition}{定义}[chapter]
 \newtheorem{proposition}{命题}[chapter]
@@ -292,10 +303,10 @@
 	\popQED\endtrivlist\@endpefalse
 }
 
-% -------------- 数学公式设置 ---------------
+%---------- 数学公式设置 ----------
 \allowdisplaybreaks[4]   % 部分公式可以分页
 
-% ----- 设置公式间距 ------
+%---------- 设置公式间距 ----------
 \AtBeginDocument{
 	\setlength{\abovedisplayskip}{5pt plus 2pt minus 2pt}
 	\setlength{\belowdisplayskip}{5pt plus 2pt minus 2pt}
@@ -304,28 +315,25 @@
 	%\setlength{\arraycolsep}{2pt}   % array中列之间空白长度
 }
 
-% ------- 公式编号带章节 ----------
+%------- 公式编号带章节 ----------
 \numberwithin{equation}{chapter}
 %\renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}
 
 % 重新设置公式autoref
 \renewcommand{\equationautorefname}{公式}
 
-% ---- 定义列表项的样式 -----
+%---------- 定义列表项的样式 ----------
 \RequirePackage{enumitem}
 \setlist{nolistsep}
-%\setitemize{itemsep=3pt}
 
-% ------------- 定义新的标题页面 -------------------
-
-% ------- 重置命令 maketitle -------
+%---------- 定义新的标题页面 ----------
 \renewcommand{\maketitle}[1][15em]{
 	\clearpage
 	\phantomsection
-	\pdfbookmark[0]{封~面}{cover}
+	\pdfbookmark[0]{封~~面}{cover}
 	\begin{titlepage}
 		\centering
-		\scshape  % 对标题页上的所有文本使用小写字母
+		\scshape
 
 		\vspace*{20mm}
 
@@ -357,7 +365,7 @@
 
     	\plogo % Publisher logo
 	
-		\vspace*{0.3\baselineskip} % Whitespace under the publisher logo
+		\vspace*{0.3\baselineskip}
 	
 		\zhbook@pubyear % Publication year
 
@@ -365,16 +373,18 @@
 
 		\vspace*{0.3\baselineskip}
 	\end{titlepage}
-	\clearpage
     \ifprint
         \cleardoublepage
+        \hypersetup{hidelinks} % remove link color and border
+    \else
+        \clearpage
     \fi
 	\if@openright
         \cleardoublepage
     \fi
 }
 
-% ----------------- 定义中英文关键词 ----------------
+%---------- 定义中英文关键词 ----------
 %--- 中文关键词
 \newcommand{\cnkeywords}[1]{%
     \vspace*{0.8\baselineskip}\par
@@ -384,12 +394,12 @@
     \vspace*{0.8\baselineskip}\par
     \noindent {\bfseries Key Words:~} #1}
 
-% ------------------ 中文摘要环境 -------------
+%---------- 中文摘要环境 ----------
 \newenvironment{cnabstract}{
 	\clearpage
-	\pagestyle{main}
+	\pagestyle{plain}
 	\phantomsection
-	\addcontentsline{toc}{chapter}{摘~要}
+	\addcontentsline{toc}{chapter}{摘~~要}
 	\chapter*{摘~~要}
 	\chaptermark{摘~~要}
 }{
@@ -399,10 +409,10 @@
     \fi
 }
 
-% ----------------- 英文摘要环境 ----------------
+%---------- 英文摘要环境 ----------
 \newenvironment{enabstract}{
 	\clearpage
-	\pagestyle{main}
+	\pagestyle{plain}
 	\phantomsection
 	\addcontentsline{toc}{chapter}{Abstract}
 	\chapter*{\textbf{Abstract}}
@@ -414,14 +424,14 @@
     \fi
 }
 
-% ------------------ 前言环境 -------------
+%---------- 前言环境 ----------
 \newenvironment{preface}{
 	\clearpage
-	\pagestyle{main}
+	\pagestyle{plain}
 	\phantomsection
-	\addcontentsline{toc}{chapter}{前~言}
-	\chapter*{前~言}
-	\chaptermark{前~言}
+	\addcontentsline{toc}{chapter}{前~~言}
+	\chapter*{前~~言}
+	\chaptermark{前~~言}
 }{
 	\clearpage
     \ifprint
@@ -432,7 +442,7 @@
     \fi
 }
 
-% ------------- 定义新的目录页面 ----------------
+%---------- 定义新的目录页面 ----------
 \RequirePackage{tocloft}
 \renewcommand{\cfttoctitlefont}{\hfill \heiti \chpzihao}
 \renewcommand{\cftaftertoctitle}{\hfill}
@@ -454,11 +464,11 @@
 \renewcommand\cftchapleader{\cftdotfill{\cftchapdotsep}}
 \renewcommand{\cftsecdotsep}{\cftdotsep}
 
-% ----------- 设置新的生成目录命令 -------------
+%---------- 设置新的生成目录命令 ----------
 \newcommand{\maketoc}{
 	% 设置目录hdr和页码选项
 	\clearpage
-	\pagestyle{main}
+	\pagestyle{plain}
 	\phantomsection
 	\addcontentsline{toc}{chapter}{\contentsname}
 	\tableofcontents
@@ -471,7 +481,7 @@
     \fi
 }
 
-% ----------- 设置插图清单和表格清单格式 ----------
+%---------- 设置插图清单和表格清单格式 ----------
 \titlecontents{figure}[0pt]{}{
 \figureautorefname\hspace*{0.3em}\thecontentslabel\quad}{}{
 \titlerule*[8pt]{$\cdot$}\contentspage}
@@ -479,7 +489,7 @@
 \tableautorefname\hspace*{0.3em}\thecontentslabel\quad}{}{
 \titlerule*[8pt]{$\cdot$}\contentspage}
 
-% ----------- 重定义插图清单 ----------
+%---------- 重定义插图清单 ----------
 \newcommand\makelof{
     \clearpage
 	\phantomsection
@@ -493,7 +503,7 @@
     \fi
 }
 
-% ----------- 重定义表格清单 ----------
+%---------- 重定义表格清单 ----------
 \newcommand\makelot{
     \clearpage
     \phantomsection
@@ -507,7 +517,7 @@
     \fi
 }
 
-% ---------- 定义主要符号表环境 -----------
+%---------- 定义主要符号表环境 ----------
 \newenvironment{symbolpage}{
 	\clearpage
 	\phantomsection
@@ -524,17 +534,17 @@
     \fi
 }
 
-% ----------- 重新定义附录命令 -----------
+%---------- 重新定义附录命令 ----------
 % \let \oldappendix \appendix
 % \renewcommand{\appendix}[1]{
 % 	\clearpage
 % 	\renewcommand{\theequation}{\Alph{chapter}\arabic{equation}}
-% 	\renewcommand{\thefigure}{\Alph{chapter}\arabic{equation}}
-% 	\renewcommand{\thetable}{\Alph{chapter}\arabic{equation}}
+% 	\renewcommand{\thefigure}{\Alph{chapter}\arabic{figure}}
+% 	\renewcommand{\thetable}{\Alph{chapter}\arabic{table}}
 % 	\oldappendix{#1}
 % }
 
-% ----------- 重新定义参考文献页 -----------
+%---------- 重新定义参考文献页 ----------
 \renewcommand{\bibname}{参考文献}
 %--- 设置新的参考文献命令 ---
 \let \oldbibliography \bibliography

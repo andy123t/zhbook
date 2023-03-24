@@ -1,0 +1,214 @@
+
+%%%%%%%%%%%%%%%%%%%% LaTeX 常用环境 %%%%%%%%%%%%%%%%%%%%
+
+\chapter{LaTeX 常用环境}
+
+\section{列表的使用}
+
+这是一个计数的列表.
+\begin{enumerate}%[label={(\arabic*)}]
+	\item 第一项
+		\begin{enumerate}
+			\item 第一项中的第一项
+			\item 第一项中的第二项
+		\end{enumerate}
+	\item 第二项
+	\item 第三项
+\end{enumerate}
+
+这是一个不计数的列表.
+\begin{itemize}%[label={$\bullet$}]
+	\item 第一项
+	\begin{itemize}
+		\item 第一项中的第一项
+		\item 第一项中的第二项
+	\end{itemize}
+	\item 第二项
+	\item 第三项
+\end{itemize}
+
+
+\section{文献引用}
+
+参考文献可采用 BibTeX 的方式生成 (内容写在文件 \verb|mybib.bib| 中), 参考文献的样式为 \verb|thuthesis-numeric| (对应的引用格式可选 \verb|numbers| 或  \verb|super|)和 \verb|thuthesis-author-year| (对应的引用格式 \verb|authoryear|), 符合国家标准《信息与文献参考文献著录规则》GB/T 7714-2015, 论文中引用和参考的文献必须列出. 参考文献序号按所引文献在论文中出现的先后次序排列. 引用文献应在论文中的引用处加注文献序号, 并加注方括弧.
+
+文献引用示例 \cite{LiLiu1997} 和 \cite{Adams2003,Shen1994}.
+
+
+\section{数学公式}\label{sec:mathEqEnv}
+
+数学公式的使用请参考公式手册 symbols-a4, 或者 《一份(不太)简短的 \LaTeX~2$\varepsilon$ 介绍》 (lshort-zh-cn).
+
+自定义命令表示的几个数学符号 $\RR$, $\CC$, $\A$, $\ii$, $\md$, $\bA$.
+
+在文中行内公式可以这么写: $a^2+b^2=c^2$, 这是勾股定理, 它还可以表示为 $c=\sqrt{a^2+b^2}$, 还可以让公式单独一段并且加上编号
+\begin{equation}\label{eq:trifun}
+\sin^2{\theta}+\cos^2{\theta}=1.
+\end{equation}
+还可以通过添加标签在正文中引用公式, 如等式~\eqref{eq:trifun} 或者 \ref{eq:trifun}.
+
+读者可能阅读过其它手册或者资料, 知道 LaTeX 提供了 eqnarray 环境. 它按照等号左边—等号—等号右边呈三列对齐, 但等号周围的空隙过大, 加上公式编号等一些 bug, 目前已不推荐使用. (摘自 lshort-zh-cn)
+
+多行公式常用 align 环境, 公式通过 \verb|&| 对齐. 分隔符通常放在等号左边:
+\begin{align}
+a & = b + c \\
+& = d + e.
+\end{align}
+
+align 环境会给每行公式都编号. 我们仍然可以用 \verb|\notag| 或 \verb|\nonumber| 去掉某行的编号. 在以下的例子,
+为了对齐等号, 我们将分隔符放在右侧, 并且此时需要在等号后添加一对括号 \verb|{}| 以产生正常的间距:
+\begin{align}
+a ={} & b + c \\
+={} & d + e + f + g + h + i + j \notag \\
+& + m + n + o \\
+={} & p + q + r + s.
+\end{align}
+
+如果不需要按等号对齐, 只需罗列数个公式, gather 将是一个很好用的环境:
+\begin{gather}
+a = b + c \\
+d = e + f + g \notag \\
+h + i = j
+\end{gather}
+
+align 和 gather 有对应的不带编号的版本 align* 和 gather*.
+对于 align、 gather、align* 与 gather* 等环境, 若添加命令 \verb|\allowdisplaybreaks| 后 (已添加), 公式可以跨页显示.
+
+多个公式组在一起公用一个编号, 编号位于公式的居中位置, amsmath 宏包提供了诸如 aligned、gathered 等环境, 与 equation 环境套用.
+
+这个公式使用 aligned 环境 (\textbf{推荐使用})
+\begin{equation}\label{eq:alignedEq}
+\left\{\begin{aligned}
+  &-\frac{\mathrm{d}^{2} u}{\mathrm{d} x^{2}}+\frac{\mathrm{d} u}{\mathrm{d} x}=\pi^{2} \sin (\pi x)+\pi \cos (\pi x),\quad x \in [0,1], \\
+  &u(0)=0,\quad u(1)=0.
+\end{aligned} \right.
+\end{equation}
+其中方程的解析解为 $u=\sin(\pi x)$.
+
+这个公式使用 array 环境
+\begin{equation}\label{eq:arrayEq}
+\left\{\begin{array}{l}
+\displaystyle
+-\frac{\mathrm{d}^{2} u}{\mathrm{d} x^{2}}+\frac{\mathrm{d} u}{\mathrm{d} x}=\pi^{2} \sin (\pi x)+\pi \cos (\pi x),\quad x \in [0,1], \\[6pt]
+u(0)=0,\quad u(1)=0.
+\end{array} \right.
+\end{equation}
+
+aligned 与 equation 环境套用, 公式间距自动调节, 如果有分式, 分式也是行间显示. 如果用 array 与 equation 环境套用, 需要手动调整公式行间距和行间显示.
+
+
+\section{定理环境}
+
+\begin{definition}\label{def:foo}
+这是一个定义.
+\end{definition}
+
+\begin{proposition}\label{prop:foo}
+这是一个命题.
+\end{proposition}
+
+\begin{lemma}[Lemma]\label{lmm:foo}
+这是一个引理.
+\end{lemma}
+
+\begin{theorem}[Theorem]\label{thm:foo}
+这是一个定理.
+\end{theorem}
+\begin{proof}
+这是证明环境.
+\end{proof}
+
+\begin{corollary}\label{cor:foo}
+这是一个推论.
+\end{corollary}
+
+\begin{proposition}[Proposition]
+这是一个命题.
+\end{proposition}
+
+\begin{lemma}\label{lmm:convergence} {\rm (\textit{参考文献}\cite{LiLiu1997})}
+假设单步法具有 $p$ 阶精度, 且増量函数 $\varphi(x_{n}, u_{n}, h)$ 关于 $u$ 满足 \textup{Lipschitz} 条件
+\begin{equation}\label{eq:conver1}
+|\varphi(x, u, h)-\varphi(x, \bar{u}, h)| \leqslant L_{\varphi}|u-\bar{u}|.
+\end{equation}
+\end{lemma}
+
+\begin{theorem}\label{thm:convergence}
+假设单步法具有 $p$ 阶精度, 且増量函数 $\varphi(x_{n}, u_{n}, h)$ 关于 $u$ 满足\textup{Lipschitz} 条件
+\begin{equation}\label{eq:conver2}
+|\varphi(x, u, h)-\varphi(x, \bar{u}, h)| \leqslant L_{\varphi}|u-\bar{u}|.
+\end{equation}
+\end{theorem}
+\begin{proof}[\normalfont\bfseries 证明~\nopunct]
+由定理 \ref{lmm:convergence} 和 \eqref{eq:alignedEq} 式可以推出以上结论.
+\end{proof}
+
+\begin{corollary}\label{col:convergence}
+假设单步法具有 $p$ 阶精度, 且増量函数 $\varphi(x_{n}, u_{n}, h)$ 关于 $u$ 满足 \textup{Lipschitz} 条件
+\begin{equation}\label{eq:conver3}
+|\varphi(x, u, h)-\varphi(x, \bar{u}, h)| \leqslant L_{\varphi}|u-\bar{u}|.
+\end{equation}
+\end{corollary}
+
+\begin{remark}\label{rem:remark}
+这是一个 remark.
+\end{remark}
+
+\begin{example}
+这是一个例子.
+\end{example}
+
+
+\clearpage
+\section{算法环境}
+
+如下是算法~\ref{alg:euclid}.
+\begin{algorithm}[H]
+\small
+\caption{~Euclid's algorithm}\label{alg:euclid}
+\begin{algorithmic}[1]
+  \Procedure{Euclid}{$a,b$}\Comment{The g.c.d. of a and b}
+  \State $r\gets a\bmod b$
+  \While{$r\not=0$}\Comment{We have the answer if r is 0}
+  \State $a\gets b$
+  \State $b\gets r$
+  \State $r\gets a\bmod b$
+  \EndWhile\label{euclidendwhile}
+  \State \Return $b$\Comment{The gcd is b}
+  \EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
+如下是算法~\ref{alg:foo}, 算法宽度可以通过 minipage 宏包调节.
+\begin{center}
+\vspace{-2ex}
+\begin{minipage}{.9\linewidth}
+\begin{algorithm}[H]
+\caption{~算法的名字}\label{alg:foo}
+\begin{algorithmic}[1]
+\Require input parameters A, B, C
+\Ensure output result
+\State some description 算法介绍
+\For{condition}
+  \State ...
+  \If{condition}
+    \State ...
+    \Else
+    \State ...
+  \EndIf
+\EndFor
+\While{condition}
+  \State ...
+\EndWhile
+\State \Return result
+\end{algorithmic}
+\end{algorithm}
+\end{minipage}
+\end{center}
+
+
+\section{\texorpdfstring{{\boldmath$Z=X \cup Y$}}{Z = X union Y} 的情况}
+
+这是一个小节标题中出现数学符号的情况.
+

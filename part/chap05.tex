@@ -1,0 +1,110 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%% 表格环境 %%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{表格环境}
+
+\section{表的使用}
+
+LaTeX 的 Table 环境一个浮动体环境, 浮动体排版与 Figure 环境类似. 作为论文, 推荐使用三线表\index{三线表}进行排版. 一般的三线表, 标题前后有横线, 表格最后有横线. %当然也可以根据需要在合适的地方加线.
+
+本文基于 tabularx 宏包定义了新的的左中右 (LCR) 格式, LCR 三个格式会根据表格宽度的设定自行控制宽度, 且其宽度相等, 方便设置和页面相同宽度的表格. 本文还定义了命令 \verb|P{}|, 它可以设定某一列宽度 (如 \verb|P{1cm}| 控制某一列的宽度为 1cm), 实际上 \verb|P{}| 命令是在 \verb|p{}| 命令的基础上增加了居中功能. %PLCR 格式的功能需要调用 .
+
+\section{表格示例}
+
+如下表格: 表~\ref{tab:heightweight}. 通过 \verb|autoref| 引用表格: \autoref{tab:heightweight}.
+
+\begin{table}[!htp]
+\centering
+% PLCR已经定义
+\caption{某校学生升高体重样本}
+\label{tab:heightweight}
+\begin{tabularx}{0.9\textwidth}{lCCC}
+   \toprule
+	序号 & 年龄 & 身高 & 体重 \\
+	\midrule
+	001 & 15 & 156 & 42 \\
+	002 & 16 & 158 & 45 \\
+	003 & 14 & 162 & 48 \\
+	004 & 15 & 163 & 50 \\
+    \cmidrule{2-4}
+	平均 & 15 & 159.75 & 46.25 \\
+	\bottomrule
+\end{tabularx}
+\end{table}
+
+基于 tabularx 环境设置表格, 如表~\ref{tab:bookpub}.
+
+\begin{table}[htp!]
+\centering
+%\renewcommand\arraystretch{1.1} %定义表格高度
+% PLCR前面已经定义
+\caption{图书的出版流程}\label{tab:bookpub}
+\begin{tabularx}{0.92\textwidth}{|P{2.5cm}|C|}
+\Xhline{2\arrayrulewidth}
+阶段       &  筹备过程 \\
+\hline
+第一阶段    & 作者申报选题, 编辑审稿, 并向编辑部提交选题策划书. \\
+\hline
+第二阶段    &  进行选题论证, 参与论证的是编辑、发行
+人员、总编. \\
+\hline
+第三阶段   &  \makecell{通过了选题论证和出版局审核, 编辑就可以跟作者\\ 签订出版合同.}  \\
+\hline
+第四阶段    &  编辑、校对、设计. \\
+\hline
+第五阶段   &  申请书号, 征订和印刷.  \\
+\Xhline{2\arrayrulewidth}
+\end{tabularx}
+\end{table}
+
+\clearpage
+基于 tabular 环境设置一些格式: 上下表格线加粗, 如表~\ref{tab:error1}.
+\begin{table}[!htp]
+%\small
+\centering
+%\renewcommand\arraystretch{1.1} %定义表格高度
+\caption{数值误差与收敛速率示例}
+\label{tab:error1}
+\begin{tabular}{c|c|cc|cc|cc}
+\Xhline{2\arrayrulewidth}
+degree &  step-size~$h$  & $L^2$-errors  &  order  & $H^1$-errors & order & $L^\infty$-errors  &  order \\
+\hline
+   &  1/128    & 9.18E-06    &2.02    & 7.70E-03  &1.01       & 6.46E-07    &2.02   \\
+1  &  1/256    & 2.29E-06    &2.01    & 1.92E-03  &1.00       & 1.61E-07    &2.01   \\
+   &  1/512    & 5.70E-07    &2.00    & 9.56E-04  &1.00       & 4.01E-08    &2.00   \\
+\hline  %   \cline{1-8}
+   &  1/128    & 1.39E-08    &3.01    & 1.15E-05  &2.01       & 3.48E-12   &4.02    \\
+2  &  1/256    & 1.73E-09    &3.01    & 2.88E-06  &2.01       & 3.27E-13   &3.94    \\
+   &  1/512    & 2.17E-10    &3.00    & 7.24E-06  &2.00       & 6.66E-13   &1.55    \\
+\hline  %   \cline{1-8}
+   &  1/32     & 2.28E-09    &4.05    & 6.92E-07  &3.04       & 1.45E-15   &8.21    \\
+3  &  1/64     & 1.42E-10    &4.03    & 8.65E-08  &3.02       & 2.06E-14   &3.85    \\
+   &  1/128    & 8.91E-12    &4.01    & 1.08E-08  &3.01       & 3.86E-14   &0.91    \\
+\Xhline{2\arrayrulewidth}
+\end{tabular}
+\end{table}
+
+基于 tabularx 环境设置一些格式, 如表~\ref{tab:error2}.
+\begin{table}[htp!]
+\centering
+%\renewcommand\arraystretch{1.1} %定义表格高度
+\caption{数值误差示例}
+\label{tab:error2}
+\begin{tabularx}{0.96\textwidth}{|P{0.8cm}|C|C|C|C|C|C|}
+\Xhline{2\arrayrulewidth}
+N  & A       & B    & C       & D      & E       & F   \\
+\Xhline{2\arrayrulewidth}
+2  & 9.20E-05 & 9.90E-05 & 1.00E-06 & 8.00E-06 & 1.50E-05 & 6.70E-05 \\
+4  & 9.80E-05 & 8.00E-05 & 7.00E-06 & 1.40E-05 & 1.60E-05 & 7.30E-05 \\
+6  & 4.00E-06 & 8.10E-05 & 8.80E-05 & 2.00E-05 & 2.20E-05 & 5.40E-05 \\
+8  & 8.50E-05 & 8.70E-05 & 1.90E-05 & 2.10E-05 & 3.00E-06 & 6.00E-05 \\
+10 & 8.60E-05 & 9.30E-05 & 2.50E-05 & 2.00E-06 & 9.00E-06 & 6.10E-05 \\
+12 & 1.70E-05 & 2.40E-05 & 7.60E-05 & 8.30E-05 & 9.00E-05 & 4.20E-05 \\
+14 & 2.30E-05 & 5.00E-06 & 8.20E-05 & 8.90E-05 & 9.10E-05 & 4.80E-05 \\
+16 & 7.90E-05 & 6.00E-06 & 1.30E-05 & 9.50E-05 & 9.70E-05 & 2.90E-05 \\
+18 & 1.00E-05 & 1.20E-05 & 9.40E-05 & 9.60E-05 & 7.80E-05 & 3.50E-05 \\
+20 & 1.10E-05 & 1.80E-05 & 1.10E-04   & 7.70E-05 & 8.40E-05 & 3.60E-05  \\
+\Xhline{2\arrayrulewidth}
+\end{tabularx}
+\end{table}
+
