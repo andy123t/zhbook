@@ -40,6 +40,7 @@
 %----- 参考文献引用格式 -----
 \usepackage[numbers,sort&compress]{natbib}
 %\usepackage[numbers,super,square,sort&compress]{natbib}
+%\usepackage[authoryear,sort&compress]{natbib}
 \def\bibfont{\small}      % 修改参考文献字体
 \setlength{\bibsep}{8pt}  % 调整参考文献间距
 
@@ -60,19 +61,24 @@
 
 %----- 定义符号描述命令  -----
 \newcommand{\nameditem}[3][]{
-\noindent\hspace{2em}\makebox[0.2\textwidth][l]{#2}{{#3}\hfill
-\makebox[0.2\textwidth][l]{#1}\hspace*{2em}}\par}
+\noindent\hspace{2em}\makebox[0.2\textwidth][l]{#2}{{#3}
+\hfill\makebox[0.2\textwidth][l]{#1}\hspace*{2em}}\par}
 
 %----- 插入 PDF 文件命令 -----
 %\includepdf[pages=-]{pdfname.pdf}
+
+%----- 微分算子 -----
+\newcommand*{\dif}{\mathop{}\!\mathrm{d}}
 
 %----- 自定义命令 -----
 \newcommand{\CC}{\ensuremath{\mathbb{C}}}
 \newcommand{\RR}{\ensuremath{\mathbb{R}}}
 \newcommand{\A}{\mathcal{A}}
-\newcommand{\ii}{\mathrm{i}\,}  % imaginary
-\newcommand{\md}{\mathrm{d}\,}
 \newcommand{\bA}{\boldsymbol{A}}
+\newcommand{\ii}{\mathrm{i}\,}
+\newcommand{\abs}[1]{\lvert#1\rvert}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\dx}[1][x]{\mathop{}\!\mathrm{d}#1}
 \newcommand{\red}[1]{\textcolor{red}{#1}}
 
 
@@ -88,27 +94,27 @@
 %\cleardoublepage
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frontmatter
 %\pagenumbering{Roman} % 摘要页码为大写罗马数字
 
-%%%%%%%%%%%%%%%%%%%% 前言 %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%% 前言 %%%%%%%%%%%%%%%%%%%%%%%%
 
 \input{part/preface}
 
 
-%%%%%%%%%%%%%%%%%% 中文摘要内容和关键字  %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%% 中文摘要内容和关键字  %%%%%%%%%%%%%%
 
 \input{part/cnabstract}
 
 
-%%%%%%%%%%%%%%%%%% 英文摘要内容和关键字 %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%% 英文摘要内容和关键字 %%%%%%%%%%%%%%
 
 \input{part/enabstract}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%% 目录 %%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%% 目录 %%%%%%%%%%%%%%%%%%%%%%%
 
 % 生成目录
 \maketoc
@@ -119,17 +125,17 @@
 % 生成表格清单, 如不需要可以注释
 \makelot
 
-%%%%%%%%%%%%%%%%%%%%% 主要符号表 %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% 主要符号表 %%%%%%%%%%%%%%%%%%%%%
 
 % 如不需要可以注释
 \input{part/symbolpage}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \mainmatter
 
-%%%%%%%%%%%%%%%%%%%%%% 正文内容 %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% 正文内容 %%%%%%%%%%%%%%%%%%%%%%%
 
 
 %----- 第1章 引言 -----
@@ -148,31 +154,31 @@
 \input{part/chap05}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%% 参考文献 %%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%% 参考文献 %%%%%%%%%%%%%%%%%%%%%
 
 % 生成参考文献, 两种方式任选一种
 
 % 第一种方式, 使用 bib 文件
-%\nocite{*}  % 可以暂时显示全部参考文献, 包括未引用的
+%\nocite{*}  % 可以显示全部参考文献, 包括未引用的
 \bibliography{mybib}
 
-%----------------------------------------------------
+%--------------------------------------------------%
 
 % 第二种方式, 手动添加文献信息
 %\input{part/bibliography}
 
 
-%%%%%%%%%%%%%%%%%%%%%%% 附录 %%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%% 附录 %%%%%%%%%%%%%%%%%%%%%%%%
 
 % 添加附录, 如不需要可以注释
 \input{part/appendix}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \backmatter  % 结束章节自动编号
 
-%%%%%%%%%%%%%%%%%%%%%%% 索引  %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%% 索引  %%%%%%%%%%%%%%%%%%%%%%%%
 
 \clearpage
 \renewcommand\indexname{索~~引}

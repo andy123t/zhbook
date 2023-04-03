@@ -2,13 +2,13 @@
 %%	This is file `zhbook.cls',
 %%
 %%	@author andy123t
-%%	@date 2023/03/24
+%%	@date 2023/04/03
 %%	@version v2.2
 %%	@address https://github.com/andy123t/zhbook
 %%
 
 %---------- 定义的新的Class ----------
-\ProvidesClass{zhbook}[2023/03/24 v2.2]
+\ProvidesClass{zhbook}[2023/04/03 v2.2]
 \NeedsTeXFormat{LaTeX2e}
 
 %---------- 定义的新的Options ----------
@@ -114,7 +114,7 @@
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{3}
 
-\newcommand{\chpzihao}{\fontsize{20pt}{20pt}\selectfont}
+\newcommand{\chpzihao}{\fontsize{20pt}{28pt}\selectfont}
 
 %---------- 定义章节标题格式 ----------
 %--- chapter ---
@@ -126,7 +126,7 @@
         number = \arabic{chapter},
         numberformat = {},
         aftername = \quad,
-        beforeskip = {4pt},
+        beforeskip = {-4pt},
         afterskip = {24pt},
         pagestyle = plain,
     }

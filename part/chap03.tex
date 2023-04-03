@@ -1,18 +1,18 @@
 
-%%%%%%%%%%%%%%%%%%%% 微分方程的数值方法 %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%% 微分方程的数值方法 %%%%%%%%%%%%%
 
 \chapter{微分方程的数值方法}
 
 本章我们考虑具有以下微分方程:
-\begin{equation}\label{eq:pde}
+\begin{equation}\label{eq:PDE}
 \left\{\begin{aligned}
-& L u=-\frac{\mathrm{d}^{2} u}{\mathrm{d} x^{2}}+\frac{\mathrm{d} u}{\mathrm{d} x}+q u=f, \quad a < x < b, \\
+& L u=-\frac{{\dif}^{2} u}{\dif x^{2}}+\frac{\dif u}{\dif x}+q u=f, \quad a < x < b, \\
 & u(a)=\alpha, \quad u(b)=\beta.
 \end{aligned}\right.
 \end{equation}
 其中 $q, f$ 为 $[a,b]$ 上的连续函数, $q \geqslant 0$; $\alpha, \beta$ 为给定常数. 这是最简单的椭圆方程第一边值问题 .
 
-问题 \eqref{eq:pde} 存在唯一解 (引用示例参考文献 \cite{LiLiu1997}).
+问题 \eqref{eq:PDE} 存在唯一解 (引用示例参考文献 \cite{LiLiu1997}).
 
 
 \section{有限差分方法}
