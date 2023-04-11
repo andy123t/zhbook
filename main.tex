@@ -15,12 +15,12 @@
 \title{中文书籍 \LaTeX{} 模板  \\[10pt] \zihao{2} 这是书籍模板的副标题}
 \college{某某大学}
 \author{某某某}  % 作者姓名
-%\date{2\,0\,2\,X~年~X~月}  % 完成日期
+%\date{2\,0\,2\,X~年~X~月}  % 日期
 \bioinfo{其他信息}
 \pubyear{202X}  % 出版年
 \publisher{出版社}
 
-%通用虚拟出版商标志
+% 通用虚拟出版商标志
 \newcommand{\plogo}{\fbox{$\mathcal{PL}$}}
 
 
@@ -51,7 +51,7 @@
 %----- 调整列表项的间距 -----
 %\setlength{\itemsep}{3pt plus 1pt minus 1pt}
 
-%-----设置英文字体 -----
+%----- 设置英文字体 -----
 \usepackage{newtxtext}
 %\setmainfont{Times New Roman}
 
@@ -128,7 +128,7 @@
 %%%%%%%%%%%%%%%%%%%% 主要符号表 %%%%%%%%%%%%%%%%%%%%%
 
 % 如不需要可以注释
-\input{part/symbolpage}
+\input{part/denotation}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -159,8 +159,8 @@
 % 生成参考文献, 两种方式任选一种
 
 % 第一种方式, 使用 bib 文件
-%\nocite{*}  % 可以显示全部参考文献, 包括未引用的
-\bibliography{mybib}
+%\nocite{*}  % 可以显示全部参考文献
+\bibliography{reference}
 
 %--------------------------------------------------%
 

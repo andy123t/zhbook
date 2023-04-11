@@ -1,14 +1,14 @@
 %%
-%%	This is file `zhbook.cls',
+%% This is file `zhbook.cls',
 %%
-%%	@author andy123t
-%%	@date 2023/04/03
-%%	@version v2.2
-%%	@address https://github.com/andy123t/zhbook
+%% @author andy123t
+%% @date 2023/04/11
+%% @version v2.2
+%% @address https://github.com/andy123t/zhbook
 %%
 
 %---------- 定义的新的Class ----------
-\ProvidesClass{zhbook}[2023/04/03 v2.2]
+\ProvidesClass{zhbook}[2023/04/11 v2.2]
 \NeedsTeXFormat{LaTeX2e}
 
 %---------- 定义的新的Options ----------
@@ -38,15 +38,15 @@
 \setlength{\footskip}{28pt}    % 页脚位置
 
 %---------- 常用宏包 ----------
-\RequirePackage{amsmath,amssymb,amsthm}  % AMS公式
-\RequirePackage{bm}         % 数学公式黑斜体
-\RequirePackage{mathrsfs}   % 数学英文花体
+\RequirePackage{amsmath,amssymb,amsthm}
+\RequirePackage{bm}
+\RequirePackage{mathrsfs}
 \RequirePackage{graphicx}
 \RequirePackage{tabularx}
 \RequirePackage{booktabs}
 \RequirePackage{float}
-\RequirePackage{longtable}  % 长表格
-\RequirePackage{multirow}   % 表格多行合并
+\RequirePackage{longtable}
+\RequirePackage{multirow}
 \RequirePackage{multicol}
 \RequirePackage{makecell}
 \RequirePackage{color,xcolor}
@@ -82,15 +82,15 @@
 %---------- 设置超链接 ----------
 \RequirePackage{hyperref}
 \hypersetup{
-	colorlinks = true,
-	linkcolor = black,
-	citecolor = blue,
-	filecolor = blue,
+    colorlinks = true,
+    linkcolor = black,
+    citecolor = blue,
+    filecolor = blue,
     urlcolor = blue,
 }
 
 \ifprint
-	\hypersetup{hidelinks} % remove link color and border
+    \hypersetup{hidelinks} % remove link color and border
 \fi
 
 %---------- 设置正文前页码为小写罗马数字 ----------
@@ -114,13 +114,14 @@
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{3}
 
-\newcommand{\chpzihao}{\fontsize{20pt}{28pt}\selectfont}
+%---------- 设置章节字号 ----------
+\newcommand{\chapfont}{\fontsize{20pt}{28pt}\selectfont}
 
 %---------- 定义章节标题格式 ----------
 %--- chapter ---
 \ctexset{
     chapter = {
-        format = \linespread{1.0}\heiti\chpzihao\centering,
+        format = \linespread{1.0}\heiti\chapfont\centering,
         nameformat = {},
         titleformat = {},
         number = \arabic{chapter},
@@ -203,40 +204,39 @@
 
 %---------- 设置页眉样式 ----------
 \newcommand{\headstyle}{
-	%\fancyhead[C]{\fangsong\zihao{5} 书籍的名字}
-	\fancyhead[RO,LE]{\fangsong\zihao{5} $\cdot$\:\thepage\:$\cdot$}
-	\fancyhead[LO,RE]{\fangsong\zihao{5} \nouppercase{\leftmark}}
+    %\fancyhead[C]{\fangsong\zihao{5} 书籍的名字}
+    \fancyhead[RO,LE]{\fangsong\zihao{5} $\cdot$\:\thepage\:$\cdot$}
+    \fancyhead[LO,RE]{\fangsong\zihao{5} \nouppercase{\leftmark}}
 }
 
 %---------- 设置页脚样式 ----------
 % \newcommand{\footstyle}{
-% \fancyfoot[C]{\zihao{5} \thepage}
-% %\fancyfoot[LE]{\zihao{5} \thepage}
-% %\fancyfoot[RO]{\zihao{5} \thepage}
+%     \fancyfoot[C]{\zihao{5} \thepage}
+%     %\fancyfoot[LE]{\zihao{5} \thepage}
+%     %\fancyfoot[RO]{\zihao{5} \thepage}
 % }
 
 \newcommand{\footstyle}{}
 
 %---------- 定义plain样式 ----------
 \fancypagestyle{plain}{%
-	\fancyhf{} %清空原有样式
-	\headstyle
-	\footstyle
+    \fancyhf{} %清空原有样式
+    \headstyle
+    \footstyle
 }
 
 \pagestyle{plain}
 
 %---------- 中文段落缩进和行距 ----------
-\setlength{\parindent}{2em}                 % 首行两个汉字的缩进量
-\setlength{\parskip}{4pt plus 1pt minus 1pt}  % 段落之间的竖直距离
+\setlength{\parindent}{2em}
+\setlength{\parskip}{4pt plus 1pt minus 1pt}
 \linespread{1.35}  % line space setting
-%\renewcommand{\baselinestretch}{1.35}        % 定义行距
+%\renewcommand{\baselinestretch}{1.35}
 %\topskip=15pt   % 书写区域顶部空白
 %\setlength{\baselineskip}{24pt}
 
 %---------- 浮动对象设置 ----------
-% 浮动对象的缺省值稍微宽松一点，从而防止幅度对象占据过多的文本页面
-% 也可以防止在很大空白的浮动页上放置很小的图形
+% 浮动对象的缺省值稍微宽松一点
 \renewcommand{\textfraction}{0.15}
 \renewcommand{\topfraction}{0.85}
 \renewcommand{\bottomfraction}{0.65}
@@ -300,19 +300,19 @@
     \trivlist\item[\hskip\labelsep
     \bfseries #1\@addpunct{\,:\,}]\ignorespaces
 }{%
-	\popQED\endtrivlist\@endpefalse
+    \popQED\endtrivlist\@endpefalse
 }
 
 %---------- 数学公式设置 ----------
-\allowdisplaybreaks[4]   % 部分公式可以分页
+\allowdisplaybreaks[4]
 
 %---------- 设置公式间距 ----------
 \AtBeginDocument{
-	\setlength{\abovedisplayskip}{5pt plus 2pt minus 2pt}
-	\setlength{\belowdisplayskip}{5pt plus 2pt minus 2pt}
-	\setlength{\abovedisplayshortskip}{3pt plus 1pt minus 1pt}
-	\setlength{\belowdisplayshortskip}{3pt plus 1pt minus 1pt}
-	%\setlength{\arraycolsep}{2pt}   % array中列之间空白长度
+    \setlength{\abovedisplayskip}{5pt plus 2pt minus 2pt}
+    \setlength{\belowdisplayskip}{5pt plus 2pt minus 2pt}
+    \setlength{\abovedisplayshortskip}{3pt plus 1pt minus 1pt}
+    \setlength{\belowdisplayshortskip}{3pt plus 1pt minus 1pt}
+    %\setlength{\arraycolsep}{2pt}
 }
 
 %------- 公式编号带章节 ----------
@@ -328,58 +328,58 @@
 
 %---------- 定义新的标题页面 ----------
 \renewcommand{\maketitle}[1][15em]{
-	\clearpage
-	\phantomsection
-	\pdfbookmark[0]{封~~面}{cover}
-	\begin{titlepage}
-		\centering
-		\scshape
+    \clearpage
+    \phantomsection
+    \pdfbookmark[0]{封~~面}{cover}
+    \begin{titlepage}
+        \centering
+        \scshape
 
-		\vspace*{20mm}
+        \vspace*{20mm}
 
-		\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt}  % 粗水平线
-    	\rule{\textwidth}{0.4pt}   % 细水平线
+        \rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt}  % 粗水平线
+        \rule{\textwidth}{0.4pt}   % 细水平线
 
-		\vspace*{0.75\baselineskip} % 标题上方的空白
+        \vspace*{0.75\baselineskip} % 标题上方的空白
 
-		\parbox[t]{15cm}{\centering \zihao{1} \heiti \@title}
+        \parbox[t]{15cm}{\centering \zihao{1} \heiti \@title}
 
-		\vspace*{0.75\baselineskip} % 标题下方的空白
-	
-		\rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % 细水平线
-		\rule{\textwidth}{1.6pt}   % 粗水平线
+        \vspace*{0.75\baselineskip} % 标题下方的空白
+    
+        \rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % 细水平线
+        \rule{\textwidth}{1.6pt}   % 粗水平线
 
-		\vspace*{1\baselineskip}  % 标题栏后的空白
+        \vspace*{1\baselineskip}  % 标题栏后的空白
 
-    	\large
-    	\@author
-    	\vspace*{0.1\baselineskip}
+        \large
+        \@author
+        \vspace*{0.1\baselineskip}
 
-    	\zhbook@college
-    	\vspace*{0.1\baselineskip}
-    	
-    	\zhbook@bioinfo
-    	\vspace*{0.1\baselineskip}
-    	
-    	\vfill
+        \zhbook@college
+        \vspace*{0.1\baselineskip}
+        
+        \zhbook@bioinfo
+        \vspace*{0.1\baselineskip}
+        
+        \vfill
 
-    	\plogo % Publisher logo
-	
-		\vspace*{0.3\baselineskip}
-	
-		\zhbook@pubyear % Publication year
+        \plogo % Publisher logo
+    
+        \vspace*{0.3\baselineskip}
+    
+        \zhbook@pubyear % Publication year
 
-		{\large \zhbook@publisher} % Publisher
+        {\large \zhbook@publisher} % Publisher
 
-		\vspace*{0.3\baselineskip}
-	\end{titlepage}
+        \vspace*{0.3\baselineskip}
+    \end{titlepage}
     \ifprint
         \cleardoublepage
         \hypersetup{hidelinks} % remove link color and border
     \else
         \clearpage
     \fi
-	\if@openright
+    \if@openright
         \cleardoublepage
     \fi
 }
@@ -396,59 +396,59 @@
 
 %---------- 中文摘要环境 ----------
 \newenvironment{cnabstract}{
-	\clearpage
-	\pagestyle{plain}
-	\phantomsection
-	\addcontentsline{toc}{chapter}{摘~~要}
-	\chapter*{摘~~要}
-	\chaptermark{摘~~要}
+    \clearpage
+    \pagestyle{plain}
+    \phantomsection
+    \addcontentsline{toc}{chapter}{摘~~要}
+    \chapter*{摘~~要}
+    \chaptermark{摘~~要}
 }{
-	\clearpage
-	\if@openright
+    \clearpage
+    \if@openright
         \cleardoublepage
     \fi
 }
 
 %---------- 英文摘要环境 ----------
 \newenvironment{enabstract}{
-	\clearpage
-	\pagestyle{plain}
-	\phantomsection
-	\addcontentsline{toc}{chapter}{Abstract}
-	\chapter*{\textbf{Abstract}}
-	\chaptermark{Abstract}
+    \clearpage
+    \pagestyle{plain}
+    \phantomsection
+    \addcontentsline{toc}{chapter}{Abstract}
+    \chapter*{\textbf{Abstract}}
+    \chaptermark{Abstract}
 }{
-	\clearpage
-	\if@openright
+    \clearpage
+    \if@openright
         \cleardoublepage
     \fi
 }
 
 %---------- 前言环境 ----------
 \newenvironment{preface}{
-	\clearpage
-	\pagestyle{plain}
-	\phantomsection
-	\addcontentsline{toc}{chapter}{前~~言}
-	\chapter*{前~~言}
-	\chaptermark{前~~言}
+    \clearpage
+    \pagestyle{plain}
+    \phantomsection
+    \addcontentsline{toc}{chapter}{前~~言}
+    \chapter*{前~~言}
+    \chaptermark{前~~言}
 }{
-	\clearpage
+    \clearpage
     \ifprint
         \cleardoublepage
     \fi
-	\if@openright
+    \if@openright
         \cleardoublepage
     \fi
 }
 
 %---------- 定义新的目录页面 ----------
 \RequirePackage{tocloft}
-\renewcommand{\cfttoctitlefont}{\hfill \heiti \chpzihao}
+\renewcommand{\cfttoctitlefont}{\hfill \heiti \chapfont}
 \renewcommand{\cftaftertoctitle}{\hfill}
-\renewcommand{\cftloftitlefont}{\hfill \heiti \chpzihao}
+\renewcommand{\cftloftitlefont}{\hfill \heiti \chapfont}
 \renewcommand{\cftafterloftitle}{\hfill}
-\renewcommand{\cftlottitlefont}{\hfill \heiti \chpzihao}
+\renewcommand{\cftlottitlefont}{\hfill \heiti \chapfont}
 \renewcommand{\cftafterlottitle}{\hfill}
 \renewcommand{\contentsname}{目~~录}
 \renewcommand{\listfigurename}{插图清单}
@@ -466,18 +466,18 @@
 
 %---------- 设置新的生成目录命令 ----------
 \newcommand{\maketoc}{
-	% 设置目录hdr和页码选项
-	\clearpage
-	\pagestyle{plain}
-	\phantomsection
-	\addcontentsline{toc}{chapter}{\contentsname}
-	\tableofcontents
-	\clearpage
+    % 设置目录hdr和页码选项
+    \clearpage
+    \pagestyle{plain}
+    \phantomsection
+    \addcontentsline{toc}{chapter}{\contentsname}
+    \tableofcontents
+    \clearpage
     \ifprint
         \cleardoublepage
     \fi
     \if@openright
-    	\cleardoublepage
+        \cleardoublepage
     \fi
 }
 
@@ -492,8 +492,8 @@
 %---------- 重定义插图清单 ----------
 \newcommand\makelof{
     \clearpage
-	\phantomsection
-	\addcontentsline{toc}{chapter}{\listfigurename}
+    \phantomsection
+    \addcontentsline{toc}{chapter}{\listfigurename}
     \chapter*{\listfigurename}
     \chaptermark{\listfigurename}
     \@starttoc{lof}
@@ -518,18 +518,18 @@
 }
 
 %---------- 定义主要符号表环境 ----------
-\newenvironment{symbolpage}{
-	\clearpage
-	\phantomsection
-	\addcontentsline{toc}{chapter}{主要符号表}
-	\chapter*{主要符号表}
-	\chaptermark{主要符号表}
+\newenvironment{denotation}{
+    \clearpage
+    \phantomsection
+    \addcontentsline{toc}{chapter}{主要符号表}
+    \chapter*{主要符号表}
+    \chaptermark{主要符号表}
 }{
-	\clearpage
-	\ifprint
+    \clearpage
+    \ifprint
         \cleardoublepage
     \fi
-	\if@openright
+    \if@openright
         \cleardoublepage
     \fi
 }
@@ -537,11 +537,11 @@
 %---------- 重新定义附录命令 ----------
 % \let \oldappendix \appendix
 % \renewcommand{\appendix}[1]{
-% 	\clearpage
-% 	\renewcommand{\theequation}{\Alph{chapter}\arabic{equation}}
-% 	\renewcommand{\thefigure}{\Alph{chapter}\arabic{figure}}
-% 	\renewcommand{\thetable}{\Alph{chapter}\arabic{table}}
-% 	\oldappendix{#1}
+%     \clearpage
+%     \renewcommand{\theequation}{\Alph{chapter}\arabic{equation}}
+%     \renewcommand{\thefigure}{\Alph{chapter}\arabic{figure}}
+%     \renewcommand{\thetable}{\Alph{chapter}\arabic{table}}
+%     \oldappendix{#1}
 % }
 
 %---------- 重新定义参考文献页 ----------
@@ -549,11 +549,11 @@
 %--- 设置新的参考文献命令 ---
 \let \oldbibliography \bibliography
 \renewcommand{\bibliography}[1]{
-	% 添加到目录
-	\clearpage
-	\phantomsection
-	\addcontentsline{toc}{chapter}{\bibname}
-	\oldbibliography{#1}
+    % 添加到目录
+    \clearpage
+    \phantomsection
+    \addcontentsline{toc}{chapter}{\bibname}
+    \oldbibliography{#1}
 }
 
 % End of file `zhbook.cls'.
