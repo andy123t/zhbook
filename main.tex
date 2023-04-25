@@ -13,7 +13,7 @@
 
 % 进行信息设置
 \title{中文书籍 \LaTeX{} 模板  \\[10pt] \zihao{2} 这是书籍模板的副标题}
-\college{某某大学}
+\institute{某某大学}
 \author{某某某}  % 作者姓名
 %\date{2\,0\,2\,X~年~X~月}  % 日期
 \bioinfo{其他信息}
@@ -23,6 +23,16 @@
 % 通用虚拟出版商标志
 \newcommand{\plogo}{\fbox{$\mathcal{PL}$}}
 
+
+%----- 设置英文字体 -----
+\usepackage{newtxtext}
+%\setmainfont{Times New Roman}
+\setsansfont{Arial}
+%\setmonofont{Courier New}
+
+%----- 设置数学字体 -----
+%\usepackage{newtxmath}
+%\usepackage{mathptmx}
 
 %----- 添加其他宏包 -----
 \usepackage{listings}
@@ -50,14 +60,6 @@
 
 %----- 调整列表项的间距 -----
 %\setlength{\itemsep}{3pt plus 1pt minus 1pt}
-
-%----- 设置英文字体 -----
-\usepackage{newtxtext}
-%\setmainfont{Times New Roman}
-
-%----- 设置数学字体 -----
-%\usepackage{newtxmath}
-%\usepackage{mathptmx}
 
 %----- 定义符号描述命令  -----
 \newcommand{\nameditem}[3][]{

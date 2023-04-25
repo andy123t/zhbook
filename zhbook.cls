@@ -2,13 +2,13 @@
 %% This is file `zhbook.cls',
 %%
 %% @author andy123t
-%% @date 2023/04/11
-%% @version v2.2
+%% @date 2023/04/20
+%% @version v2.3
 %% @address https://github.com/andy123t/zhbook
 %%
 
 %---------- 定义的新的Class ----------
-\ProvidesClass{zhbook}[2023/04/11 v2.2]
+\ProvidesClass{zhbook}[2023/04/20 v2.3]
 \NeedsTeXFormat{LaTeX2e}
 
 %---------- 定义的新的Options ----------
@@ -67,7 +67,7 @@
 
 %---------- 添加几个新的文档属性 ----------
 \zhbook@define@term{subtitle}
-\zhbook@define@term{college}
+\zhbook@define@term{institute}
 \zhbook@define@term{pubyear}
 \zhbook@define@term{bioinfo}
 \zhbook@define@term{publisher}
@@ -115,13 +115,13 @@
 \setcounter{tocdepth}{3}
 
 %---------- 设置章节字号 ----------
-\newcommand{\chapfont}{\fontsize{20pt}{28pt}\selectfont}
+\newcommand{\chapfont}{\fontsize{20bp}{28bp}\selectfont}
 
 %---------- 定义章节标题格式 ----------
 %--- chapter ---
 \ctexset{
     chapter = {
-        format = \linespread{1.0}\heiti\chapfont\centering,
+        format = \linespread{1.0}\sffamily\heiti\chapfont\centering,
         nameformat = {},
         titleformat = {},
         number = \arabic{chapter},
@@ -135,7 +135,7 @@
 %--- section ---
 \ctexset{
     section = {
-        format = \linespread{1.0}\heiti\zihao{-3}\raggedright,
+        format = \linespread{1.0}\sffamily\heiti\zihao{-3}\raggedright,
         numberformat = {},
         aftername = \quad,
         beforeskip = {24pt},
@@ -145,7 +145,7 @@
 %--- subsection ---
 \ctexset{
     subsection = {
-        format = \linespread{1.0}\heiti\zihao{4}\raggedright,
+        format = \linespread{1.0}\sffamily\heiti\zihao{4}\raggedright,
         numberformat = {},
         aftername = \quad,
         beforeskip = {12pt},
@@ -155,7 +155,7 @@
 %--- subsubsection ---
 \ctexset{
     subsubsection = {
-        format = \linespread{1.0}\heiti\zihao{-4}\raggedright,
+        format = \linespread{1.0}\sffamily\heiti\zihao{-4}\raggedright,
         numberformat = {},
         aftername = \quad,
         beforeskip = {12pt},
@@ -342,7 +342,7 @@
 
         \vspace*{0.75\baselineskip} % 标题上方的空白
 
-        \parbox[t]{15cm}{\centering \zihao{1} \heiti \@title}
+        \parbox[t]{15cm}{\centering \zihao{1}\bfseries \@title}
 
         \vspace*{0.75\baselineskip} % 标题下方的空白
     
@@ -355,7 +355,7 @@
         \@author
         \vspace*{0.1\baselineskip}
 
-        \zhbook@college
+        \zhbook@institute
         \vspace*{0.1\baselineskip}
         
         \zhbook@bioinfo
@@ -415,7 +415,7 @@
     \pagestyle{plain}
     \phantomsection
     \addcontentsline{toc}{chapter}{Abstract}
-    \chapter*{\textbf{Abstract}}
+    \chapter*{Abstract}
     \chaptermark{Abstract}
 }{
     \clearpage
@@ -460,6 +460,7 @@
 \setlength{\cftbeforesubsecskip}{3pt}
 \renewcommand{\cftdot}{$\cdot$}
 \renewcommand{\cftdotsep}{3}
+\renewcommand{\cftchapfont}{\sffamily\heiti}
 \renewcommand{\cftchapdotsep}{\cftdotsep}
 \renewcommand\cftchapleader{\cftdotfill{\cftchapdotsep}}
 \renewcommand{\cftsecdotsep}{\cftdotsep}
