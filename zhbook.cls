@@ -2,13 +2,13 @@
 %% This is file `zhbook.cls',
 %%
 %% @author andy123t
-%% @date 2023/04/20
+%% @date 2023/06/04
 %% @version v2.3
 %% @address https://github.com/andy123t/zhbook
 %%
 
 %---------- 定义的新的Class ----------
-\ProvidesClass{zhbook}[2023/04/20 v2.3]
+\ProvidesClass{zhbook}[2023/06/04 v2.3]
 \NeedsTeXFormat{LaTeX2e}
 
 %---------- 定义的新的Options ----------
@@ -39,7 +39,6 @@
 
 %---------- 常用宏包 ----------
 \RequirePackage{amsmath,amssymb,amsthm}
-\RequirePackage{bm}
 \RequirePackage{mathrsfs}
 \RequirePackage{graphicx}
 \RequirePackage{tabularx}
@@ -256,8 +255,8 @@
 \setlength{\textfloatsep}{12pt plus 2pt minus 2pt}
 \setlength{\floatsep}{10pt plus 2pt minus 2pt}
 \setlength{\intextsep}{10pt plus 2pt minus 2pt}
-\setlength{\abovecaptionskip}{2pt plus 1pt minus 1pt}
-\setlength{\belowcaptionskip}{3pt plus 1pt minus 2pt}
+%\setlength{\abovecaptionskip}{2pt plus 1pt minus 1pt}
+%\setlength{\belowcaptionskip}{3pt plus 1pt minus 2pt}
 
 %---------- 重新设置图表autoref ----------
 \renewcommand{\figureautorefname}{图}
@@ -279,7 +278,12 @@
 % \setlength{\belowbottomsep}{0pt}
 
 %---------- 数学定理设置 ----------
-\theoremstyle{plain}
+\newtheoremstyle{zhbook}
+{0.5\topsep}{0.5\topsep}
+{\itshape}{}{\bfseries}
+{.}{5pt plus 1pt minus 1pt}{}
+%\theoremstyle{plain}
+\theoremstyle{zhbook}
 \newtheorem{definition}{定义}[chapter]
 \newtheorem{proposition}{命题}[chapter]
 \newtheorem{lemma}{引理}[chapter]
@@ -296,7 +300,8 @@
 \renewcommand{\proofname}{证明}
 \renewenvironment{proof}[1][\proofname]{\par
     \pushQED{\qed}%
-    \normalfont \topsep6\p@\@plus6\p@\relax
+    %\normalfont \topsep6\p@\@plus6\p@\relax
+    \normalfont \topsep3\p@\@plus3\p@\relax
     \trivlist\item[\hskip\labelsep
     \bfseries #1\@addpunct{\,:\,}]\ignorespaces
 }{%
@@ -308,8 +313,8 @@
 
 %---------- 设置公式间距 ----------
 \AtBeginDocument{
-    \setlength{\abovedisplayskip}{5pt plus 2pt minus 2pt}
-    \setlength{\belowdisplayskip}{5pt plus 2pt minus 2pt}
+    \setlength{\abovedisplayskip}{6pt plus 2pt minus 2pt}
+    \setlength{\belowdisplayskip}{6pt plus 2pt minus 2pt}
     \setlength{\abovedisplayshortskip}{3pt plus 1pt minus 1pt}
     \setlength{\belowdisplayshortskip}{3pt plus 1pt minus 1pt}
     %\setlength{\arraycolsep}{2pt}
@@ -335,14 +340,14 @@
         \centering
         \scshape
 
-        \vspace*{20mm}
+        \vspace*{3.0\baselineskip}
 
         \rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt}  % 粗水平线
         \rule{\textwidth}{0.4pt}   % 细水平线
 
         \vspace*{0.75\baselineskip} % 标题上方的空白
 
-        \parbox[t]{15cm}{\centering \zihao{1}\bfseries \@title}
+        \parbox[t]{15cm}{\centering \zihao{1}\sffamily\heiti \@title}
 
         \vspace*{0.75\baselineskip} % 标题下方的空白
     

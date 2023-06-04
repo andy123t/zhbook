@@ -8,6 +8,7 @@ echo "${FileName%.tex}"
 #-> Compile the main file
 xelatex --synctex=-1 "$FileName"
 bibtex "${FileName%.tex}"
+makeindex "${FileName%.tex}"
 xelatex --synctex=-1 "$FileName"
 xelatex --synctex=-1 "$FileName"
 #-> Clear aux files

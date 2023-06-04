@@ -10,41 +10,38 @@
 & u(a)=\alpha, \quad u(b)=\beta.
 \end{aligned}\right.
 \end{equation}
-其中 $q, f$ 为 $[a,b]$ 上的连续函数, $q \geqslant 0$; $\alpha, \beta$ 为给定常数. 这是最简单的椭圆方程第一边值问题 .
+其中 $q, f$ 为 $[a,b]$ 上的连续函数, $q \geqslant 0$;~ $\alpha, \beta$ 为给定的常数. 这是最简单的椭圆方程第一边值问题 .
 
-问题 \eqref{eq:PDE} 存在唯一解 (引用示例参考文献 \cite{LiLiu1997}).
+问题 \eqref{eq:PDE} 存在唯一解 (参考文献 \cite{LiLiu1997}).
 
 
 \section{有限差分方法}
 在偏微分方程的数值解法中, 有限差分法数学概念直观, 推导自然, 是发展较早且比较成熟的数值方法. 由于计算机只能存储有限个数据和做有限次运算, 所以任何一种用计算机解题的方法, 都必须把连续问题 (微分方程的边值问題、初值问题等) 离散化, 最终化成有限形式的线性代数方程组.
 
 \subsection{数值格式}
-将区间 $[a,b]$ 分成 $N$ 等分, 分点为
+将区间 $[a,b]$ 分成 $N$ 等份, 分点为
 \begin{equation*}
-  x_{i}=a+i h \quad i=0,1, \cdots, N,
+  x_{i} = a+ih, \quad i=0,1, \cdots, N,
 \end{equation*}
-其中 $h=(b-a) / N$. 于是我们得到区间 $I=[a,b]$ 的一个网格剖分. $x_i$ 称为网格的节点, $h$ 称为步长.
+其中 $h=(b-a)/N$. 于是我们得到区间 $I=[a,b]$ 的一个网格剖分. $x_i$ 称为网格的节点, $h$ 称为步长.
 
-数值格式:
-\begin{equation*}
-  L_{h} u_{i}=-\frac{u_{i+1}-2 u_{i}+u_{i-1}}{h^{2}}+\frac{u_{i+1}-u_{i-1}}{h}+q_{i} u_{i}=f_{i},\quad 1 \leqslant j \leqslant N-1.
-\end{equation*}
-其中  $q_{i}=q(x_{i})$, $f_{i}=f(x_{i})$.
+为了方便起见, 令 $q_{i}=q(x_{i})$, $f_{i}=f(x_{i})$. 方程 \eqref{eq:PDE} 的差分方程为
+\begin{equation}\label{eq:difEqu}
+  L_{h} u_{i}=-\frac{u_{i+1}-2 u_{i}+u_{i-1}}{h^{2}}+\frac{u_{i+1}-u_{i-1}}{h}+q_{i} u_{i}=f_{i},\quad 1 \leqslant j \leqslant N-1,
+\end{equation}
+其中 $L_{h}$ 为差分算子, $u_i$ 为 $u(x)$ 在 $x=x_i$ 处的近似解即差分解.
 
-以上差分方程对于 $i=1,2, \cdots, N-1$ 都成立, 加上边值条件 $u_{0}=\alpha, u_{N}=\beta$, 就得到关于 $u_i$ 的差分格式:
+差分方程 \eqref{eq:difEqu} 对于 $i=1,2, \cdots, N-1$ 都成立, 加上边值条件 $u_{0}=\alpha, u_{N}=\beta$, 就得到如下线性方程组:
 \begin{equation}\label{eq:fdm}
 \left\{\begin{aligned}
-& L_{h} u_{i}=-\frac{u_{i+1}-2 u_{i}+u_{i-1}}{h^{2}}+\frac{u_{i+1}-u_{i-1}}{2h}+q_{i} u_{i}=f_{i}, ~ i=1, \cdots, N-1, \\
+& L_{h} u_{i}=-\frac{u_{i+1}-2 u_{i}+u_{i-1}}{h^{2}}+\frac{u_{i+1}-u_{i-1}}{2h}+q_{i} u_{i}=f_{i}, ~~ i=1, \cdots, N-1, \\
 & u_{0}=\alpha, \quad u_{N}=\beta.
 \end{aligned}\right.
 \end{equation}
 
-它的解 $u_i$ 是 $u(x)$ 在 $x=x_i$ 处的差分解.
-
-
 \subsection{矩阵形式}
 
-先定义向量 $\boldsymbol{u}$:
+定义向量 $\boldsymbol{u}$:
 \begin{equation*}
   \boldsymbol{u}=(u_{1}, u_{2}, \cdots, u_{N-1})^{\mathrm{T}}.
 \end{equation*}

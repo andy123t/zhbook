@@ -5,12 +5,12 @@
 
 \section{列表的使用}
 
-这是一个计数的列表.
+这是一个计数的列表\index{列表}.
 \begin{enumerate}%[label={(\arabic*)}]
 	\item 第一项
 		\begin{enumerate}
-			\item 第一项中的第一项
-			\item 第一项中的第二项
+			\item 第一项中的第一小项
+			\item 第一项中的第二小项
 		\end{enumerate}
 	\item 第二项
 	\item 第三项
@@ -20,8 +20,8 @@
 \begin{itemize}%[label={$\bullet$}]
 	\item 第一项
 	\begin{itemize}
-		\item 第一项中的第一项
-		\item 第一项中的第二项
+		\item 第一项中的第一小项
+		\item 第一项中的第二小项
 	\end{itemize}
 	\item 第二项
 	\item 第三项
@@ -30,14 +30,14 @@
 
 \section{文献引用}
 
-参考文献可采用 BibTeX 的方式生成 (文献信息写在文件 \verb|reference.bib| 中), 参考文献的样式为 \verb|thuthesis-numeric| (对应的引用格式可选 \verb|numbers| 或  \verb|super|)和 \verb|thuthesis-author-year| (对应的引用格式 \verb|authoryear|), 符合国家标准《信息与文献参考文献著录规则》GB/T 7714-2015, 论文中引用和参考的文献必须列出. 参考文献序号按所引文献在论文中出现的先后次序排列. 引用文献应在论文中的引用处加注文献序号, 并加注方括弧.
+参考文献可采用 BibTeX\index{BibTeX} 的方式生成 (文献信息写在文件 \verb|reference.bib| 中), 参考文献的样式为 \verb|thuthesis-numeric| (对应的引用格式可选 \verb|numbers| 或  \verb|super|)和 \verb|thuthesis-author-year| (对应的引用格式 \verb|authoryear|), 符合国家标准《信息与文献参考文献著录规则》GB/T 7714-2015, 论文中引用和参考的文献必须列出. 参考文献序号按所引文献在论文中出现的先后次序排列. 引用文献应在论文中的引用处加注文献序号, 并加注方括弧.
 
 文献引用示例 \cite{LiLiu1997} 和 \cite{Adams2003,Shen1994}.
 
 
 \section{数学公式}\label{sec:mathEqEnv}
 
-数学公式的使用请参考公式手册 symbols-a4, 或者 《一份(不太)简短的 \LaTeX~2$\varepsilon$ 介绍》 (lshort-zh-cn).
+数学公式的使用请参考《一份(不太)简短的 \LaTeX~2$\varepsilon$ 介绍》 (lshort-zh-cn), 更多的数学符号参考 The Comprehensive LaTeX Symbol List (symbols-a4).
 
 自定义命令表示的几个数学符号 $\RR$, $\CC$, $\A$, $\ii$, $\bA$. 微分符号 $\dif$ 以及 $\dx$, $\dx[t]$.
 
@@ -71,8 +71,8 @@ d = e + f + g \notag \\
 h + i = j
 \end{gather}
 
-align 和 gather 有对应的不带编号的版本 align* 和 gather*.
-对于 align、 gather、align* 与 gather* 等环境, 若添加命令 \verb|\allowdisplaybreaks| 后 (已添加), 公式可以跨页显示.
+align 和 gather 有对应不带编号的环境 align* 和 gather*.
+对于 align, gather, align* 与 gather* 等环境, 若添加命令 \verb|\allowdisplaybreaks| 后 (已添加), 公式可以跨页显示.
 
 多个公式组在一起公用一个编号, 编号位于公式的居中位置, amsmath 宏包提供了诸如 aligned、gathered 等环境, 与 equation 环境套用.
 

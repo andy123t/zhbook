@@ -35,9 +35,9 @@
 %\usepackage{mathptmx}
 
 %----- 添加其他宏包 -----
+%\usepackage[notcite,notref]{showkeys}
 \usepackage{listings}
 \usepackage{subfig}
-%\usepackage{xltxtra}
 
 %----- 取消链接颜色和方框 -----
 %\hypersetup{hidelinks}
@@ -55,11 +55,12 @@
 \setlength{\bibsep}{8pt}  % 调整参考文献间距
 
 %----- 制作索引 -----
-\usepackage{makeidx}
+\usepackage{imakeidx}
 \makeindex
+%\indexsetup{level=\chapter*}
 
 %----- 调整列表项的间距 -----
-%\setlength{\itemsep}{3pt plus 1pt minus 1pt}
+%\setlength{\itemsep}{3pt}
 
 %----- 定义符号描述命令  -----
 \newcommand{\nameditem}[3][]{
@@ -77,7 +78,7 @@
 \newcommand{\RR}{\ensuremath{\mathbb{R}}}
 \newcommand{\A}{\mathcal{A}}
 \newcommand{\bA}{\boldsymbol{A}}
-\newcommand{\ii}{\mathrm{i}\,}
+\newcommand{\ii}{\mathrm{i}\mkern1mu}
 \newcommand{\abs}[1]{\lvert#1\rvert}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 \newcommand{\dx}[1][x]{\mathop{}\!\mathrm{d}#1}
