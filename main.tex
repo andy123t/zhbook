@@ -11,14 +11,15 @@
 %\documentclass[twoside,openright,zihao=-4]{zhbook}
 
 
-% 进行信息设置
-\title{中文书籍 \LaTeX{} 模板  \\[10pt] \zihao{2} 这是书籍模板的副标题}
-\institute{某某大学}
+% 书籍信息设置
+\title{中文书籍 \LaTeX{} 模板}  % 标题
+\subtitle{这是书籍模板的副标题}  % 副标题
 \author{某某某}  % 作者姓名
-%\date{2\,0\,2\,X~年~X~月}  % 日期
-\bioinfo{其他信息}
-\pubyear{202X}  % 出版年
-\publisher{出版社}
+\date{202X年X月}  % 日期
+\version{1.0}  % 版本
+\bioinfo{自定义}{其他信息}  % 其他信息
+
+\extrainfo{\plogo \\[8pt] 出版社}
 
 % 通用虚拟出版商标志
 \newcommand{\plogo}{\fbox{$\mathcal{PL}$}}
@@ -51,8 +52,8 @@
 \usepackage[numbers,sort&compress]{natbib}
 %\usepackage[numbers,super,square,sort&compress]{natbib}
 %\usepackage[authoryear,sort&compress]{natbib}
-\def\bibfont{\small}      % 修改参考文献字体
-\setlength{\bibsep}{8pt}  % 调整参考文献间距
+\def\bibfont{\small}  % 修改参考文献字体
+\setlength{\bibsep}{7pt plus 3pt minus 3pt}  % 调整参考文献间距
 
 %----- 制作索引 -----
 \usepackage{imakeidx}
@@ -106,16 +107,13 @@
 
 \input{part/preface}
 
-
 %%%%%%%%%%%%%%%%% 中文摘要内容和关键字  %%%%%%%%%%%%%%
 
-\input{part/cnabstract}
-
+%\input{part/cnabstract}
 
 %%%%%%%%%%%%%%%%% 英文摘要内容和关键字 %%%%%%%%%%%%%%
 
-\input{part/enabstract}
-
+%\input{part/enabstract}
 
 %%%%%%%%%%%%%%%%%%%%%%% 目录 %%%%%%%%%%%%%%%%%%%%%%%
 

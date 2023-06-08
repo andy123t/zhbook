@@ -2,13 +2,13 @@
 %% This is file `zhbook.cls',
 %%
 %% @author andy123t
-%% @date 2023/06/04
-%% @version v2.3
+%% @date 2023/06/08
+%% @version v2.4
 %% @address https://github.com/andy123t/zhbook
 %%
 
 %---------- 定义的新的Class ----------
-\ProvidesClass{zhbook}[2023/06/04 v2.3]
+\ProvidesClass{zhbook}[2023/06/08 v2.4]
 \NeedsTeXFormat{LaTeX2e}
 
 %---------- 定义的新的Options ----------
@@ -32,6 +32,7 @@
 %---------- 定义页边距 ----------
 \RequirePackage{geometry}
 \geometry{left=3.0cm,right=3.0cm,top=3.0cm,bottom=2.8cm}
+%\geometry{centering,body={16cm,22cm}}
 %\geometry{left=2.5cm,right=2.5cm,top=2.8cm,bottom=2.6cm}
 \setlength{\headheight}{18pt}
 \setlength{\headsep}{18pt}     % 页眉位置
@@ -57,19 +58,14 @@
 \RequirePackage[numbered]{bookmark}
 
 %---------- 定义文档属性格式 ----------
-\def\zhbook@define@term#1{
-    \expandafter\gdef\csname #1\endcsname##1{
-        \expandafter\gdef\csname zhbook@#1\endcsname{##1}
-    }
-    \csname #1\endcsname{}
-}
-
-%---------- 添加几个新的文档属性 ----------
-\zhbook@define@term{subtitle}
-\zhbook@define@term{institute}
-\zhbook@define@term{pubyear}
-\zhbook@define@term{bioinfo}
-\zhbook@define@term{publisher}
+\global\let\@title\@empty
+\global\let\@author\@empty
+\global\let\@date\@empty
+\newcommand\subtitle{\gdef\@subtitle}
+%\newcommand\institute{\gdef\@institute}
+\newcommand\version{\gdef\@version}
+\newcommand\extrainfo{\gdef\@extrainfo}
+\newcommand\bioinfo[2]{\gdef\@bioinfo{{#1}：#2}}
 
 %---------- 重新定义 cleardoublepage ----------
 \renewcommand{\cleardoublepage}{\clearpage
@@ -81,11 +77,11 @@
 %---------- 设置超链接 ----------
 \RequirePackage{hyperref}
 \hypersetup{
-    colorlinks = true,
-    linkcolor = black,
-    citecolor = blue,
-    filecolor = blue,
-    urlcolor = blue,
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=blue,
+    filecolor=blue,
+    urlcolor=blue
 }
 
 \ifprint
@@ -126,9 +122,9 @@
         number = \arabic{chapter},
         numberformat = {},
         aftername = \quad,
-        beforeskip = {-4pt},
+        beforeskip = {6pt},
         afterskip = {24pt},
-        pagestyle = plain,
+        %pagestyle = main,
     }
 }
 %--- section ---
@@ -137,7 +133,7 @@
         format = \linespread{1.0}\sffamily\heiti\zihao{-3}\raggedright,
         numberformat = {},
         aftername = \quad,
-        beforeskip = {24pt},
+        beforeskip = {18pt},
         afterskip = {6pt},
     }
 }
@@ -182,49 +178,37 @@
 %---------- 定义页眉页脚 ----------
 % 定义页眉和页脚 使用 fancyhdr 宏包
 
-%---------- 设置分隔线宽度 ----------
-\renewcommand{\headrulewidth}{0.5pt}    % 在页眉下0.5pt宽的分隔线
-\renewcommand{\footrulewidth}{0pt}      % 在页脚不画分隔线。
-
-%---------- 设置页眉样式 ----------
-% \renewcommand{\headrule}{%
-%    \let\headrulewidth\plainheadrulewidth
-%    \hrule\@height 1.5pt \@width\headwidth %上面线1pt粗
-%    \vskip 1.6pt %两条线的距离1pt
-%    \hrule\@height 0.4pt \@width\headwidth %下面线0.4pt粗
-%    \vskip-1.5pt
-% }
-
-\renewcommand{\headrule}{%
-    \let\headrulewidth\plainheadrulewidth
-    \hrule\@height 0.5pt \@width\headwidth
-    \vskip-1.5pt
-}
-
 %---------- 设置页眉样式 ----------
 \newcommand{\headstyle}{
-    %\fancyhead[C]{\fangsong\zihao{5} 书籍的名字}
+    %\fancyhead[C]{\fangsong\zihao{5} \@title}
     \fancyhead[RO,LE]{\fangsong\zihao{5} $\cdot$\:\thepage\:$\cdot$}
     \fancyhead[LO,RE]{\fangsong\zihao{5} \nouppercase{\leftmark}}
 }
 
 %---------- 设置页脚样式 ----------
-% \newcommand{\footstyle}{
-%     \fancyfoot[C]{\zihao{5} \thepage}
-%     %\fancyfoot[LE]{\zihao{5} \thepage}
-%     %\fancyfoot[RO]{\zihao{5} \thepage}
-% }
-
-\newcommand{\footstyle}{}
-
-%---------- 定义plain样式 ----------
-\fancypagestyle{plain}{%
-    \fancyhf{} %清空原有样式
-    \headstyle
-    \footstyle
+\newcommand{\footstyle}{
+    \fancyfoot[C]{\zihao{5} \thepage}
+    %\fancyfoot[LE]{\zihao{5} \thepage}
+    %\fancyfoot[RO]{\zihao{5} \thepage}
 }
 
-\pagestyle{plain}
+%---------- 重定义plain样式 ----------
+\fancypagestyle{plain}{%
+    \fancyhf{}
+    %\footstyle
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+
+%---------- 定义main样式 ----------
+\fancypagestyle{main}{%
+    \fancyhf{}
+    \headstyle
+    \renewcommand{\headrulewidth}{0.5pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+
+\pagestyle{main}
 
 %---------- 中文段落缩进和行距 ----------
 \setlength{\parindent}{2em}
@@ -342,41 +326,41 @@
 
         \vspace*{3.0\baselineskip}
 
-        \rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt}  % 粗水平线
-        \rule{\textwidth}{0.4pt}   % 细水平线
+        \rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt}  % thick line
+        \rule{\textwidth}{0.5pt}   % thin line
 
-        \vspace*{0.75\baselineskip} % 标题上方的空白
+        \vspace*{0.75\baselineskip} % blank space above the title
 
-        \parbox[t]{15cm}{\centering \zihao{1}\sffamily\heiti \@title}
+        \parbox[t]{15cm}{\centering \zihao{1}\sffamily\heiti \@title
+        \ifx\@subtitle\undefined{}
+        \else
+        \par
+        \vspace*{0.25\baselineskip}
+        \zihao{2}\sffamily\heiti \@subtitle
+        \fi
+        }
 
-        \vspace*{0.75\baselineskip} % 标题下方的空白
+        \vspace*{0.75\baselineskip} % blank space under the title
     
-        \rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % 细水平线
-        \rule{\textwidth}{1.6pt}   % 粗水平线
+        \rule{\textwidth}{0.5pt}\vspace*{-\baselineskip}\vspace{3.2pt} % thin line
+        \rule{\textwidth}{1.6pt}   % thick line
 
-        \vspace*{1\baselineskip}  % 标题栏后的空白
+        \vspace*{1\baselineskip}  % blank space after title
 
-        \large
-        \@author
+        {\large\kaishu \renewcommand{\arraystretch}{1.2}
+        \begin{tabular}{c}
+        \ifx\@author\empty{}\else 作者：\@author \\ \fi
+        %\ifx\@institute\undefined{}\else 机构：\@institute \\ \fi
+        \ifx\@date\empty{}\else 日期：\@date \\ \fi
+        \ifx\@version\undefined{}\else 版本：\@version \\ \fi
+        \ifx\@bioinfo\undefined{}\else \@bioinfo \\ \fi
+        \end{tabular}}
+
+        \vspace*{\fill}
+
+        {\large \ifx\@extrainfo\undefined{}\else \@extrainfo \fi} % extra info
+
         \vspace*{0.1\baselineskip}
-
-        \zhbook@institute
-        \vspace*{0.1\baselineskip}
-        
-        \zhbook@bioinfo
-        \vspace*{0.1\baselineskip}
-        
-        \vfill
-
-        \plogo % Publisher logo
-    
-        \vspace*{0.3\baselineskip}
-    
-        \zhbook@pubyear % Publication year
-
-        {\large \zhbook@publisher} % Publisher
-
-        \vspace*{0.3\baselineskip}
     \end{titlepage}
     \ifprint
         \cleardoublepage
@@ -402,46 +386,37 @@
 %---------- 中文摘要环境 ----------
 \newenvironment{cnabstract}{
     \clearpage
-    \pagestyle{plain}
+    \pagestyle{main}
     \phantomsection
     \addcontentsline{toc}{chapter}{摘~~要}
     \chapter*{摘~~要}
     \chaptermark{摘~~要}
 }{
     \clearpage
-    \if@openright
-        \cleardoublepage
-    \fi
 }
 
 %---------- 英文摘要环境 ----------
 \newenvironment{enabstract}{
     \clearpage
-    \pagestyle{plain}
+    \pagestyle{main}
     \phantomsection
     \addcontentsline{toc}{chapter}{Abstract}
     \chapter*{Abstract}
     \chaptermark{Abstract}
 }{
     \clearpage
-    \if@openright
-        \cleardoublepage
-    \fi
 }
 
 %---------- 前言环境 ----------
-\newenvironment{preface}{
+\newenvironment{preface}[1][前~~言]{
     \clearpage
-    \pagestyle{plain}
+    \pagestyle{main}
     \phantomsection
-    \addcontentsline{toc}{chapter}{前~~言}
-    \chapter*{前~~言}
-    \chaptermark{前~~言}
+    \addcontentsline{toc}{chapter}{#1}
+    \chapter*{#1}
+    \chaptermark{#1}
 }{
     \clearpage
-    \ifprint
-        \cleardoublepage
-    \fi
     \if@openright
         \cleardoublepage
     \fi
@@ -474,17 +449,11 @@
 \newcommand{\maketoc}{
     % 设置目录hdr和页码选项
     \clearpage
-    \pagestyle{plain}
+    \pagestyle{main}
     \phantomsection
     \addcontentsline{toc}{chapter}{\contentsname}
     \tableofcontents
     \clearpage
-    \ifprint
-        \cleardoublepage
-    \fi
-    \if@openright
-        \cleardoublepage
-    \fi
 }
 
 %---------- 设置插图清单和表格清单格式 ----------
@@ -504,9 +473,6 @@
     \chaptermark{\listfigurename}
     \@starttoc{lof}
     \clearpage
-    \if@openright
-        \cleardoublepage
-    \fi
 }
 
 %---------- 重定义表格清单 ----------
@@ -518,9 +484,6 @@
     \chaptermark{\listtablename}
     \@starttoc{lot}
     \clearpage
-    \if@openright
-        \cleardoublepage
-    \fi
 }
 
 %---------- 定义主要符号表环境 ----------
@@ -532,9 +495,6 @@
     \chaptermark{主要符号表}
 }{
     \clearpage
-    \ifprint
-        \cleardoublepage
-    \fi
     \if@openright
         \cleardoublepage
     \fi
