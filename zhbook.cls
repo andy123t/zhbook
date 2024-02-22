@@ -2,13 +2,13 @@
 %% This is file `zhbook.cls',
 %%
 %% @author andy123t
-%% @date 2023/06/08
+%% @date 2024/01/11
 %% @version v2.4
 %% @address https://github.com/andy123t/zhbook
 %%
 
 %---------- 定义的新的Class ----------
-\ProvidesClass{zhbook}[2023/06/08 v2.4]
+\ProvidesClass{zhbook}[2024/01/11 v2.4]
 \NeedsTeXFormat{LaTeX2e}
 
 %---------- 定义的新的Options ----------
@@ -234,8 +234,8 @@
 %--------- 定制图形和表格标题的样式 ----------
 \RequirePackage{caption}
 \captionsetup{font={small,singlespacing},labelformat={default},labelsep=quad}
-\captionsetup[figure]{position=bottom,skip={5pt},name={图}}
-\captionsetup[table]{position=top,skip={2pt},name={表}}
+\captionsetup[figure]{position=bottom,skip={6pt},name={图}}
+\captionsetup[table]{position=top,skip={3pt},name={表}}
 \setlength{\textfloatsep}{12pt plus 2pt minus 2pt}
 \setlength{\floatsep}{10pt plus 2pt minus 2pt}
 \setlength{\intextsep}{10pt plus 2pt minus 2pt}
