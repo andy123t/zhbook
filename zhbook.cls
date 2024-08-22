@@ -2,13 +2,13 @@
 %% This is file `zhbook.cls',
 %%
 %% @author andy123t
-%% @date 2024/01/11
+%% @date 2024/08/22
 %% @version v2.4
 %% @address https://github.com/andy123t/zhbook
 %%
 
 %---------- 定义的新的Class ----------
-\ProvidesClass{zhbook}[2024/01/11 v2.4]
+\ProvidesClass{zhbook}[2024/08/22 v2.4]
 \NeedsTeXFormat{LaTeX2e}
 
 %---------- 定义的新的Options ----------
@@ -20,14 +20,14 @@
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions\relax
 
+%---------- 中文字体宏包 ----------
+\PassOptionsToPackage{no-math}{fontspec}
+
 %---------- 载入Class ----------
 \LoadClass[UTF8,a4paper]{ctexbook}
 \@ifclasslater{ctexbook}{2017/01/01}{}{%
     \ClassError{zhbook}{ctex >= 2017/01/01 is required ...}{}%
 }
-
-%---------- 中文字体宏包 ----------
-\PassOptionsToPackage{no-math}{fontspec}
 
 %---------- 定义页边距 ----------
 \RequirePackage{geometry}
@@ -322,7 +322,6 @@
     \pdfbookmark[0]{封~~面}{cover}
     \begin{titlepage}
         \centering
-        \scshape
 
         \vspace*{3.0\baselineskip}
 
@@ -435,7 +434,7 @@
 \renewcommand{\listtablename}{表格清单}
 \setlength{\cftbeforetoctitleskip}{8pt}
 \setlength{\cftaftertoctitleskip}{20pt}
-\setlength{\cftbeforechapskip}{12pt}
+\setlength{\cftbeforechapskip}{10pt plus 2pt minus 2pt}
 \setlength{\cftbeforesecskip}{3pt}
 \setlength{\cftbeforesubsecskip}{3pt}
 \renewcommand{\cftdot}{$\cdot$}

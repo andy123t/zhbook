@@ -5,106 +5,109 @@
 
 \section{表的使用}
 
-LaTeX 的 table 环境是一个浮动体\index{浮动体}环境, 排版与 figure 环境类似. 作为书籍, 推荐使用三线表进行排版. 一般的三线表\index{三线表}, 标题前后有横线, 表格最后有横线. %当然也可以根据需要在合适的地方加线.
+LaTeX 的 table 环境是一个浮动体\index{浮动体}, 与 figure 环境的排版方式类似. 简单的表格可以使用三线表\index{三线表}进行排版, 其结构是仅在标题的上下以及表格的最下方添加横线.
 
-本文基于 tabularx 宏包定义了新的的左中右 (LCR) 格式, tabularx 环境需要先定义表格的总宽度, LCR 三个格式根据表格的总宽度自行控制列宽, 且其宽度相等. 本模板还定义了命令 \verb|P{}|, 它设置某一列宽度且内容居中 (如 \verb|P{1cm}| 控制某一列的宽度为 1cm), 实际上 \verb|P{}| 命令是在 \verb|p{}| 命令的基础上增加了居中功能.
+排版表格最基本的环境是 tabular 环境, 适合大多数需求. 如果想要控制表格行列间距, 可使用命令 \verb|\tabcolsep| 和 \verb|\arraystretch|, 它们分别控制列间距和行间距. 例如, \verb|\tabcolsep{10pt}| 表示列间距为 10pt, 默认是 6pt,  \verb|\arraystretch{1.2}| 表示行间距为 1.2 倍, 默认是 1 倍间距.
+
+本文基于 array 宏包定义了新的列类型 \verb|LCR| 格式, 实现了居左、居中和居右的对齐方式, 可用于 tabularx 环境. tabularx 环境要求先指定表格的总宽度, \verb|LCR| 三个格式根据表格的总宽度自动调整列宽, 使其相等. 本模板还定义了新的列类型 \verb|P{}|, 可用于 tabular 和 tabularx 环境, 它允许指定某列的宽度并使其内容居中 (如 \verb|P{1cm}| 控制某一列的宽度为 1cm), 实际上 \verb|P{}| 是在 \verb|p{}| 的基础上增加了居中功能.
+
 
 \section{表格示例}
 
-如下表格: 表~\ref{tab:heightweight}. 通过 \verb|autoref| 引用表格: \autoref{tab:heightweight}.
-
-\begin{table}[!htp]
-\centering
-% PLCR已经定义
-\caption{某校学生身高体重样本}
-\label{tab:heightweight}
-\begin{tabularx}{0.9\textwidth}{lCCC}
-   \toprule
-	序号 & 年龄 & 身高 & 体重 \\
-	\midrule
-	001 & 15 & 156 & 42 \\
-	002 & 16 & 158 & 45 \\
-	003 & 14 & 162 & 48 \\
-	004 & 15 & 163 & 50 \\
-    \cmidrule{2-4}
-	平均 & 15 & 159.75 & 46.25 \\
-	\bottomrule
-\end{tabularx}
-\end{table}
-
-基于 tabularx 环境设置表格, 如表~\ref{tab:bookpub}.
+使用 tabular 环境, 如下表格: 表~\ref{tab:foo}. 通过 \verb|autoref| 引用表格: \autoref{tab:foo}.
 
 \begin{table}[htp!]
 \centering
-%\renewcommand\arraystretch{1.1} %定义表格高度
-% PLCR前面已经定义
-\caption{图书的出版流程}\label{tab:bookpub}
-\begin{tabularx}{0.92\textwidth}{|P{2.5cm}|C|}
-\Xhline{2\arrayrulewidth}
-阶段       &  筹备过程 \\
+\setlength{\tabcolsep}{12pt}  % 6pt standard
+\renewcommand{\arraystretch}{1.2}
+\caption{学术活动安排样例}
+\label{tab:foo}
+\begin{tabular}{|c|c|c|c|}
 \hline
-第一阶段    & 作者申报选题, 编辑审稿, 并向编辑部提交选题策划书. \\
-\hline
-第二阶段    &  进行选题论证, 参与论证的是编辑、发行
-人员、总编. \\
-\hline
-第三阶段   &  \makecell{通过了选题论证和出版局审核, 编辑就可以跟作者\\ 签订出版合同.}  \\
-\hline
-第四阶段    &  编辑、校对、设计. \\
-\hline
-第五阶段   &  申请书号, 征订和印刷.  \\
-\Xhline{2\arrayrulewidth}
-\end{tabularx}
+\textbf{日期}  & \textbf{地点} & \textbf{活动名称} & \textbf{备注} \\ \hline
+2024年8月1日      & 上海       & 学术研讨会      & 主题：人工智能 \\ \hline
+2024年8月15日    & 北京       & 学术交流会      & 重点：数学建模 \\ \hline
+2024年9月1日      & 深圳       & 研究研讨会      & 主题：数据科学 \\ \hline
+2024年10月15日  & 广州       & 创新论坛         & 重点：科技创新 \\ \hline
+\end{tabular}
 \end{table}
 
 \clearpage
-基于 tabular 环境设置一些格式: 上下表格线加粗, 如表~\ref{tab:error1}.
-\begin{table}[!htp]
-%\small
+
+\begin{table}[htp!]
 \centering
-%\renewcommand\arraystretch{1.1} %定义表格高度
-\caption{数值误差与收敛速率示例}
-\label{tab:error1}
-\begin{tabular}{c|c|cc|cc|cc}
+\caption{论文进度安排}
+%\renewcommand\arraystretch{1.1}
+\begin{tabular}{|P{4cm}|P{7cm}|}
 \Xhline{2\arrayrulewidth}
-degree &  step-size~$h$  & $L^2$-errors  &  order  & $H^1$-errors & order & $L^\infty$-errors  &  order \\
+论文起止时间    &  论文筹备过程 \\
 \hline
-   &  1/128    & 9.18E-06    &2.02    & 7.70E-03  &1.01       & 6.46E-07    &2.02   \\
-1  &  1/256    & 2.29E-06    &2.01    & 1.92E-03  &1.00       & 1.61E-07    &2.01   \\
-   &  1/512    & 5.70E-07    &2.00    & 9.56E-04  &1.00       & 4.01E-08    &2.00   \\
-\hline  %   \cline{1-8}
-   &  1/128    & 1.39E-08    &3.01    & 1.15E-05  &2.01       & 3.48E-12   &4.02    \\
-2  &  1/256    & 1.73E-09    &3.01    & 2.88E-06  &2.01       & 3.27E-13   &3.94    \\
-   &  1/512    & 2.17E-10    &3.00    & 7.24E-06  &2.00       & 6.66E-13   &1.55    \\
-\hline  %   \cline{1-8}
-   &  1/32     & 2.28E-09    &4.05    & 6.92E-07  &3.04       & 1.45E-15   &8.21    \\
-3  &  1/64     & 1.42E-10    &4.03    & 8.65E-08  &3.02       & 2.06E-14   &3.85    \\
-   &  1/128    & 8.91E-12    &4.01    & 1.08E-08  &3.01       & 3.86E-14   &0.91    \\
+20xx.xx -- 20xx.xx  &  论文定题, 整理相关文献 \\
+\hline
+20xx.xx -- 20xx.xx  &  审查、修改、完成开题报告 \\
+\hline
+20xx.xx -- 20xx.xx  &  对论文排版、初步完成论文初稿 \\
+\hline
+20xx.xx -- 20xx.xx  &  毕业论文预答辩 \\
+\hline
+20xx.xx -- 20xx.xx  &  对论文进行补充、完善 \\
+\hline
+20xx.xx -- 20xx.xx  &  论文定稿 \\
+\hline
+20xx.xx -- 20xx.xx  &  毕业论文答辩 \\
 \Xhline{2\arrayrulewidth}
 \end{tabular}
 \end{table}
 
-基于 tabularx 环境设置一些格式, 如表~\ref{tab:error2}.
+
+使用 tabularx 环境, 如下表格: 表~\ref{tab:heightweight}.
+
 \begin{table}[htp!]
 \centering
-%\renewcommand\arraystretch{1.1} %定义表格高度
-\caption{数值误差示例}
-\label{tab:error2}
-\begin{tabularx}{0.96\textwidth}{|P{0.8cm}|C|C|C|C|C|C|}
-\Xhline{2\arrayrulewidth}
-N  & A       & B    & C       & D      & E       & F   \\
-\Xhline{2\arrayrulewidth}
-2  & 9.20E-05 & 9.90E-05 & 1.00E-06 & 8.00E-06 & 1.50E-05 & 6.70E-05 \\
-4  & 9.80E-05 & 8.00E-05 & 7.00E-06 & 1.40E-05 & 1.60E-05 & 7.30E-05 \\
-6  & 4.00E-06 & 8.10E-05 & 8.80E-05 & 2.00E-05 & 2.20E-05 & 5.40E-05 \\
-8  & 8.50E-05 & 8.70E-05 & 1.90E-05 & 2.10E-05 & 3.00E-06 & 6.00E-05 \\
-10 & 8.60E-05 & 9.30E-05 & 2.50E-05 & 2.00E-06 & 9.00E-06 & 6.10E-05 \\
-12 & 1.70E-05 & 2.40E-05 & 7.60E-05 & 8.30E-05 & 9.00E-05 & 4.20E-05 \\
-14 & 2.30E-05 & 5.00E-06 & 8.20E-05 & 8.90E-05 & 9.10E-05 & 4.80E-05 \\
-16 & 7.90E-05 & 6.00E-06 & 1.30E-05 & 9.50E-05 & 9.70E-05 & 2.90E-05 \\
-18 & 1.00E-05 & 1.20E-05 & 9.40E-05 & 9.60E-05 & 7.80E-05 & 3.50E-05 \\
-20 & 1.10E-05 & 1.80E-05 & 1.10E-04   & 7.70E-05 & 8.40E-05 & 3.60E-05  \\
-\Xhline{2\arrayrulewidth}
+% PLCR已经定义
+\caption{某校学生身高体重样本}
+\renewcommand\arraystretch{0.92}
+\label{tab:heightweight}
+\begin{tabularx}{0.9\textwidth}{P{1.5cm}CCC}
+\toprule
+序号 & 年龄 & 身高 & 体重 \\
+\midrule
+001 & 15 & 156 & 42 \\
+002 & 16 & 158 & 45 \\
+003 & 14 & 162 & 48 \\
+004 & 15 & 163 & 50 \\
+\cmidrule{2-4}
+平均 & 15 & 159.75 & 46.25 \\
+\bottomrule
 \end{tabularx}
+\end{table}
+
+
+基于 tabular 环境设置一些格式: 上下表格线加粗, 如表~\ref{tab:error}.
+
+\begin{table}[htp!]
+%\small
+\centering
+%\setlength{\tabcolsep}{8pt}
+%\renewcommand\arraystretch{1.1}
+\caption{数值误差与收敛速率示例}
+\label{tab:error}
+\begin{tabular}{c|c|cc|cc|cc}
+\Xhline{2\arrayrulewidth}
+逼近次数 & 步长 $h$ & $L^2$ 误差 & 收敛阶 & $H^1$ 误差 & 收敛阶 & $L^\infty$ 误差 & 收敛阶 \\
+\hline
+  & 1/128 & 9.18E-06 & 2.02 & 7.70E-03 & 1.01  & 6.46E-07 & 2.02 \\
+1 & 1/256 & 2.29E-06 & 2.01 & 1.92E-03 & 1.00  & 1.61E-07 & 2.01 \\
+  & 1/512 & 5.70E-07 & 2.00 & 9.56E-04 & 1.00  & 4.01E-08 & 2.00 \\
+\hline
+  & 1/128 & 1.39E-08 & 3.01 & 1.15E-05 & 2.01  & 3.48E-12 & 4.02 \\
+2 & 1/256 & 1.73E-09 & 3.01 & 2.88E-06 & 2.01  & 3.27E-13 & 3.94 \\
+  & 1/512 & 2.17E-10 & 3.00 & 7.24E-06 & 2.00  & 6.66E-13 & 1.55 \\
+\hline
+  & 1/32  & 2.28E-09 & 4.05 & 6.92E-07 & 3.04  & 1.45E-15 & 8.21 \\
+3 & 1/64  & 1.42E-10 & 4.03 & 8.65E-08 & 3.02  & 2.06E-14 & 3.85 \\
+  & 1/128 & 8.91E-12 & 4.01 & 1.08E-08 & 3.01  & 3.86E-14 & 0.91 \\
+\Xhline{2\arrayrulewidth}
+\end{tabular}
 \end{table}
 

@@ -16,7 +16,7 @@
   a^2+b^2=c^2.
 \end{equation}
 
-如图~\ref{fig:sinx2}.
+附录的图片: 如图~\ref{fig:sinx2}.
 \begin{figure}[htp!]
   \centering
   \includegraphics[width=0.45\linewidth]{image1.eps}
@@ -24,24 +24,24 @@
 \end{figure}
 
 
-如下表格: 表~\ref{tab:heightweight2}. 通过 \verb|autoref| 引用表格: \autoref{tab:heightweight2}.
+附录的表格: 表~\ref{tab:heightweight2}.
 
-\begin{table}[!htp]
+\begin{table}[htp!]
 \centering
 % PLCR已经定义
 \caption{某校学生身高体重样本}
 \label{tab:heightweight2}
-\begin{tabularx}{0.9\textwidth}{lCCC}
-   \toprule
-	序号 & 年龄 & 身高 & 体重 \\
-	\midrule
-	001 & 15 & 156 & 42 \\
-	002 & 16 & 158 & 45 \\
-	003 & 14 & 162 & 48 \\
-	004 & 15 & 163 & 50 \\
-    \cmidrule{2-4}
-	平均 & 15 & 159.75 & 46.25 \\
-	\bottomrule
+\begin{tabularx}{0.9\textwidth}{P{1.5cm}CCC}
+\toprule
+序号 & 年龄 & 身高 & 体重 \\
+\midrule
+001 & 15 & 156 & 42 \\
+002 & 16 & 158 & 45 \\
+003 & 14 & 162 & 48 \\
+004 & 15 & 163 & 50 \\
+\cmidrule{2-4}
+平均 & 15 & 159.75 & 46.25 \\
+\bottomrule
 \end{tabularx}
 \end{table}
 
