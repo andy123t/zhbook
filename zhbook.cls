@@ -2,13 +2,13 @@
 %% This is file `zhbook.cls',
 %%
 %% @author andy123t
-%% @date 2024/08/22
-%% @version v2.4
+%% @date 2024/11/13
+%% @version v2.5
 %% @address https://github.com/andy123t/zhbook
 %%
 
 %---------- 定义的新的Class ----------
-\ProvidesClass{zhbook}[2024/08/22 v2.4]
+\ProvidesClass{zhbook}[2024/11/13 v2.5]
 \NeedsTeXFormat{LaTeX2e}
 
 %---------- 定义的新的Options ----------
@@ -68,15 +68,15 @@
 \newcommand\bioinfo[2]{\gdef\@bioinfo{{#1}：#2}}
 
 %---------- 重新定义 cleardoublepage ----------
-\renewcommand{\cleardoublepage}{\clearpage
+\renewcommand{\cleardoublepage}{%
     \clearpage\if@twoside\ifodd\c@page\else%
     \thispagestyle{empty}%
-    \hbox{}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi%
+    \hbox{}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi
 }
 
 %---------- 设置超链接 ----------
 \RequirePackage{hyperref}
-\hypersetup{
+\hypersetup{%
     colorlinks=true,
     linkcolor=black,
     citecolor=blue,
@@ -125,44 +125,32 @@
         beforeskip = {6pt},
         afterskip = {24pt},
         %pagestyle = main,
-    }
-}
-%--- section ---
-\ctexset{
+    },
     section = {
         format = \linespread{1.0}\sffamily\heiti\zihao{-3}\raggedright,
         numberformat = {},
         aftername = \quad,
         beforeskip = {18pt},
         afterskip = {6pt},
-    }
-}
-%--- subsection ---
-\ctexset{
+    },
     subsection = {
         format = \linespread{1.0}\sffamily\heiti\zihao{4}\raggedright,
         numberformat = {},
         aftername = \quad,
         beforeskip = {12pt},
         afterskip = {6pt},
-    }
-}
-%--- subsubsection ---
-\ctexset{
+    },
     subsubsection = {
         format = \linespread{1.0}\sffamily\heiti\zihao{-4}\raggedright,
         numberformat = {},
         aftername = \quad,
         beforeskip = {12pt},
         afterskip = {6pt},
-    }
-}
-%--- appendix ---
-\ctexset{
+    },
     appendix = {
         numbering = true,
         number = \Alph{chapter},
-    }
+    },
 }
 
 %---------- 算法宏包及设置 ----------
@@ -179,17 +167,17 @@
 % 定义页眉和页脚 使用 fancyhdr 宏包
 
 %---------- 设置页眉样式 ----------
-\newcommand{\headstyle}{
+\newcommand{\headstyle}{%
     %\fancyhead[C]{\fangsong\zihao{5} \@title}
-    \fancyhead[RO,LE]{\fangsong\zihao{5} $\cdot$\:\thepage\:$\cdot$}
-    \fancyhead[LO,RE]{\fangsong\zihao{5} \nouppercase{\leftmark}}
+    \fancyhead[RO,LE]{\fangsong\zihao{5}$\cdot$\:\thepage\:$\cdot$}
+    \fancyhead[LO,RE]{\fangsong\zihao{5}\nouppercase{\leftmark}}
 }
 
 %---------- 设置页脚样式 ----------
-\newcommand{\footstyle}{
-    \fancyfoot[C]{\zihao{5} \thepage}
-    %\fancyfoot[LE]{\zihao{5} \thepage}
-    %\fancyfoot[RO]{\zihao{5} \thepage}
+\newcommand{\footstyle}{%
+    \fancyfoot[C]{\zihao{5}\thepage}
+    %\fancyfoot[LE]{\zihao{5}\thepage}
+    %\fancyfoot[RO]{\zihao{5}\thepage}
 }
 
 %---------- 重定义plain样式 ----------
@@ -262,10 +250,8 @@
 % \setlength{\belowbottomsep}{0pt}
 
 %---------- 数学定理设置 ----------
-\newtheoremstyle{zhbook}
-{0.5\topsep}{0.5\topsep}
-{\itshape}{}{\bfseries}
-{.}{5pt plus 1pt minus 1pt}{}
+\newtheoremstyle{zhbook}{0.5\topsep}{0.5\topsep}%
+{\itshape}{}{\bfseries}{.}{5pt plus 1pt minus 1pt}{}
 %\theoremstyle{plain}
 \theoremstyle{zhbook}
 \newtheorem{definition}{定义}[chapter]
@@ -282,8 +268,8 @@
 \newtheorem{conjecture}{猜想}[chapter]
 %\renewcommand{\qedsymbol}{$\blacksquare$}
 \renewcommand{\proofname}{证明}
-\renewenvironment{proof}[1][\proofname]{\par
-    \pushQED{\qed}%
+\renewenvironment{proof}[1][\proofname]{%
+    \par\pushQED{\qed}%
     %\normalfont \topsep6\p@\@plus6\p@\relax
     \normalfont \topsep3\p@\@plus3\p@\relax
     \trivlist\item[\hskip\labelsep
@@ -296,7 +282,7 @@
 \allowdisplaybreaks[4]
 
 %---------- 设置公式间距 ----------
-\AtBeginDocument{
+\AtBeginDocument{%
     \setlength{\abovedisplayskip}{6pt plus 2pt minus 2pt}
     \setlength{\belowdisplayskip}{6pt plus 2pt minus 2pt}
     \setlength{\abovedisplayshortskip}{3pt plus 1pt minus 1pt}
@@ -316,28 +302,27 @@
 \setlist{nolistsep}
 
 %---------- 定义新的标题页面 ----------
-\renewcommand{\maketitle}[1][15em]{
+\renewcommand{\maketitle}[1][15em]{%
     \clearpage
     \phantomsection
     \pdfbookmark[0]{封~~面}{cover}
     \begin{titlepage}
         \centering
 
-        \vspace*{3.0\baselineskip}
+        \vspace*{3.0\baselineskip}%
 
         \rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt}  % thick line
         \rule{\textwidth}{0.5pt}   % thin line
 
         \vspace*{0.75\baselineskip} % blank space above the title
 
-        \parbox[t]{15cm}{\centering \zihao{1}\sffamily\heiti \@title
-        \ifx\@subtitle\undefined{}
-        \else
+        \parbox[t]{15cm}{\centering\zihao{1}\sffamily\heiti\@title%
+        \ifx\@subtitle\undefined{}\else
         \par
-        \vspace*{0.25\baselineskip}
-        \zihao{2}\sffamily\heiti \@subtitle
+        \vspace*{0.25\baselineskip}%
+        \zihao{2}\sffamily\heiti\@subtitle
         \fi
-        }
+        }%
 
         \vspace*{0.75\baselineskip} % blank space under the title
     
@@ -346,7 +331,7 @@
 
         \vspace*{1\baselineskip}  % blank space after title
 
-        {\large\kaishu \renewcommand{\arraystretch}{1.2}
+        {\large\kaishu\renewcommand{\arraystretch}{1.2}%
         \begin{tabular}{c}
         \ifx\@author\empty{}\else 作者：\@author \\ \fi
         %\ifx\@institute\undefined{}\else 机构：\@institute \\ \fi
@@ -355,11 +340,11 @@
         \ifx\@bioinfo\undefined{}\else \@bioinfo \\ \fi
         \end{tabular}}
 
-        \vspace*{\fill}
+        \vspace*{\fill}%
 
         {\large \ifx\@extrainfo\undefined{}\else \@extrainfo \fi} % extra info
 
-        \vspace*{0.1\baselineskip}
+        \vspace*{0.1\baselineskip}%
     \end{titlepage}
     \ifprint
         \cleardoublepage
@@ -376,45 +361,47 @@
 %--- 中文关键词
 \newcommand{\cnkeywords}[1]{%
     \vspace*{0.8\baselineskip}\par
-    \noindent {\bfseries 关键词:~} #1}
+    \noindent {\bfseries 关键词:~} #1%
+}
 %--- 英文关键词
 \newcommand{\enkeywords}[1]{%
     \vspace*{0.8\baselineskip}\par
-    \noindent {\bfseries Key Words:~} #1}
+    \noindent {\bfseries Key Words:~} #1%
+}
 
 %---------- 中文摘要环境 ----------
-\newenvironment{cnabstract}{
+\newenvironment{cnabstract}{%
     \clearpage
     \pagestyle{main}
     \phantomsection
     \addcontentsline{toc}{chapter}{摘~~要}
     \chapter*{摘~~要}
     \chaptermark{摘~~要}
-}{
+}{%
     \clearpage
 }
 
 %---------- 英文摘要环境 ----------
-\newenvironment{enabstract}{
+\newenvironment{enabstract}{%
     \clearpage
     \pagestyle{main}
     \phantomsection
     \addcontentsline{toc}{chapter}{Abstract}
     \chapter*{Abstract}
     \chaptermark{Abstract}
-}{
+}{%
     \clearpage
 }
 
 %---------- 前言环境 ----------
-\newenvironment{preface}[1][前~~言]{
+\newenvironment{preface}[1][前~~言]{%
     \clearpage
     \pagestyle{main}
     \phantomsection
     \addcontentsline{toc}{chapter}{#1}
     \chapter*{#1}
     \chaptermark{#1}
-}{
+}{%
     \clearpage
     \if@openright
         \cleardoublepage
@@ -443,56 +430,54 @@
 \renewcommand{\cftchapdotsep}{\cftdotsep}
 \renewcommand\cftchapleader{\cftdotfill{\cftchapdotsep}}
 \renewcommand{\cftsecdotsep}{\cftdotsep}
+\renewcommand{\cftfigpresnum}{\figurename~}
+\setlength{\cftfigindent}{0pt}
+\setlength{\cftfignumwidth}{3.5em}
+\renewcommand{\cfttabpresnum}{\tablename~}
+\setlength{\cfttabindent}{0pt}
+\setlength{\cfttabnumwidth}{3.5em}
 
 %---------- 设置新的生成目录命令 ----------
-\newcommand{\maketoc}{
+\newcommand{\maketoc}{%
     % 设置目录hdr和页码选项
     \clearpage
     \pagestyle{main}
     \phantomsection
     \addcontentsline{toc}{chapter}{\contentsname}
-    \tableofcontents
+    \tableofcontents%
     \clearpage
 }
 
-%---------- 设置插图清单和表格清单格式 ----------
-\titlecontents{figure}[0pt]{}{
-\figureautorefname\hspace*{0.3em}\thecontentslabel\quad}{}{
-\titlerule*[8pt]{$\cdot$}\contentspage}
-\titlecontents{table}[0pt]{}{
-\tableautorefname\hspace*{0.3em}\thecontentslabel\quad}{}{
-\titlerule*[8pt]{$\cdot$}\contentspage}
-
 %---------- 重定义插图清单 ----------
-\newcommand\makelof{
+\newcommand\makelof{%
     \clearpage
     \phantomsection
     \addcontentsline{toc}{chapter}{\listfigurename}
     \chapter*{\listfigurename}
     \chaptermark{\listfigurename}
-    \@starttoc{lof}
+    \@starttoc{lof}%
     \clearpage
 }
 
 %---------- 重定义表格清单 ----------
-\newcommand\makelot{
+\newcommand\makelot{%
     \clearpage
     \phantomsection
     \addcontentsline{toc}{chapter}{\listtablename}
     \chapter*{\listtablename}
     \chaptermark{\listtablename}
-    \@starttoc{lot}
+    \@starttoc{lot}%
     \clearpage
 }
 
 %---------- 定义主要符号表环境 ----------
-\newenvironment{denotation}{
+\newenvironment{denotation}{%
     \clearpage
     \phantomsection
     \addcontentsline{toc}{chapter}{主要符号表}
     \chapter*{主要符号表}
     \chaptermark{主要符号表}
-}{
+}{%
     \clearpage
     \if@openright
         \cleardoublepage
@@ -501,24 +486,24 @@
 
 %---------- 重新定义附录命令 ----------
 % \let \oldappendix \appendix
-% \renewcommand{\appendix}[1]{
+% \renewcommand{\appendix}[1]{%
 %     \clearpage
 %     \renewcommand{\theequation}{\Alph{chapter}\arabic{equation}}
 %     \renewcommand{\thefigure}{\Alph{chapter}\arabic{figure}}
 %     \renewcommand{\thetable}{\Alph{chapter}\arabic{table}}
-%     \oldappendix{#1}
+%     \oldappendix{#1}%
 % }
 
 %---------- 重新定义参考文献页 ----------
 \renewcommand{\bibname}{参考文献}
 %--- 设置新的参考文献命令 ---
 \let \oldbibliography \bibliography
-\renewcommand{\bibliography}[1]{
+\renewcommand{\bibliography}[1]{%
     % 添加到目录
     \clearpage
     \phantomsection
     \addcontentsline{toc}{chapter}{\bibname}
-    \oldbibliography{#1}
+    \oldbibliography{#1}%
 }
 
 % End of file `zhbook.cls'.
