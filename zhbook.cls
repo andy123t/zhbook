@@ -2,13 +2,13 @@
 %% This is file `zhbook.cls',
 %%
 %% @author andy123t
-%% @date 2024/11/13
+%% @date 2024/11/16
 %% @version v2.5
 %% @address https://github.com/andy123t/zhbook
 %%
 
 %---------- 定义的新的Class ----------
-\ProvidesClass{zhbook}[2024/11/13 v2.5]
+\ProvidesClass{zhbook}[2024/11/16 v2.5]
 \NeedsTeXFormat{LaTeX2e}
 
 %---------- 定义的新的Options ----------
@@ -254,14 +254,14 @@
 {\itshape}{}{\bfseries}{.}{5pt plus 1pt minus 1pt}{}
 %\theoremstyle{plain}
 \theoremstyle{zhbook}
+\newtheorem{theorem}{定理}[chapter]
+\newtheorem{lemma}{引理}[chapter]
+\newtheorem{corollary}{推论}[chapter]
 \newtheorem{definition}{定义}[chapter]
 \newtheorem{proposition}{命题}[chapter]
-\newtheorem{lemma}{引理}[chapter]
-\newtheorem{theorem}{定理}[chapter]
 \newtheorem{example}{例}[chapter]
-\newtheorem{corollary}{推论}[chapter]
 \newtheorem{remark}{注}[chapter]
-\newtheorem{exercise}{练习}[chapter]
+\newtheorem{exercise}{习题}[chapter]
 \newtheorem{assumption}{假设}[chapter]
 \newtheorem{axiom}{公理}[chapter]
 \newtheorem{property}{性质}[chapter]
@@ -277,6 +277,20 @@
 }{%
     \popQED\endtrivlist\@endpefalse
 }
+
+%---------- 定义定理的autoref ----------
+\renewcommand{\theoremautorefname}{定理}
+\newcommand{\lemmaautorefname}{引理}
+\newcommand{\corollaryautorefname}{推论}
+\newcommand{\definitionautorefname}{定义}
+\newcommand{\propositionautorefname}{命题}
+\newcommand{\exampleautorefname}{例}
+\newcommand{\remarkautorefname}{注}
+\newcommand{\exerciseautorefname}{习题}
+\newcommand{\assumptionautorefname}{假设}
+\newcommand{\axiomautorefname}{公理}
+\newcommand{\propertyautorefname}{性质}
+\newcommand{\conjectureautorefname}{猜想}
 
 %---------- 数学公式设置 ----------
 \allowdisplaybreaks[4]
@@ -485,7 +499,7 @@
 }
 
 %---------- 重新定义附录命令 ----------
-% \let \oldappendix \appendix
+% \let\oldappendix\appendix
 % \renewcommand{\appendix}[1]{%
 %     \clearpage
 %     \renewcommand{\theequation}{\Alph{chapter}\arabic{equation}}
@@ -497,7 +511,7 @@
 %---------- 重新定义参考文献页 ----------
 \renewcommand{\bibname}{参考文献}
 %--- 设置新的参考文献命令 ---
-\let \oldbibliography \bibliography
+\let\oldbibliography\bibliography
 \renewcommand{\bibliography}[1]{%
     % 添加到目录
     \clearpage
