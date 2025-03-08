@@ -12,12 +12,12 @@
 
 在线 LaTeX 编辑可以使用 [TeXPage](https://www.texpage.com/)，设置字体 (`fontset=windows`) ，XeLaTeX 编译运行，推荐使用。
 
-中文索引 (拼音排序) 使用 zhmakeindex, 参看文件 **索引使用说明.txt**
+中文索引 (默认拼音排序) 使用 zhmakeindex, 参看文件 **索引使用说明.txt**
 
 ```latex
 % 索引宏包与相关设置
 \usepackage[noautomatic]{imakeidx}
-\makeindex[columns=2,intoc=true,title={索引}]
+\makeindex[columns=2,intoc=true,title={索~~引}]
 ```
 
 TeX 文件编译顺序:
