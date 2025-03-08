@@ -20,26 +20,15 @@ set TEXINPUTS=.//;%TEXINPUTS%
 set BIBINPUTS=.//;%BIBINPUTS%
 set BSTINPUTS=.//;%BSTINPUTS%
 @rem ------------------------------------------------
-@rem ->> Build textual content
+@rem ->> makeindex the file
 @rem ------------------------------------------------
-%CompileName% %FileName%
+@echo off
 @rem ------------------------------------------------
-@rem ->> Build references and links
 @rem ------------------------------------------------
-bibtex %FileName%
 makeindex %FileName%
 zhmakeindex %FileName%
-%CompileName% %FileName%
-%CompileName% %FileName%
-@rem ------------------------------------------------
-@rem ->> Delete temporary file
-@rem ------------------------------------------------
-del /q *.aux *.bbl *.blg *.log *.out *.toc *.bcf *.xml *.synctex *.nlo *.nls *.bak *.ind *.idx *.ilg *.lof *.lot *.ent-x *.tmp *.ltx *.los *.lol *.loc *.listing *.gz *.userbak *.nav *.snm *.vrb *.synctex(busy)
-del /q *.nav *.snm *.vrb *.fls *.xdv *.fdb_latexmk
-@rem ------------------------------------------------
-@rem ->> View compiled file
 @rem ------------------------------------------------
 echo ------------------------------------------------
-echo %CompileName% %FileName%.tex finished...
+echo Index generation completed
 echo ------------------------------------------------
 

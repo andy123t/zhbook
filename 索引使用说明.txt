@@ -1,0 +1,55 @@
+  
+  索引使用说明
+  
+  把程序 zhmakeindex.exe 直接放到 texlive 安装目录下程序文件夹
+  比如文件夹 C:\texlive\2024\bin\windows (与 pdflatex 同一文件夹)
+  zhmakeindex.exe 下载地址: https://ctan.org/tex-archive/indexing/zhmakeindex/bin/windows_x64
+  
+  【编译与索引生成】 使用编辑器如 WinEdt 的用户直接使用
+  XeLaTeX -> BibTeX -> 运行 makezhindex.bat 或 makezhindex.sh 
+  -> XeLaTeX -> XeLaTeX
+  
+  Mac 用户请参看 zhmakeindex 程序及手册 https://ctan.org/pkg/zhmakeindex
+  
+  %========================================%
+  
+  注：以下为选择索引宏包与配置, 以及命令行的说明
+  所有命令行均要在 TeX 主文件所在文件夹运行
+  
+  %========================================%
+  
+  原始索引生成 (不按拼音排序)
+  \usepackage{imakeidx}
+  \makeindex[columns=2,intoc=true,title={索引}]
+  
+  TeX文件编译顺序:
+  xelatex main
+  bibtex main
+  xelatex main
+  xelatex main
+  
+  这些命令与编辑器选项运行等同
+  
+  %========================================%
+  
+  新的索引生成 (默认按拼音排序)
+  \usepackage[noautomatic]{imakeidx}
+  \makeindex[columns=2,intoc=true,title={索引}]
+  
+  TeX文件编译顺序:
+  xelatex main
+  bibtex main
+  makeindex main
+  zhmakeindex main
+  xelatex main
+  xelatex main
+  
+  这里 zhmakeindex 只能使用命令运行
+  
+  makefiles.bat 和 makefiles.sh 包含索引生成的所有编译命令
+  makezhindex.bat 和 makezhindex.sh 只包含索引生成的编译命令
+  
+  %========================================%
+  
+  
+  

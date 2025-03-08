@@ -2,13 +2,13 @@
 %% This is file `zhbook.cls',
 %%
 %% @author andy123t
-%% @date 2024/11/16
-%% @version v2.5
+%% @date 2025/03/08
+%% @version v2.6
 %% @address https://github.com/andy123t/zhbook
 %%
 
 %---------- 定义的新的Class ----------
-\ProvidesClass{zhbook}[2024/11/16 v2.5]
+\ProvidesClass{zhbook}[2025/03/08 v2.6]
 \NeedsTeXFormat{LaTeX2e}
 
 %---------- 定义的新的Options ----------
@@ -251,7 +251,7 @@
 
 %---------- 数学定理设置 ----------
 \newtheoremstyle{zhbook}{0.5\topsep}{0.5\topsep}%
-{\itshape}{}{\bfseries}{.}{5pt plus 1pt minus 1pt}{}
+{\kaishu}{}{\sffamily\heiti}{.}{5pt plus 1pt minus 1pt}{}%%
 %\theoremstyle{plain}
 \theoremstyle{zhbook}
 \newtheorem{theorem}{定理}[chapter]

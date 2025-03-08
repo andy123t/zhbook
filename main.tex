@@ -59,9 +59,14 @@
 \setlength{\bibsep}{7pt plus 3pt minus 3pt}  % 调整参考文献间距
 
 %----- 制作索引 -----
-\usepackage{imakeidx}
-\makeindex
+%\usepackage{imakeidx}
+%\makeindex[columns=2,intoc=true,title={索引}]
 %\indexsetup{level=\chapter*}
+
+% 使用 zhmakeindex 按照中文拼音排序
+\usepackage[noautomatic]{imakeidx}
+\makeindex[columns=2,intoc=true,title={索引}]
+
 
 %----- 调整列表项的间距 -----
 %\setlength{\itemsep}{3pt}
@@ -188,9 +193,6 @@
 %%%%%%%%%%%%%%%%%%%%%% 索引  %%%%%%%%%%%%%%%%%%%%%%%%
 
 \clearpage
-\renewcommand\indexname{索~~引}
-\phantomsection
-\addcontentsline{toc}{chapter}{索~~引}
 \printindex
 
 
