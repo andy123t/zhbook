@@ -15,7 +15,12 @@
 中文索引 (默认拼音排序) 使用 zhmakeindex, 参看文件 **索引使用说明.txt**
 
 ```latex
-% 索引宏包与相关设置
+%----- 制作索引 -----
+% 自动编译 (默认字符编码排序)
+%\usepackage{imakeidx}
+%\makeindex[columns=2,intoc=true,title={索~~引}]
+
+% 可使用 zhmakeindex 改变索引排序 (默认拼音字母排序)
 \usepackage[noautomatic]{imakeidx}
 \makeindex[columns=2,intoc=true,title={索~~引}]
 ```
@@ -30,7 +35,7 @@ xelatex main
 xelatex main
 ```
 
-快速编辑脚本:
+快速编译脚本:
 
 makefiles.bat 和 makefiles.sh 包含索引生成的所有编译命令。
 
