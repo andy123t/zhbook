@@ -2,13 +2,13 @@
 %% This is file `zhbook.cls',
 %%
 %% @author andy123t
-%% @date 2025/03/08
+%% @date 2025/04/15
 %% @version v2.6
 %% @address https://github.com/andy123t/zhbook
 %%
 
 %---------- 定义的新的Class ----------
-\ProvidesClass{zhbook}[2025/03/08 v2.6]
+\ProvidesClass{zhbook}[2025/04/15 v2.6]
 \NeedsTeXFormat{LaTeX2e}
 
 %---------- 定义的新的Options ----------
@@ -31,14 +31,15 @@
 
 %---------- 定义页边距 ----------
 \RequirePackage{geometry}
-\geometry{left=3.0cm,right=3.0cm,top=3.0cm,bottom=2.8cm}
-%\geometry{centering,body={16cm,22cm}}
-%\geometry{left=2.5cm,right=2.5cm,top=2.8cm,bottom=2.6cm}
-\setlength{\headheight}{18pt}
-\setlength{\headsep}{18pt}     % 页眉位置
-\setlength{\footskip}{28pt}    % 页脚位置
+\geometry{
+    left=3.0cm, right=3.0cm,
+    top=3.0cm, bottom=3.0cm,
+    headheight=15pt, headsep=18pt,
+    footskip=28pt
+}
 
 %---------- 常用宏包 ----------
+\RequirePackage{keyval}
 \RequirePackage{amsmath,amssymb,amsthm}
 \RequirePackage{mathrsfs}
 \RequirePackage{graphicx}
@@ -67,15 +68,23 @@
 \newcommand\extrainfo{\gdef\@extrainfo}
 \newcommand\bioinfo[2]{\gdef\@bioinfo{{#1}：#2}}
 
-%---------- 重新定义 cleardoublepage ----------
+%------- 重新定义cleardoublepage --------
 \renewcommand{\cleardoublepage}{%
-    \clearpage\if@twoside\ifodd\c@page\else%
-    \thispagestyle{empty}%
-    \hbox{}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi
+    \clearpage
+    \if@twoside
+        \ifodd\c@page\else
+            \thispagestyle{empty}%
+            \hbox{}\newpage
+            \if@twocolumn\hbox{}\newpage\fi
+        \fi
+    \fi
 }
 
 %---------- 设置超链接 ----------
 \RequirePackage{hyperref}
+\ifprint
+\hypersetup{hidelinks=true}
+\else
 \hypersetup{%
     colorlinks=true,
     linkcolor=black,
@@ -83,9 +92,6 @@
     filecolor=blue,
     urlcolor=blue
 }
-
-\ifprint
-    \hypersetup{hidelinks} % remove link color and border
 \fi
 
 %---------- 设置正文前页码为小写罗马数字 ----------
@@ -164,9 +170,6 @@
 %\renewcommand{\appendixname}{附录}
 
 %---------- 定义页眉页脚 ----------
-% 定义页眉和页脚 使用 fancyhdr 宏包
-
-%---------- 设置页眉样式 ----------
 \newcommand{\headstyle}{%
     %\fancyhead[C]{\fangsong\zihao{5} \@title}
     \fancyhead[RO,LE]{\fangsong\zihao{5}$\cdot$\:\thepage\:$\cdot$}
@@ -180,7 +183,7 @@
     %\fancyfoot[RO]{\zihao{5}\thepage}
 }
 
-%---------- 重定义plain样式 ----------
+%---------- 定义plain样式 ----------
 \fancypagestyle{plain}{%
     \fancyhf{}
     %\footstyle
@@ -207,7 +210,6 @@
 %\setlength{\baselineskip}{24pt}
 
 %---------- 浮动对象设置 ----------
-% 浮动对象的缺省值稍微宽松一点
 \renewcommand{\textfraction}{0.15}
 \renewcommand{\topfraction}{0.85}
 \renewcommand{\bottomfraction}{0.65}
@@ -219,7 +221,7 @@
 %\renewcommand{\thetable}{\thechapter.\arabic{table}}
 %\renewcommand{\thefigure}{\thechapter.\arabic{figure}}
 
-%--------- 定制图形和表格标题的样式 ----------
+%---------- 设置图片和表格样式 ----------
 \RequirePackage{caption}
 \captionsetup{font={small,singlespacing},labelformat={default},labelsep=quad}
 \captionsetup[figure]{position=bottom,skip={6pt},name={图}}
@@ -234,7 +236,7 @@
 \renewcommand{\figureautorefname}{图}
 \renewcommand{\tableautorefname}{表}
 
-%---------- 使用tabularx库并定义新的左右中格式 ----------
+%---------- 定义表格列类型 ----------
 \newcolumntype{L}{X}
 \newcolumntype{C}{>{\centering \arraybackslash}X}
 \newcolumntype{R}{>{\raggedleft \arraybackslash}X}
@@ -311,7 +313,7 @@
 % 重新设置公式autoref
 \renewcommand{\equationautorefname}{公式}
 
-%---------- 定义列表项的样式 ----------
+%---------- 列表样式设置 ----------
 \RequirePackage{enumitem}
 \setlist{nolistsep}
 
@@ -330,7 +332,7 @@
 
         \vspace*{0.75\baselineskip} % blank space above the title
 
-        \parbox[t]{15cm}{\centering\zihao{1}\sffamily\heiti\@title%
+        \parbox[t]{\linewidth}{\centering\zihao{1}\sffamily\heiti\@title%
         \ifx\@subtitle\undefined{}\else
         \par
         \vspace*{0.25\baselineskip}%
@@ -360,15 +362,8 @@
 
         \vspace*{0.1\baselineskip}%
     \end{titlepage}
-    \ifprint
-        \cleardoublepage
-        \hypersetup{hidelinks} % remove link color and border
-    \else
-        \clearpage
-    \fi
-    \if@openright
-        \cleardoublepage
-    \fi
+    \ifprint\cleardoublepage\else\clearpage\fi
+    \if@openright\cleardoublepage\fi
 }
 
 %---------- 定义中英文关键词 ----------
@@ -417,12 +412,10 @@
     \chaptermark{#1}
 }{%
     \clearpage
-    \if@openright
-        \cleardoublepage
-    \fi
+    \if@openright\cleardoublepage\fi
 }
 
-%---------- 定义新的目录页面 ----------
+%---------- 目录格式设置 ----------
 \RequirePackage{tocloft}
 \renewcommand{\cfttoctitlefont}{\hfill \heiti \chapfont}
 \renewcommand{\cftaftertoctitle}{\hfill}
@@ -493,9 +486,7 @@
     \chaptermark{主要符号表}
 }{%
     \clearpage
-    \if@openright
-        \cleardoublepage
-    \fi
+    \if@openright\cleardoublepage\fi
 }
 
 %---------- 重新定义附录命令 ----------
