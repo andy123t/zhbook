@@ -2,13 +2,13 @@
 %% This is file `zhbook.cls',
 %%
 %% @author andy123t
-%% @date 2025/04/15
+%% @date 2025/05/08
 %% @version v2.6
 %% @address https://github.com/andy123t/zhbook
 %%
 
 %---------- 定义的新的Class ----------
-\ProvidesClass{zhbook}[2025/04/15 v2.6]
+\ProvidesClass{zhbook}[2025/05/08 v2.6]
 \NeedsTeXFormat{LaTeX2e}
 
 %---------- 定义的新的Options ----------
@@ -83,7 +83,7 @@
 %---------- 设置超链接 ----------
 \RequirePackage{hyperref}
 \ifprint
-\hypersetup{hidelinks=true}
+\hypersetup{hidelinks}
 \else
 \hypersetup{%
     colorlinks=true,
