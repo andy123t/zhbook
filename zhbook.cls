@@ -2,13 +2,13 @@
 %% This is file `zhbook.cls',
 %%
 %% @author andy123t
-%% @date 2025/05/08
+%% @date 2025/07/16
 %% @version v2.6
 %% @address https://github.com/andy123t/zhbook
 %%
 
 %---------- 定义的新的Class ----------
-\ProvidesClass{zhbook}[2025/05/08 v2.6]
+\ProvidesClass{zhbook}[2025/07/16 v2.6]
 \NeedsTeXFormat{LaTeX2e}
 
 %---------- 定义的新的Options ----------
@@ -171,7 +171,7 @@
 
 %---------- 定义页眉页脚 ----------
 \newcommand{\headstyle}{%
-    %\fancyhead[C]{\fangsong\zihao{5} \@title}
+    %\fancyhead[C]{\fangsong\zihao{5}\@title}
     \fancyhead[RO,LE]{\fangsong\zihao{5}$\cdot$\:\thepage\:$\cdot$}
     \fancyhead[LO,RE]{\fangsong\zihao{5}\nouppercase{\leftmark}}
 }
@@ -217,9 +217,9 @@
 
 %---------- 设置图表格式 ----------
 \numberwithin{figure}{chapter}
-\numberwithin{equation}{chapter}
-%\renewcommand{\thetable}{\thechapter.\arabic{table}}
+\numberwithin{table}{chapter}
 %\renewcommand{\thefigure}{\thechapter.\arabic{figure}}
+%\renewcommand{\thetable}{\thechapter.\arabic{table}}
 
 %---------- 设置图片和表格样式 ----------
 \RequirePackage{caption}
