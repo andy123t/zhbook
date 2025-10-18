@@ -2,13 +2,13 @@
 %% This is file `zhbook.cls',
 %%
 %% @author andy123t
-%% @date 2025/07/16
+%% @date 2025/10/18
 %% @version v2.6
 %% @address https://github.com/andy123t/zhbook
 %%
 
 %---------- 定义的新的Class ----------
-\ProvidesClass{zhbook}[2025/07/16 v2.6]
+\ProvidesClass{zhbook}[2025/10/18 v2.6]
 \NeedsTeXFormat{LaTeX2e}
 
 %---------- 定义的新的Options ----------
@@ -383,8 +383,8 @@
     \clearpage
     \pagestyle{main}
     \phantomsection
-    \addcontentsline{toc}{chapter}{摘~~要}
     \chapter*{摘~~要}
+    \addcontentsline{toc}{chapter}{摘~~要}
     \chaptermark{摘~~要}
 }{%
     \clearpage
@@ -395,8 +395,8 @@
     \clearpage
     \pagestyle{main}
     \phantomsection
-    \addcontentsline{toc}{chapter}{Abstract}
     \chapter*{Abstract}
+    \addcontentsline{toc}{chapter}{Abstract}
     \chaptermark{Abstract}
 }{%
     \clearpage
@@ -407,8 +407,8 @@
     \clearpage
     \pagestyle{main}
     \phantomsection
-    \addcontentsline{toc}{chapter}{#1}
     \chapter*{#1}
+    \addcontentsline{toc}{chapter}{#1}
     \chaptermark{#1}
 }{%
     \clearpage
@@ -459,8 +459,8 @@
 \newcommand\makelof{%
     \clearpage
     \phantomsection
-    \addcontentsline{toc}{chapter}{\listfigurename}
     \chapter*{\listfigurename}
+    \addcontentsline{toc}{chapter}{\listfigurename}
     \chaptermark{\listfigurename}
     \@starttoc{lof}%
     \clearpage
@@ -470,8 +470,8 @@
 \newcommand\makelot{%
     \clearpage
     \phantomsection
-    \addcontentsline{toc}{chapter}{\listtablename}
     \chapter*{\listtablename}
+    \addcontentsline{toc}{chapter}{\listtablename}
     \chaptermark{\listtablename}
     \@starttoc{lot}%
     \clearpage
@@ -481,8 +481,8 @@
 \newenvironment{denotation}{%
     \clearpage
     \phantomsection
-    \addcontentsline{toc}{chapter}{主要符号表}
     \chapter*{主要符号表}
+    \addcontentsline{toc}{chapter}{主要符号表}
     \chaptermark{主要符号表}
 }{%
     \clearpage
