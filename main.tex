@@ -3,13 +3,12 @@
 % xelatex -> bibtex -> xelatex -> xelatex
 % zhbook 中文书籍 LaTeX 模板
 
-%--- 正文前后都没有空白页 ---
 \documentclass[openany,twoside,zihao=-4]{zhbook}
+%\documentclass[openright,twoside,zihao=-4]{zhbook}
+
 % print 用于打印, 封面等生成空白页
-
-%--- 正文前后都有空白页, 正文一章结束可空白页使新的一章是在奇数页开始 ---
-%\documentclass[twoside,openright,zihao=-4]{zhbook}
-
+% fonts macOS系统必选, 调用本地字体
+% 需在本地文件夹 fonts 中添加字体 SimSun.ttf, KaiTi.ttf, SimHei.ttf, FangSong.ttf
 
 % 书籍信息设置
 \title{中文书籍 \LaTeX{} 模板}  % 标题
@@ -23,7 +22,6 @@
 
 % 通用虚拟出版商标志
 \newcommand{\plogo}{\fbox{$\mathcal{PL}$}}
-
 
 %----- 设置英文字体 -----
 %\usepackage{newtxtext}  %New TX font for text
