@@ -9,9 +9,8 @@ echo "${FileName%.tex}"
 xelatex --synctex=-1 "$FileName"
 bibtex "${FileName%.tex}"
 makeindex "${FileName%.tex}"
-zhmakeindex "${FileName%.tex}"
 xelatex --synctex=-1 "$FileName"
 xelatex --synctex=-1 "$FileName"
 #-> Clear aux files
-rm -r *.aux *.bbl *.blg *.log *.out *.toc *.bcf *.xml *.synctex *.nlo *.nls *.bak *.ind *.idx *.ilg *.lof *.lot *.ent-x *.tmp *.ltx *.los *.lol *.loc *.listing *.gz *.userbak *.nav *.snm *.vrb 
+rm -f *.aux *.bbl *.blg *.log *.out *.toc *.bcf *.xml *.synctex *.nlo *.nls *.bak *.ind *.idx *.ilg *.lof *.lot *.ent-x *.tmp *.ltx *.los *.lol *.loc *.listing *.gz *.userbak *.nav *.snm *.vrb *.fls *.xdv *.fdb_latexmk *.synctex\(busy\)
 done

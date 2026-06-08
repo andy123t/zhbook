@@ -52,7 +52,7 @@
 %\bibliographystyle{thuthesis-author-year}
 
 %----- 参考文献引用格式 -----
-\usepackage[numbers,sort&compress]{natbib}
+\usepackage[numbers,square,sort&compress]{natbib}
 %\usepackage[numbers,super,square,sort&compress]{natbib}
 %\usepackage[authoryear,sort&compress]{natbib}
 \def\bibfont{\small}  % 修改参考文献字体
@@ -60,14 +60,10 @@
 
 %----- 制作索引 -----
 % 自动编译 (默认字符编码排序)
-%\usepackage{imakeidx}
-%\makeindex[columns=2,intoc=true,title={索~~引}]
-%\indexsetup{level=\chapter*}
-
-% 可使用 zhmakeindex 改变索引排序 (默认拼音字母排序)
-\usepackage[noautomatic]{imakeidx}
+% 推荐使用 \index{pinyin@拼音} 命令实现按拼音排序
+\usepackage{imakeidx}
 \makeindex[columns=2,intoc=true,title={索~~引}]
-
+%\indexsetup{level=\chapter*}
 
 %----- 调整列表项的间距 -----
 %\setlength{\itemsep}{3pt}
@@ -89,7 +85,6 @@
 %----- 自定义命令 -----
 \newcommand{\CC}{\ensuremath{\mathbb{C}}}
 \newcommand{\RR}{\ensuremath{\mathbb{R}}}
-\newcommand{\A}{\mathcal{A}}
 \newcommand{\bA}{\boldsymbol{A}}
 \newcommand{\ii}{\mathrm{i}\mkern1mu}
 \newcommand{\abs}[1]{\lvert#1\rvert}
@@ -193,7 +188,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%% 索引  %%%%%%%%%%%%%%%%%%%%%%%%
 
-\clearpage
+%\clearpage
 \printindex
 
 

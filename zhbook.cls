@@ -2,21 +2,22 @@
 %% This is file `zhbook.cls',
 %%
 %% @author andy123t
-%% @date 2025/10/18
-%% @version v2.6
 %% @address https://github.com/andy123t/zhbook
 %%
 
 %---------- 定义的新的Class ----------
-\ProvidesClass{zhbook}[2025/10/18 v2.6]
+\ProvidesClass{zhbook}[2026/06/08 v2.7]
 \NeedsTeXFormat{LaTeX2e}
 
 %---------- 定义的新的Options ----------
 \newif\ifprint
 \DeclareOption{print}{\printtrue}
+\newif\iffonts
+\fontsfalse
 \DeclareOption{openany}{\PassOptionsToClass{openany}{ctexbook}}
 \DeclareOption{openright}{\PassOptionsToClass{openright}{ctexbook}}
 \DeclareOption{twoside}{\PassOptionsToClass{twoside}{ctexbook}}
+\DeclareOption{fonts}{\fontstrue}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions\relax
 
@@ -24,10 +25,40 @@
 \PassOptionsToPackage{no-math}{fontspec}
 
 %---------- 载入Class ----------
-\LoadClass[UTF8,a4paper]{ctexbook}
+%\LoadClass[UTF8,a4paper]{ctexbook}
+\iffonts
+  \LoadClass[UTF8,fontset=none]{ctexbook}
+\else
+  \LoadClass[UTF8]{ctexbook}
+\fi
 \@ifclasslater{ctexbook}{2017/01/01}{}{%
     \ClassError{zhbook}{ctex >= 2017/01/01 is required ...}{}%
 }
+
+\iffonts
+  \IfFileExists{fonts/SimSun.ttf}{}{\ClassError{zhbook}{Font file `fonts/SimSun.ttf' not found}{}}
+  \IfFileExists{fonts/SimHei.ttf}{}{\ClassError{zhbook}{Font file `fonts/SimHei.ttf' not found}{}}
+  \IfFileExists{fonts/KaiTi.ttf}{}{\ClassError{zhbook}{Font file `fonts/KaiTi.ttf' not found}{}}
+  \IfFileExists{fonts/FangSong.ttf}{}{\ClassError{zhbook}{Font file `fonts/FangSong.ttf' not found}{}}
+
+  \setCJKfamilyfont{zhsong}[Path=fonts/]{SimSun.ttf}
+  \setCJKfamilyfont{zhhei}[Path=fonts/]{SimHei.ttf}
+  \setCJKfamilyfont{zhkai}[Path=fonts/]{KaiTi.ttf}
+  \setCJKfamilyfont{zhfang}[Path=fonts/]{FangSong.ttf}
+
+  \setCJKmainfont{SimSun.ttf}[
+    Path=fonts/,
+    BoldFont=SimHei.ttf,
+    ItalicFont=KaiTi.ttf
+  ]
+  \setCJKsansfont{SimHei.ttf}[Path=fonts/]
+  \setCJKmonofont{FangSong.ttf}[Path=fonts/]
+
+  \providecommand\songti{\CJKfamily{zhsong}}
+  \providecommand\heiti{\CJKfamily{zhhei}}
+  \providecommand\kaishu{\CJKfamily{zhkai}}
+  \providecommand\fangsong{\CJKfamily{zhfang}}
+\fi
 
 %---------- 定义页边距 ----------
 \RequirePackage{geometry}
@@ -39,10 +70,11 @@
 }
 
 %---------- 常用宏包 ----------
-\RequirePackage{keyval}
+%\RequirePackage{keyval}
 \RequirePackage{amsmath,amssymb,amsthm}
 \RequirePackage{mathrsfs}
 \RequirePackage{graphicx}
+\RequirePackage{array}
 \RequirePackage{tabularx}
 \RequirePackage{booktabs}
 \RequirePackage{float}
@@ -57,6 +89,7 @@
 \RequirePackage{titletoc}
 \RequirePackage{pdfpages}
 \RequirePackage[numbered]{bookmark}
+\RequirePackage{microtype}
 
 %---------- 定义文档属性格式 ----------
 \global\let\@title\@empty
@@ -202,11 +235,10 @@
 \pagestyle{main}
 
 %---------- 中文段落缩进和行距 ----------
-\setlength{\parindent}{2em}
+\setlength{\parindent}{2\ccwd}
 \setlength{\parskip}{4pt plus 1pt minus 1pt}
 \linespread{1.35}  % line space setting
 %\renewcommand{\baselinestretch}{1.35}
-%\topskip=15pt   % 书写区域顶部空白
 %\setlength{\baselineskip}{24pt}
 
 %---------- 浮动对象设置 ----------
@@ -370,12 +402,12 @@
 %--- 中文关键词
 \newcommand{\cnkeywords}[1]{%
     \vspace*{0.8\baselineskip}\par
-    \noindent {\bfseries 关键词:~} #1%
+    \noindent\textbf{关键词:\enspace} #1%
 }
 %--- 英文关键词
 \newcommand{\enkeywords}[1]{%
     \vspace*{0.8\baselineskip}\par
-    \noindent {\bfseries Key Words:~} #1%
+    \noindent\textbf{Key Words:\enspace} #1%
 }
 
 %---------- 中文摘要环境 ----------

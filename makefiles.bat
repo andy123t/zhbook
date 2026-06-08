@@ -28,7 +28,6 @@ set BSTINPUTS=.//;%BSTINPUTS%
 @rem ------------------------------------------------
 bibtex %FileName%
 makeindex %FileName%
-zhmakeindex %FileName%
 %CompileName% %FileName%
 %CompileName% %FileName%
 @rem ------------------------------------------------

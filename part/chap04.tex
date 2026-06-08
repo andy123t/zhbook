@@ -5,7 +5,7 @@
 
 \section{图的使用}
 
-XeLaTeX 编译环境下可以插入 EPS、PDF、PNG、JPEG、BMP 格式的图片, 也可以用绘图包 (如 tikz 宏包) 直接在 \LaTeX 中绘制图形. 值得注意的是 figure 环境一个浮动体\index{浮动体}环境, LaTeX 不总是浮动体放在你想要的地方, 但是 LaTeX 总是保证浮动体的相对顺序, 所以对图片 \verb|\label| 和 \verb|\ref| 的交叉引用就显得尤为重要。
+XeLaTeX 编译环境下可以插入 EPS、PDF、PNG、JPEG、BMP 格式的图片, 也可以用绘图宏包 (如 tikz 宏包) 直接在 \LaTeX 中绘制图形. 值得注意的是 figure 环境是一个浮动体环境, LaTeX 不总是浮动体放在你想要的地方, 但是 LaTeX 总是保证浮动体的相对顺序, 所以对图片 \verb|\label| 和 \verb|\ref| 的交叉引用就显得尤为重要.
 
 \section{插图示例}
 
@@ -15,6 +15,8 @@ XeLaTeX 编译环境下可以插入 EPS、PDF、PNG、JPEG、BMP 格式的图片
   \includegraphics[width=7.2cm]{image1}
   \caption{函数 $y=\sin(x)$ 的图像}\label{fig:sinx}
 \end{figure}
+
+\clearpage
 
 两个图左右并排放置, 共用一个标题, 如图~\ref{fig:image}.
 \begin{figure}[htp!]
@@ -26,7 +28,6 @@ XeLaTeX 编译环境下可以插入 EPS、PDF、PNG、JPEG、BMP 格式的图片
   \label{fig:image}
 \end{figure}
 
-\clearpage
 使用 minipage 排版并排插图, 每个图都有单独的标题. 通过 \verb|autoref| 引用图片: \autoref{fig:image1} 与 \autoref{fig:image2}.
 \begin{figure}[htp!]
 \begin{minipage}[t]{0.48\linewidth}
@@ -44,6 +45,7 @@ XeLaTeX 编译环境下可以插入 EPS、PDF、PNG、JPEG、BMP 格式的图片
 \end{minipage}
 \end{figure}
 
+\clearpage
 使用 subfig 宏包实现多图并排, 如图~\ref{fig:images}.
 \begin{figure}[htp!]
 \centering
