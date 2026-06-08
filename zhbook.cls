@@ -6,7 +6,7 @@
 %%
 
 %---------- 定义的新的Class ----------
-\ProvidesClass{zhbook}[2026/06/08 v2.7]
+\ProvidesClass{zhbook}[2026/06/09 v2.7]
 \NeedsTeXFormat{LaTeX2e}
 
 %---------- 定义的新的Options ----------
@@ -99,7 +99,7 @@
 %\newcommand\institute{\gdef\@institute}
 \newcommand\version{\gdef\@version}
 \newcommand\extrainfo{\gdef\@extrainfo}
-\newcommand\bioinfo[2]{\gdef\@bioinfo{{#1}：#2}}
+\newcommand\bioinfo[2]{\gdef\@bioinfo{\makebox[8em][r]{#1：}\makebox[8em][l]{#2}}}
 
 %------- 重新定义cleardoublepage --------
 \renewcommand{\cleardoublepage}{%
@@ -379,18 +379,19 @@
 
         \vspace*{1\baselineskip}  % blank space after title
 
-        {\large\kaishu\renewcommand{\arraystretch}{1.2}%
-        \begin{tabular}{c}
-        \ifx\@author\empty{}\else 作者：\@author \\ \fi
-        %\ifx\@institute\undefined{}\else 机构：\@institute \\ \fi
-        \ifx\@date\empty{}\else 日期：\@date \\ \fi
-        \ifx\@version\undefined{}\else 版本：\@version \\ \fi
+        {\large\kaishu\setlength{\baselineskip}{30pt}
+        %\begin{tabular}{rl}
+        \ifx\@author\empty{}\else \makebox[8em][r]{作者：}\makebox[8em][l]{\@author} \\ \fi
+        %\ifx\@institute\undefined{}\else \makebox[8em][r]{机构：}\makebox[8em][l]{\@institute} \\ \fi
+        \ifx\@date\empty{}\else \makebox[8em][r]{日期：}\makebox[8em][l]{\@date} \\ \fi
+        \ifx\@version\undefined{}\else \makebox[8em][r]{版本：}\makebox[8em][l]{\@version} \\ \fi
         \ifx\@bioinfo\undefined{}\else \@bioinfo \\ \fi
-        \end{tabular}}
+        %\end{tabular}
+        }
 
         \vspace*{\fill}%
 
-        {\large \ifx\@extrainfo\undefined{}\else \@extrainfo \fi} % extra info
+        {\large\ifx\@extrainfo\undefined{}\else \@extrainfo \fi} % extra info
 
         \vspace*{0.1\baselineskip}%
     \end{titlepage}
